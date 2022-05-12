@@ -48,7 +48,7 @@ const SignIn = () => {
 
   const handleOAuthSignIn = async (provider: Provider) => {
     setLoading(true);
-    const { error } = await supabaseClient.auth.signIn({ provider });
+    const { error } = await supabaseClient.auth.signIn({ provider: 'google' });
     if (error) {
       setMessage({ type: 'error', content: error.message });
     }
