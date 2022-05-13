@@ -39,8 +39,9 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     const buf = await buffer(req);
     const sig = req.headers['stripe-signature'];
     const webhookSecret =
-      process.env.STRIPE_WEBHOOK_SECRET_LIVE ??
-      process.env.STRIPE_WEBHOOK_SECRET;
+      'whsec_e89b0719c202eca6aae3f524ff4adec9f76178f5fb9bd19b4f125a866abf8f41';
+    // process.env.STRIPE_WEBHOOK_SECRET_LIVE ??
+    // process.env.STRIPE_WEBHOOK_SECRET;
     let event: Stripe.Event;
 
     try {
