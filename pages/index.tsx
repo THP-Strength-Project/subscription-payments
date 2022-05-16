@@ -1,45 +1,48 @@
-export default function helloWorld({ content }) {
+import { getHomePage } from '../utils/graphcms';
+
+export default function helloWorld({ content, preview }) {
   return (
     <div>
-      <h1>Hello world</h1>
-      <div>{content.blogPosts[0].title}</div>
+      {preview && (
+        <div
+          style={{
+            width: '100vw',
+            height: '60px',
+            background: 'salmon',
+            color: 'white',
+            padding: '10px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}
+        >
+          Preview Mode
+        </div>
+      )}
+      <h1>{content.title}</h1>
+      <div>
+        {content.pageFeatureSections.map((c) => {
+          return (
+            <div style={{ marginBottom: '20px' }}>
+              <h2>{c.sectionTitle}</h2>
+              <p>{c.sectionSubtitle}</p>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
 
-export async function getStaticProps() {
-  const query = `
-    query MyQuery {
-      blogPosts {
-        title
-        content
-        category
-        createdAt
-        excerpt
-      }
-    }
-  `;
+export async function getStaticProps({ preview = false }) {
+  const page = await getHomePage(preview);
 
-  const result = await fetch(
-    'https://api-us-west-2.graphcms.com/v2/cl34s61o5647a01xq8jpl51c6/master',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      },
-      body: JSON.stringify({
-        query
-      })
-    }
-  );
-
-  const data = await result.json();
-  console.log(data.data);
+  console.log(page);
 
   return {
     props: {
-      content: data.data
+      content: page,
+      preview
     },
 
     revalidate: 10
