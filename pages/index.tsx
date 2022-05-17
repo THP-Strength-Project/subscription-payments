@@ -1,24 +1,10 @@
 import { getHomePage } from '../utils/graphcms';
+import PreviewBanner from '../components/preview-banner';
 
 export default function helloWorld({ content, preview }) {
   return (
     <div>
-      {preview && (
-        <div
-          style={{
-            width: '100vw',
-            height: '60px',
-            background: 'salmon',
-            color: 'white',
-            padding: '10px',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}
-        >
-          Preview Mode
-        </div>
-      )}
+      <PreviewBanner preview={preview} />
       <h1>{content.title}</h1>
       <div>
         {content.pageFeatureSections.map((c) => {
