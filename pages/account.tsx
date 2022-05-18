@@ -6,8 +6,6 @@ import Button from 'components/ui/Button';
 import { useUser } from 'utils/useUser';
 import { postData } from 'utils/helpers';
 
-import { withAuthRequired, User } from '@supabase/supabase-auth-helpers/nextjs';
-
 interface Props {
   title: string;
   description?: string;
@@ -30,9 +28,9 @@ function Card({ title, description, footer, children }: Props) {
   );
 }
 
-export const getServerSideProps = withAuthRequired({ redirectTo: '/signin' });
+// export const getServerSideProps = withAuthRequired({ redirectTo: '/signin' });
 
-export default function Account({ user }: { user: User }) {
+export default function Account({ user }) {
   const [loading, setLoading] = useState(false);
   const { isLoading, subscription, userDetails } = useUser();
 
