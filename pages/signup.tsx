@@ -1,49 +1,62 @@
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import cookie from 'cookie';
-import { NextApiRequest, NextApiResponse } from 'next';
-import prisma from '../utils/prisma';
+import { TextInput, Checkbox, Button, Group, Box } from '@mantine/core';
+import { useForm } from '@mantine/form';
+import { post } from '@/utils/api';
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const salt = bcrypt.genSaltSync();
-  const { email, password, name } = req.body;
-
-  let user;
-
-  try {
-    user = await prisma.user.create({
-      data: {
-        name,
-        email,
-        password: bcrypt.hashSync(password, salt)
-      }
-    });
-  } catch (e) {
-    res.status(401);
-    res.json({ error: 'User already exists' });
-    return;
-  }
-
-  const token = jwt.sign(
-    {
-      email: user.email,
-      id: user.id,
-      time: Date.now()
+const SignUp = () => {
+  const form = useForm({
+    initialValues: {
+      email: '',
+      name: '',
+      password: '',
+      termsOfService: false
     },
-    process.env.JWT_SECRET as string,
-    { expiresIn: '8d' }
-  );
 
-  res.setHeader(
-    'Set-Cookie',
-    cookie.serialize(process.env.COOKIE_NAME as string, token, {
-      httpOnly: true,
-      maxAge: 8 * 60 * 60,
-      path: '/',
-      sameSite: 'lax',
-      secure: process.env.NODE_ENV === 'production'
-    })
-  );
+    validate: {
+      email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email')
+      // password: (value) => '^(?=.*[a-z])(?=.*[A-Z](?=.{6,})'
+    }
+  });
 
-  res.json(user);
+  const signUp = async ({ email, password, name }) => {
+    alert('hello');
+    const result = await post('/signup', { email, password, name });
+    console.log(result);
+  };
+
+  return (
+    <Box sx={{ maxWidth: 300 }} mx="auto">
+      <form onSubmit={form.onSubmit(signUp)}>
+        <TextInput
+          required
+          label="Name"
+          placeholder="Name"
+          {...form.getInputProps('name')}
+        />
+        <TextInput
+          required
+          label="Email"
+          placeholder="your@email.com"
+          {...form.getInputProps('email')}
+        />
+        <TextInput
+          required
+          label="Password"
+          placeholder="Password"
+          {...form.getInputProps('password')}
+        />
+
+        <Checkbox
+          mt="md"
+          label="I agree to sell my privacy"
+          {...form.getInputProps('termsOfService', { type: 'checkbox' })}
+        />
+
+        <Group position="right" mt="md">
+          <Button type="submit">Submit</Button>
+        </Group>
+      </form>
+    </Box>
+  );
 };
+
+export default SignUp;

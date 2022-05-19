@@ -9,6 +9,10 @@
     "stripe:listen": "stripe listen --forward-to=localhost:3000/api/webhooks --project-name=saas-starter"
   },
   "dependencies": {
+    "@mantine/core": "^4.2.5",
+    "@mantine/form": "^4.2.5",
+    "@mantine/hooks": "^4.2.5",
+    "@mantine/next": "^4.2.5",
     "@prisma/client": "^3.14.0",
     "@stripe/stripe-js": "1.22.0",
     "@supabase/supabase-auth-helpers": "^1.2.3",
