@@ -2,7 +2,8 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import cookie from 'cookie';
 import { NextApiRequest, NextApiResponse } from 'next';
-import prisma from '../utils/prisma';
+import prisma from '../../utils/prisma';
+import { stripe } from '../../utils/stripe';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const salt = bcrypt.genSaltSync();
@@ -11,14 +12,31 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   let user;
 
   try {
-    user = await prisma.user.create({
-      data: {
-        name,
+    user = await prisma.$transaction(async (prisma) => {
+      let _user = await prisma.user.create({
+        data: {
+          name,
+          email,
+          password: bcrypt.hashSync(password, salt)
+        }
+      });
+
+      const customer = await stripe.customers.create({
         email,
-        password: bcrypt.hashSync(password, salt)
-      }
+        name,
+        metadata: {
+          id: _user.id
+        }
+      });
+
+      _user = await prisma.user.update({
+        where: { id: _user.id },
+        data: { customerId: customer.id }
+      });
+      return _user;
     });
   } catch (e) {
+    console.log(e);
     res.status(401);
     res.json({ error: 'User already exists' });
     return;
