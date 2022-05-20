@@ -1,4 +1,5 @@
 import Stripe from 'stripe';
+import { get } from './api';
 
 export const stripe = new Stripe(
   process.env.STRIPE_SECRET_KEY_LIVE || process.env.STRIPE_SECRET_KEY || '',
@@ -13,3 +14,9 @@ export const stripe = new Stripe(
     }
   }
 );
+
+export const getPortalUrl = async () => {
+  const data = await get('/create-portal-link');
+  console.log(data);
+  return data;
+};

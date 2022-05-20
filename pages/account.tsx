@@ -3,23 +3,21 @@ import { useState, ReactNode } from 'react';
 import * as cookie from 'cookie';
 import jwt from 'jsonwebtoken';
 import prisma from '../utils/prisma';
-import { stripe } from '../utils/stripe';
+import { stripe, getPortalUrl } from '../utils/stripe';
+import { getUserFromToken } from '../utils/auth';
 
 // export const getServerSideProps = withAuthRequired({ redirectTo: '/signin' });
 
 export default function Account({ user, plan }) {
-  return `${user.email} ${plan.name} $${plan.amount / 100}`;
+  return (
+    <div>
+      <button onClick={getPortalUrl}>Client Portal</button>
+    </div>
+  );
 }
 
 export async function getServerSideProps(context) {
-  const parsedCookies = cookie.parse(context.req.headers.cookie);
-  let user = jwt.verify(
-    parsedCookies[process.env.COOKIE_NAME],
-    process.env.JWT_SECRET
-  );
-  user = await prisma.user.findUnique({
-    where: { id: user.id }
-  });
+  const user = await getUserFromToken(context.req.headers.cookie);
 
   const subscriptions = await stripe.subscriptions.list({
     limit: 1,

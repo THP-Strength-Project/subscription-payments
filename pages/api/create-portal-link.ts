@@ -1,26 +1,19 @@
 import { stripe } from 'utils/stripe';
-import {
-  getUser,
-  withAuthRequired
-} from '@supabase/supabase-auth-helpers/nextjs';
+
 import { createOrRetrieveCustomer } from 'utils/supabase-admin';
 import { getURL } from 'utils/helpers';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { getUserFromToken } from '@/utils/auth';
 
 const createPortalLink = async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method === 'POST') {
+  if (req.method === 'GET') {
     try {
-      const { user } = await getUser({ req, res });
+      const user = await getUserFromToken(req.headers.cookie);
       if (!user) throw Error('Could not get user');
-      const customer = await createOrRetrieveCustomer({
-        uuid: user.id || '',
-        email: user.email || ''
-      });
 
-      if (!customer) throw Error('Could not get customer');
       const { url } = await stripe.billingPortal.sessions.create({
-        customer,
-        return_url: `${getURL()}/account`
+        customer: user.customerId,
+        return_url: `${process.env.APP_URL}/account`
       });
 
       return res.status(200).json({ url });
@@ -36,4 +29,4 @@ const createPortalLink = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default withAuthRequired(createPortalLink);
+export default createPortalLink;
