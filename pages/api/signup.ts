@@ -4,6 +4,8 @@ import cookie from 'cookie';
 import { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '../../utils/prisma';
 import { stripe } from '../../utils/stripe';
+import { sendVerifyEmail } from '../../utils/mail';
+import { v4 as uuidv4 } from 'uuid';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const salt = bcrypt.genSaltSync();
@@ -33,10 +35,26 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         where: { id: _user.id },
         data: { customerId: customer.id }
       });
+
+      let verifyToken = await prisma.token.create({
+        data: {
+          value: uuidv4(),
+          userId: _user.id
+        }
+      });
+
+      const emailData = {
+        user: {
+          name: _user.name,
+          verifiedURL: `${process.env.APP_URL}/verify?token=${verifyToken.value}`
+        }
+      };
+
+      await sendVerifyEmail(_user.email, emailData);
       return _user;
     });
   } catch (e) {
-    console.log(e);
+    console.log(JSON.stringify(e, null, 2));
     res.status(401);
     res.json({ error: 'User already exists' });
     return;

@@ -6,18 +6,22 @@ import prisma from '../utils/prisma';
 import { stripe, getPortalUrl } from '../utils/stripe';
 import { getUserFromToken } from '../utils/auth';
 
-// export const getServerSideProps = withAuthRequired({ redirectTo: '/signin' });
-
 export default function Account({ user, plan }) {
+  const fetchPortal = async () => {
+    const { url } = await getPortalUrl();
+    location.href = url;
+    console.log(url);
+  };
   return (
     <div>
-      <button onClick={getPortalUrl}>Client Portal</button>
+      <button onClick={fetchPortal}>Client Portal</button>
     </div>
   );
 }
 
 export async function getServerSideProps(context) {
   const user = await getUserFromToken(context.req.headers.cookie);
+  //handle error and loading states here
 
   const subscriptions = await stripe.subscriptions.list({
     limit: 1,

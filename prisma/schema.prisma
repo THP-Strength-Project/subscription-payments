@@ -13,7 +13,7 @@ datasource db {
 }
 
 model User {
-   id        Int      @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt 
   name String 
@@ -22,5 +22,16 @@ model User {
   billingAddress Json?
   paymentMethod Json?
   customerId String? @unique
+  isVerified Boolean @default(false)
+  tokens Token[] 
+
+}
+model Token {
+   id        Int      @id @default(autoincrement())
+   createdAt DateTime @default(now())
+   updatedAt DateTime @updatedAt
+   value String @unique
+   user User @relation(fields: [userId], references: [id])
+   userId Int
 }
 

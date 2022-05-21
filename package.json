@@ -14,6 +14,7 @@
     "@mantine/hooks": "^4.2.5",
     "@mantine/next": "^4.2.5",
     "@prisma/client": "^3.14.0",
+    "@sendgrid/mail": "^7.7.0",
     "@stripe/stripe-js": "1.22.0",
     "@supabase/supabase-auth-helpers": "^1.2.3",
     "@supabase/supabase-js": "^1.35.3",
@@ -28,7 +29,8 @@
     "react-merge-refs": "1.1.0",
     "stripe": "^8.201.0",
     "swr": "1.2.0",
-    "tailwindcss": "3.0.18"
+    "tailwindcss": "3.0.18",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
