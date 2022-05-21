@@ -6,6 +6,7 @@ import prisma from '../../utils/prisma';
 import { stripe } from '../../utils/stripe';
 import { sendVerifyEmail } from '../../utils/mail';
 import { v4 as uuidv4 } from 'uuid';
+import { getURL } from 'next/dist/shared/lib/utils';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const salt = bcrypt.genSaltSync();
@@ -43,12 +44,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         }
       });
 
+      const verifiedURL = `${getURL()}/verify?token=${verifyToken.value}`;
+
       const emailData = {
         user: {
           name: _user.name,
-          verifiedURL: `${process.env.APP_URL}/verify?token=${verifyToken.value}`
+          verifiedURL
         }
       };
+      console.log(emailData);
 
       await sendVerifyEmail(_user.email, emailData);
       return _user;

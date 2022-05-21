@@ -1,11 +1,7 @@
 import { stripe } from 'utils/stripe';
-import {
-  getUser,
-  withAuthRequired
-} from '@supabase/supabase-auth-helpers/nextjs';
-import { createOrRetrieveCustomer } from 'utils/supabase-admin';
 import { getURL } from 'utils/helpers';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { getUserFromToken } from '@/utils/auth';
 
 const createCheckoutSession = async (
   req: NextApiRequest,
@@ -15,34 +11,30 @@ const createCheckoutSession = async (
     const { price, quantity = 1, metadata = {} } = req.body;
 
     try {
-      const { user } = await getUser({ req, res });
-
-      const customer = await createOrRetrieveCustomer({
-        uuid: user?.id || '',
-        email: user?.email || ''
-      });
+      const user = await getUserFromToken(req.headers.cookie);
+      if (!user) throw Error('Could not get user');
 
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
         billing_address_collection: 'required',
-        customer,
+        customer: user.customerId,
         line_items: [
           {
-            price: price.id,
+            price: price,
             quantity
           }
         ],
         mode: 'subscription',
-        allow_promotion_codes: true,
-        subscription_data: {
-          trial_from_plan: true,
-          metadata
-        },
+        // allow_promotion_codes: true,
+        // subscription_data: {
+        //   trial_from_plan: true,
+        //   metadata
+        // },
         success_url: `${getURL()}/account`,
         cancel_url: `${getURL()}/`
       });
 
-      return res.status(200).json({ sessionId: session.id });
+      return res.status(200).json({ url: session.url });
     } catch (err: any) {
       console.log(err);
       res
@@ -55,4 +47,4 @@ const createCheckoutSession = async (
   }
 };
 
-export default withAuthRequired(createCheckoutSession);
+export default createCheckoutSession;
