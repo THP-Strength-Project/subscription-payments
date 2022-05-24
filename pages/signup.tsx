@@ -18,7 +18,6 @@ const SignUp = () => {
   });
 
   const signUp = async ({ email, password, name }) => {
-    alert('hello');
     const result = await post('/signup', { email, password, name });
     console.log(result);
   };

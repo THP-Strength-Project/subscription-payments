@@ -6,7 +6,7 @@ import prisma from '../../utils/prisma';
 import { stripe } from '../../utils/stripe';
 import { sendVerifyEmail } from '../../utils/mail';
 import { v4 as uuidv4 } from 'uuid';
-import { getURL } from 'next/dist/shared/lib/utils';
+import { getURL } from '@/utils/helpers';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const salt = bcrypt.genSaltSync();
@@ -15,50 +15,48 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   let user;
 
   try {
-    user = await prisma.$transaction(async (prisma) => {
-      let _user = await prisma.user.create({
-        data: {
-          name,
-          email,
-          password: bcrypt.hashSync(password, salt)
-        }
-      });
-
-      const customer = await stripe.customers.create({
-        email,
+    user = await prisma.user.create({
+      data: {
         name,
-        metadata: {
-          id: _user.id
+        email,
+        password: bcrypt.hashSync(password, salt),
+        tokens: {
+          create: {
+            value: uuidv4()
+          }
         }
-      });
-
-      _user = await prisma.user.update({
-        where: { id: _user.id },
-        data: { customerId: customer.id }
-      });
-
-      let verifyToken = await prisma.token.create({
-        data: {
-          value: uuidv4(),
-          userId: _user.id
-        }
-      });
-
-      const verifiedURL = `${getURL()}/verify?token=${verifyToken.value}`;
-
-      const emailData = {
-        user: {
-          name: _user.name,
-          verifiedURL
-        }
-      };
-      console.log(emailData);
-
-      await sendVerifyEmail(_user.email, emailData);
-      return _user;
+      }
     });
+
+    const customer = await stripe.customers.create({
+      email,
+      name,
+      metadata: {
+        id: user.id
+      }
+    });
+
+    user = await prisma.user.update({
+      where: { id: user.id },
+      data: { customerId: customer.id },
+      include: {
+        tokens: true
+      }
+    });
+
+    const verifiedURL = `${getURL()}/verify?token=${user.tokens[0].value}`;
+
+    const emailData = {
+      user: {
+        name: user.name,
+        verifiedURL
+      }
+    };
+    console.log(emailData);
+
+    await sendVerifyEmail(user.email, emailData);
   } catch (e) {
-    console.log(JSON.stringify(e, null, 2));
+    console.log(e);
     res.status(401);
     res.json({ error: 'User already exists' });
     return;

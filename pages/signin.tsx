@@ -1,6 +1,7 @@
 import { TextInput, Button, Group, Box } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { post } from '@/utils/api';
+import Link from 'next/link';
 
 const SignIn = () => {
   const form = useForm({
@@ -16,7 +17,6 @@ const SignIn = () => {
   });
 
   const signIn = async ({ email, password }) => {
-    alert('hello');
     const result = await post('/signin', { email, password });
     console.log(result);
   };
@@ -36,6 +36,10 @@ const SignIn = () => {
           placeholder="Password"
           {...form.getInputProps('password')}
         />
+
+        <Link href="/forgot-password">
+          <a>Forgot my password</a>
+        </Link>
 
         <Group position="right" mt="md">
           <Button type="submit">Submit</Button>

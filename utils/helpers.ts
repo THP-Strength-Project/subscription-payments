@@ -40,3 +40,14 @@ export const toDateTime = (secs: number) => {
   t.setSeconds(secs);
   return t;
 };
+
+export const formatUserForClient = ({
+  email,
+  id,
+  name,
+  isVerified,
+  created,
+  updated
+}) => {
+  return { email, id, name, isVerified, created, updated };
+};
