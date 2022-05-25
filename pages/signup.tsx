@@ -1,8 +1,11 @@
 import { TextInput, Checkbox, Button, Group, Box } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { post } from '@/utils/api';
+import {useRouter} from 'next/router'
+import { goToCheckout } from '@/utils/stripe';
 
 const SignUp = () => {
+  const router = useRouter()
   const form = useForm({
     initialValues: {
       email: '',
@@ -18,8 +21,8 @@ const SignUp = () => {
   });
 
   const signUp = async ({ email, password, name }) => {
-    const result = await post('/signup', { email, password, name });
-    console.log(result);
+    await post('/signup', { email, password, name });
+    goToCheckout()
   };
 
   return (

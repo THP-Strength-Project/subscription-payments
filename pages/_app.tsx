@@ -20,7 +20,14 @@ export default function App(props: AppProps) {
         withNormalizeCSS
         theme={{
           /** Put your mantine theme override here */
-          colorScheme: 'light'
+          colorScheme: 'light',
+          breakpoints: {
+            xs: 500,
+            sm: 800,
+            md: 1000,
+            lg: 1200,
+            xl: 1400,
+          },
         }}
       >
         <Component {...pageProps} />

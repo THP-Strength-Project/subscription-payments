@@ -26,3 +26,8 @@ export const getCheckoutUrl = async (priceId) => {
   console.log(data);
   return data;
 };
+
+export const goToCheckout = async () => {
+  const data = await getCheckoutUrl('price_1KyrmXH48VKdqxLKUFsnMzRz');
+  location.href = data.url;
+};
