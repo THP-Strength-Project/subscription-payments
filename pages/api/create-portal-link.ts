@@ -1,6 +1,5 @@
 import { stripe } from 'utils/stripe';
 
-import { createOrRetrieveCustomer } from 'utils/supabase-admin';
 import { getURL } from 'utils/helpers';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getUserFromToken } from '@/utils/auth';
