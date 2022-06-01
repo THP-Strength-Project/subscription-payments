@@ -23,6 +23,7 @@ export default function helloWorld({ content, preview }) {
 
 export async function getStaticProps({ preview = false }) {
   console.log('\n \n url \n \n', getURL());
+
   const page = await getHomePage(preview);
 
   return {
