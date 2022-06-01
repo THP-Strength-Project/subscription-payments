@@ -1,4 +1,6 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+import { getURL } from './helpers';
+
+const API_URL = getURL() + '/api';
 
 export const post = async (url, body) => {
   const res = await fetch(`${API_URL}${url}`, {
