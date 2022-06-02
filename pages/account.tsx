@@ -1,4 +1,5 @@
-import { stripe, getPortalUrl } from '../utils/stripe';
+import { getPortalUrl } from '../utils/stripe-client';
+import {stripe} from '@/utils/stripe'
 import { getUserFromToken } from '../utils/auth';
 import { useForm } from '@mantine/form';
 import {getAccountPage} from '@/utils/graphcms'

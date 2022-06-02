@@ -1,15 +1,17 @@
-import { loadStripe, Stripe } from '@stripe/stripe-js';
+import {post, get} from './api'
 
-let stripePromise: Promise<Stripe | null>;
-
-export const getStripe = () => {
-  if (!stripePromise) {
-    stripePromise = loadStripe(
-      process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_LIVE ??
-        process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ??
-        ''
-    );
-  }
-
-  return stripePromise;
+export const getPortalUrl = async () => {
+  const data = await get('/create-portal-link');
+  return data;
 };
+
+export const getCheckoutUrl = async (priceId) => {
+  const data = await post('/create-checkout-session', { price: priceId });
+  return data;
+};
+
+export const goToCheckout = async () => {
+  const data = await getCheckoutUrl('price_1KyrmXH48VKdqxLKUFsnMzRz');
+  location.href = data.url;
+};
+

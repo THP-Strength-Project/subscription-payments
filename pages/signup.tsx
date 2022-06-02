@@ -1,11 +1,9 @@
 import { TextInput, Checkbox, Button, Group, Box } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { post } from '@/utils/api';
-import {useRouter} from 'next/router'
-import { goToCheckout } from '@/utils/stripe';
+import { goToCheckout } from '@/utils/stripe-client';
 
 const SignUp = () => {
-  const router = useRouter()
   const form = useForm({
     initialValues: {
       email: '',

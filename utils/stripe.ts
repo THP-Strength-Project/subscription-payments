@@ -14,20 +14,3 @@ export const stripe = new Stripe(
     }
   }
 );
-
-export const getPortalUrl = async () => {
-  const data = await get('/create-portal-link');
-  console.log(data);
-  return data;
-};
-
-export const getCheckoutUrl = async (priceId) => {
-  const data = await post('/create-checkout-session', { price: priceId });
-  console.log(data);
-  return data;
-};
-
-export const goToCheckout = async () => {
-  const data = await getCheckoutUrl('price_1KyrmXH48VKdqxLKUFsnMzRz');
-  location.href = data.url;
-};
