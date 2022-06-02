@@ -1,4 +1,6 @@
 import { TextInput, Checkbox, Button, Group, Box } from '@mantine/core';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { useForm } from '@mantine/form';
 import { post } from '@/utils/api';
 import { goToCheckout } from '@/utils/stripe-client';
@@ -17,10 +19,17 @@ const SignUp = () => {
       // password: (value) => '^(?=.*[a-z])(?=.*[A-Z](?=.{6,})'
     }
   });
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!router.query.price) {
+      router.push('/pricing');
+    }
+  }, []);
 
   const signUp = async ({ email, password, name }) => {
     await post('/signup', { email, password, name });
-    goToCheckout()
+    goToCheckout(router.query.price);
   };
 
   return (
