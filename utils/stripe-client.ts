@@ -1,4 +1,4 @@
-import {post, get} from './api'
+import { post, get } from './api';
 
 export const getPortalUrl = async () => {
   const data = await get('/create-portal-link');
@@ -10,8 +10,7 @@ export const getCheckoutUrl = async (priceId) => {
   return data;
 };
 
-export const goToCheckout = async () => {
-  const data = await getCheckoutUrl('price_1KyrmXH48VKdqxLKUFsnMzRz');
+export const goToCheckout = async (priceId) => {
+  const data = await getCheckoutUrl(priceId);
   location.href = data.url;
 };
-
