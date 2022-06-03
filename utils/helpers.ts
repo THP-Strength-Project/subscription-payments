@@ -12,13 +12,7 @@ export const getURL = () => {
   return url.includes('http') ? url : `https://${url}`;
 };
 
-export const postData = async ({
-  url,
-  data
-}: {
-  url: string;
-  data?: { price: Price };
-}) => {
+export const postData = async ({ url, data }: { url: string; data? }) => {
   console.log('posting,', url, data);
 
   const res: Response = await fetch(url, {

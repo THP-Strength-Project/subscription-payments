@@ -1,8 +1,9 @@
 import { getPortalUrl } from '../utils/stripe-client';
-import {stripe} from '@/utils/stripe'
+import { stripe } from '@/utils/stripe';
 import { getUserFromToken } from '../utils/auth';
 import { useForm } from '@mantine/form';
-import {getAccountPage} from '@/utils/graphcms'
+import { getAccountPage } from '@/utils/graphcms';
+import { post } from '@/utils/api';
 import {
   Paper,
   Navbar,
@@ -15,7 +16,7 @@ import {
   Container,
   Image,
   SimpleGrid
-} from '@mantine/core'
+} from '@mantine/core';
 
 export default function Account({ user, plan, content }) {
   const fetchPortal = async () => {
@@ -25,63 +26,82 @@ export default function Account({ user, plan, content }) {
 
   const passwordForm = useForm({
     initialValues: {
-      password: 'secret',
-      newPassword: 'sevret',
+      password: '',
+      newPassword: ''
     },
 
     validate: {
       newPassword: (value, values) =>
-        value === values.password ? 'Passwords are the same' : null,
-    },
+        value === values.password ? 'Passwords are the same' : null
+    }
   });
 
   const emailForm = useForm({
     initialValues: {
-      newEmail: '',
+      newEmail: ''
     },
 
     validate: {
       newEmail: (value, values) =>
-        value === user.email ? 'Emails as the same' : null,
-    },
+        value === user.email ? 'Emails as the same' : null
+    }
   });
+
+  const onSubmit = async (values) => {
+    await post('/change-password', values);
+    passwordForm.reset();
+  };
+
+  const handleChangeEmail = async (values) => {
+    await post('/change-email', values);
+    emailForm.reset();
+  };
 
   return (
     <div>
       <header>
         <Paper shadow="xs">
           <Navbar height={60} p="sm">
-           <SimpleGrid cols={4}>
-             <Box>
-              <Image width={30} src={content.logo.logoImage.url}/>
-             </Box>
-             <Box>
-               <Text size="lg" weight="bold">Account / {user.name}</Text>
-             </Box>
-           </SimpleGrid>
-            
+            <SimpleGrid cols={4}>
+              <Box>
+                <Image width={30} src={content.logo.logoImage.url} />
+              </Box>
+              <Box>
+                <Text size="lg" weight="bold">
+                  Account / {user.name}
+                </Text>
+              </Box>
+            </SimpleGrid>
           </Navbar>
         </Paper>
       </header>
-      <main style={{background: '#efefef'}}>
+      <main style={{ background: '#efefef' }}>
         <Container>
-          <Box sx={{ height: 'calc(100vh - 60px)', overflowY: 'auto'}} p="sm" >
+          <Box sx={{ height: 'calc(100vh - 60px)', overflowY: 'auto' }} p="sm">
             <Box mb="xl">
-              <Text size="xl" weight="bold" mb="sm">Billing</Text>
+              <Text size="xl" weight="bold" mb="sm">
+                Billing
+              </Text>
               <Paper shadow="sm" p="sm">
                 <Text size="lg">Current Plan</Text>
-                <Text size="sm">{plan.name} - {plan.amount/100}</Text>
+                <Text size="sm">
+                  {plan.name} - {plan.amount / 100}
+                </Text>
 
                 <Button onClick={fetchPortal}>Change Plan</Button>
               </Paper>
             </Box>
 
             <Box>
-              <Text size="xl" weight="bold" mb="sm">Settings</Text>
+              <Text size="xl" weight="bold" mb="sm">
+                Settings
+              </Text>
               <Paper shadow="sm" p="sm">
                 <Box mb="lg">
-                  <Text size="lg" mb="lg">Change Password</Text>
-                  <form onSubmit={passwordForm.onSubmit((values) => console.log(values))}>
+                  <Text size="lg" mb="lg">
+                    Change Password
+                  </Text>
+                  <form onSubmit={passwordForm.onSubmit(onSubmit)}>
                     <PasswordInput
                       label="Current Password"
                       placeholder="Password"
@@ -103,8 +123,10 @@ export default function Account({ user, plan, content }) {
 
                 {/** */}
                 <Box>
-                  <Text size="lg" mb="lg">Change Email</Text>
-                  <form onSubmit={emailForm.onSubmit((values) => console.log(values))}>
+                  <Text size="lg" mb="lg">
+                    Change Email
+                  </Text>
+                  <form onSubmit={emailForm.onSubmit(handleChangeEmail)}>
                     <Input
                       label="Current Email"
                       initialvalue={user.email}
@@ -148,7 +170,7 @@ export async function getServerSideProps(context) {
   const { amount, product } = subscriptions.data[0]?.items.data[0].plan;
   const productObj = await stripe.products.retrieve(product);
 
-  const content = await getAccountPage(context.preview)
+  const content = await getAccountPage(context.preview);
   return {
     props: {
       content,
