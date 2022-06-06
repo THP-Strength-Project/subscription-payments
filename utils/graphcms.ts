@@ -2,13 +2,11 @@ async function fetchAPI(query, { variables, preview } = {}) {
   const API_KEY = preview
     ? process.env.GRAPHCMS_DEV_AUTH_TOKEN
     : process.env.GRAPHCMS_PROD_AUTH_TOKEN;
-  
 
-    
   const res = await fetch(process.env.GRAPHCMS_PROJECT_API, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
       // Authorization: `Bearer ${API_KEY}`
     },
     body: JSON.stringify({
@@ -16,7 +14,6 @@ async function fetchAPI(query, { variables, preview } = {}) {
       variables
     })
   });
-
 
   const json = await res.json();
 
@@ -33,12 +30,14 @@ export async function getHomePage(preview = false) {
     `
     query MyQuery($stage: Stage!, $id: ID!) {
       homePage(where: {id: $id}, stage: $stage) {
-        pageFeatureSections {
-          sectionDescription
-          sectionSubtitle
-          sectionTitle
-        }
         title
+        subTitle
+        buttonLabel
+        featuredImage {
+          size
+          url
+          width
+        }
       }
     }`,
     {
@@ -53,7 +52,8 @@ export async function getHomePage(preview = false) {
 }
 
 export const getAccountPage = async (preview = false) => {
-  const data = await fetchAPI(`
+  const data = await fetchAPI(
+    `
   query AccountPageQuery($stage: Stage!, $id: ID!) {
     accountPage(where: {id: $id}, stage: $stage) {
       logo {
@@ -73,7 +73,7 @@ export const getAccountPage = async (preview = false) => {
         id: 'cl3kv0yw87pfw0cn1t34crl6x'
       }
     }
-  )
-  
-  return data.accountPage
-}
+  );
+
+  return data.accountPage;
+};

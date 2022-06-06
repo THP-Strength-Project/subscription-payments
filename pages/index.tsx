@@ -1,29 +1,65 @@
 import { getHomePage } from '../utils/graphcms';
 import PreviewBanner from '../components/preview-banner';
-import { getURL } from '@/utils/helpers';
+import ImageCard from '@/components/ImageCard';
+import { Box, Grid, Title, Text, Button } from '@mantine/core';
+import Container from '@/components/Container';
+import { BsArrowRight } from 'react-icons/bs';
 
-export default function helloWorld({ content, preview }) {
+const Home = ({ content, preview }) => {
   return (
-    <div>
+    <Box>
       <PreviewBanner preview={preview} />
-      <h1>{content.title}</h1>
-      <div>
-        {content.pageFeatureSections.map((c) => {
-          return (
-            <div style={{ marginBottom: '20px' }}>
-              <h2>{c.sectionTitle}</h2>
-              <p>{c.sectionSubtitle}</p>
-            </div>
-          );
+      {/* hero */}
+      <Container
+        sx={{
+          height: 'calc(100vh - 50px)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+      >
+        <Grid gutter={80}>
+          <Grid.Col
+            span={6}
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'column'
+            }}
+          >
+            <Box py={40}>
+              <Title order={1}>{content.title}</Title>
+            </Box>
+            <Box py={20}>
+              <Text size="xl">{content.subTitle}</Text>
+            </Box>
+            <Box py={80} sx={{ width: '100%' }}>
+              <Button rightIcon={<BsArrowRight />} size="xl">
+                {content.buttonLabel}
+              </Button>
+            </Box>
+          </Grid.Col>
+          <Grid.Col span={6}>
+            <ImageCard src={content.featuredImage.url} alt="cat" />
+          </Grid.Col>
+        </Grid>
+      </Container>
+
+      {/* logos */}
+      <Box
+        sx={(theme) => ({
+          backgroundColor: theme.colors.gray[2]
         })}
-      </div>
-    </div>
+      >
+        <Container>helo</Container>
+      </Box>
+    </Box>
   );
-}
+};
 
+export default Home;
 export async function getStaticProps({ preview = false }) {
-  console.log('\n \n url \n \n', getURL());
-
   const page = await getHomePage(preview);
 
   return {

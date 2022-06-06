@@ -1,11 +1,12 @@
-import { Card, Box, Image } from '@mantine/core';
+import theme from '@/utils/theme';
+import { Box, Image, Paper } from '@mantine/core';
 
-const ImageCard = ({ image }) => {
-  <Box>
-    <Card>
-      <Image src={image} />
-    </Card>
-  </Box>;
+const ImageCard = ({ src, alt }) => {
+  return (
+    <Paper radius="lg" shadow="sm">
+      <Image radius="lg" src={src} alt={alt} />
+    </Paper>
+  );
 };
 
 export default ImageCard;

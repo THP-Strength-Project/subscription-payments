@@ -115,11 +115,11 @@ const theme: MantineThemeOverride = {
     xl: 20
   },
   shadows: {
-    xs: 'drop-shadow(0px 0px 1px rgba(48, 49, 51, 0.05)) drop-shadow(0px 1px 3px rgba(48, 49, 51, 0.1))',
-    sm: 'drop-shadow(0px 0px 1px rgba(48, 49, 51, 0.05)) drop-shadow(0px 2px 4px rgba(48, 49, 51, 0.1))',
-    md: 'drop-shadow(0px 0px 1px rgba(48, 49, 51, 0.05)) drop-shadow(0px 4px 8px rgba(48, 49, 51, 0.1))',
-    lg: 'drop-shadow(0px 0px 1px rgba(48, 49, 51, 0.05)) drop-shadow(0px 8px 16px rgba(48, 49, 51, 0.1))',
-    xl: 'drop-shadow(0px 0px 1px rgba(48, 49, 51, 0.05)) drop-shadow(0px 16px 24px rgba(48, 49, 51, 0.1))'
+    xs: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
+    sm: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)',
+    md: '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)',
+    lg: '0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)',
+    xl: '0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)'
   },
   breakpoints: {
     xs: 500,
