@@ -44,6 +44,19 @@ export async function getHomePage(preview = false) {
           url
           width
         }
+        testimonyTitle
+        testimonySubtitle
+        testimonySubheader
+        testimonials {
+          clientName
+          clientTestimony
+          url
+          clientImage {
+            size
+            url
+            width
+          }
+        }
       }
     }`,
     {

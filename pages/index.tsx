@@ -2,6 +2,8 @@ import { getHomePage } from '../utils/graphcms';
 import PreviewBanner from '../components/preview-banner';
 import ImageCard from '@/components/ImageCard';
 import FeaturedIn from '@/components/FeaturedIn';
+import Testimony from '@/components/Testimony';
+
 import { Box, Grid, Title, Text, Button, Image } from '@mantine/core';
 import Container from '@/components/Container';
 import { BsArrowRight } from 'react-icons/bs';
@@ -49,6 +51,9 @@ const Home = ({ content, preview }) => {
 
       {/* logos */}
       <FeaturedIn content={content} />
+
+      {/* testimonials */}
+      <Testimony content={content} />
     </Box>
   );
 };
