@@ -5,6 +5,8 @@ import FeaturedIn from '@/components/FeaturedIn';
 import { Box, Grid, Title, Text, Button, Image } from '@mantine/core';
 import Container from '@/components/Container';
 import { BsArrowRight } from 'react-icons/bs';
+import ProgramFeatures from '@/components/ProgramFeatures';
+import VideoPlayer from '@/components/VideoPlayer';
 
 const Home = ({ content, preview }) => {
   return (
@@ -49,6 +51,21 @@ const Home = ({ content, preview }) => {
 
       {/* logos */}
       <FeaturedIn content={content} />
+      {/* Featured In */}
+
+      {/* Video Player */}
+      <VideoPlayer />
+
+      {/* Program Features */}
+      <ProgramFeatures
+        badge={'Strength'}
+        variant="gradient"
+        gradient={{ from: '#ed6ea0', to: '#ec8c69', deg: 35 }}
+        body={
+          'I suggest you try it again, Luke. This time, let go your conscious self and act swiftly. Sign up now'
+        }
+        url="https://www.youtube.com/watch?v=ysz5S6PUM-U"
+      />
     </Box>
   );
 };
