@@ -29,12 +29,7 @@ const FeaturedIn = ({ content }) => {
         }}
       >
         {content.featuredInAssets.map((asset) => (
-          <Image
-            width={asset.width}
-            height={asset.height}
-            src={asset.url}
-            alt="cat"
-          />
+          <Image width="100%" height={asset.height} src={asset.url} alt="cat" />
         ))}
       </Container>
     </Box>
