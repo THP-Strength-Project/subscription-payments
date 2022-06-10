@@ -21,22 +21,31 @@ const Testimony = ({ content }) => {
           {content.testimonySubheader}
         </Title>
       </Box>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'row'
-        }}
-      >
-        {content.testimonials.map((tes) => {
-          <Box>
-            <Box>{tes.clientName}</Box>
-            <Paper>{tes.clientTestimony}</Paper>
-            <Image src={tes.clientImage.url} width={tes.clientImage.width} />
-          </Box>;
-        })}
-      </Box>
+      <Grid justify="space-between" align="center" grow gutter="xs">
+        {content.testimonials.map((tes) => (
+          <Grid.Col span={4}>
+            <Paper shadow="xs" p={5} radius="md" m={40}>
+              <Grid
+                justify="space-between"
+                align="center"
+                grow
+                gutter="xl"
+                p={6}
+              >
+                <Grid.Col span={3}>
+                  <Image src={tes.clientImage.url} height={80} fit="contain" />
+                </Grid.Col>
+                <Grid.Col span={9}>
+                  <Box sx={{ fontWeight: 'bold' }}>{tes.clientName}</Box>
+                  <Text sx={{ fontWeight: 'normal' }}>
+                    {tes.clientTestimony}
+                  </Text>
+                </Grid.Col>
+              </Grid>
+            </Paper>
+          </Grid.Col>
+        ))}
+      </Grid>
     </Container>
   );
 };
