@@ -1,7 +1,8 @@
 import { getHomePage } from '../utils/graphcms';
 import PreviewBanner from '../components/preview-banner';
 import ImageCard from '@/components/ImageCard';
-import { Box, Grid, Title, Text, Button } from '@mantine/core';
+import FeaturedIn from '@/components/FeaturedIn';
+import { Box, Grid, Title, Text, Button, Image } from '@mantine/core';
 import Container from '@/components/Container';
 import { BsArrowRight } from 'react-icons/bs';
 import ProgramFeatures from '@/components/ProgramFeatures';
@@ -48,6 +49,8 @@ const Home = ({ content, preview }) => {
         </Grid>
       </Container>
 
+      {/* logos */}
+      <FeaturedIn content={content} />
       {/* Featured In */}
 
       {/* Video Player */}

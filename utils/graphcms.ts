@@ -38,6 +38,12 @@ export async function getHomePage(preview = false) {
           url
           width
         }
+        featuredInTitle
+        featuredInAssets {
+          size
+          url
+          width
+        }
       }
     }`,
     {
