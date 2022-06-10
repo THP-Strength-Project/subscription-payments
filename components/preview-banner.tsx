@@ -12,7 +12,7 @@ const PreviewBanner = ({ preview }) => {
         alignItems: 'center'
       }}
     >
-      <h3>Preview Mode: Enabled</h3>
+      <h3 style={{ padding: '10px' }}>Preview Mode</h3>
       <a href="/api/exit-preview">
         <button>Exit Preview Mode</button>
       </a>
