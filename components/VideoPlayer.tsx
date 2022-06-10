@@ -7,7 +7,7 @@ const VideoPlayer = () => {
     <Box>
       <Container
         sx={{
-          height: 'calc(100vh - 50px)',
+          height: 'calc(100vh - 60px)',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center'

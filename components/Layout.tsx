@@ -3,6 +3,8 @@ import Navbar from './Navbar';
 import { AppShell } from '@mantine/core';
 
 const Layout = ({ children }) => (
-  <AppShell header={<Navbar />}>{children}</AppShell>
+  <AppShell padding={0} header={<Navbar />}>
+    {children}
+  </AppShell>
 );
 export default Layout;

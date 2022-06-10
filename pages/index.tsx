@@ -9,12 +9,15 @@ import Container from '@/components/Container';
 import { BsArrowRight } from 'react-icons/bs';
 import ProgramFeatures from '@/components/ProgramFeatures';
 import VideoPlayer from '@/components/VideoPlayer';
+import GradientCard from '@/components/GradientCard';
+import Section from '@/components/Section';
 
 const Home = ({ content, preview }) => {
   return (
     <Box>
       <PreviewBanner preview={preview} />
       {/* hero */}
+
       <Container
         sx={{
           height: 'calc(100vh - 50px)',
@@ -59,18 +62,30 @@ const Home = ({ content, preview }) => {
       {/* Featured In */}
 
       {/* Video Player */}
-      <VideoPlayer />
+      <Section>
+        <VideoPlayer />
+      </Section>
 
       {/* Program Features */}
-      <ProgramFeatures
-        badge={'Strength'}
-        variant="gradient"
-        gradient={{ from: '#ed6ea0', to: '#ec8c69', deg: 35 }}
-        body={
-          'I suggest you try it again, Luke. This time, let go your conscious self and act swiftly. Sign up now'
-        }
-        url="https://www.youtube.com/watch?v=ysz5S6PUM-U"
-      />
+      {content.featureSections.map((feature, i) => {
+        const last = i === content.featureSections.length - 1;
+        const even = i % 2 === 0;
+        return (
+          <Section
+            mb={last ? 0 : 'initial'}
+            pb={last ? 240 : 'initial'}
+            sx={(theme) => ({
+              backgroundColor: even ? theme.colors.gray[2] : theme.white
+            })}
+          >
+            <ProgramFeatures feature={feature} alternate={even} />
+          </Section>
+        );
+      })}
+
+      {/* Gradient Card */}
+
+      <GradientCard />
     </Box>
   );
 };

@@ -57,6 +57,14 @@ export async function getHomePage(preview = false) {
             width
           }
         }
+        featureSections {
+          badgeText
+          buttonText
+          image {
+            url
+          }
+          title
+        }
       }
     }`,
     {
