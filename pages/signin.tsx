@@ -31,7 +31,7 @@ const SignIn = ({ content }) => {
 
   const signIn = async ({ email, password }) => {
     const result = await post('/signin', { email, password });
-    console.log(result);
+
   };
 
   return (

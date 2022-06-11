@@ -7,7 +7,6 @@ const NavLink = ({ href, name, ...other }) => {
   const isActiveRoute = router.pathname === href;
 
   const finalStyles = (theme) => {
-    console.log(theme);
     const activeStyles = {
       color: 'black'
     };

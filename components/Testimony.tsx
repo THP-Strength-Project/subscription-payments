@@ -3,7 +3,6 @@ import Container from '@/components/Container';
 import ImageCard from './ImageCard';
 
 const Testimony = ({ content }) => {
-  console.log(content);
   return (
     <Container>
       <Box

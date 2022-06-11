@@ -21,7 +21,7 @@ const claim = async (req, res) => {
     where: { value: token }
   });
 
-  console.log(claimToken);
+
 
   await prisma.user.update({
     where: { id: claimToken.userId },

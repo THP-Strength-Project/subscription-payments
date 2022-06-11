@@ -6,7 +6,6 @@ const Verify = () => {
 export default Verify;
 
 export const getServerSideProps = async ({ query }) => {
-  console.log(query);
 
   const { token } = query;
 
