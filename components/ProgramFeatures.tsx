@@ -9,13 +9,13 @@ const ProgramFeatures = ({ feature, alternate }) => {
       <Container>
         <Grid gutter={150} sx={{ alignItems: 'center' }}>
           <Grid.Col span={6} sx={{ order: alternate ? 1 : 0 }}>
-            <Box py={40} sx={{ width: '100%' }}>
+            <Box sx={{ width: '100%' }}>
               <Badge size="lg">{feature.badgeText}</Badge>
             </Box>
-            <Box py={40}>
+            <Box pt={30} pb={60}>
               <Title order={4}>{feature.title}</Title>
             </Box>
-            <Box py={80} sx={{ width: '100%' }}>
+            <Box sx={{ width: '100%' }}>
               <Button rightIcon={<BsArrowRight />} size="xl">
                 {feature.buttonText}
               </Button>
