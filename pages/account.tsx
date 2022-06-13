@@ -4,6 +4,7 @@ import { getUserFromToken } from '../utils/auth';
 import { useForm } from '@mantine/form';
 import { getAccountPage } from '@/utils/graphcms';
 import { post } from '@/utils/api';
+import Footer from '@/components/Footer';
 import {
   Paper,
   Navbar,
@@ -153,6 +154,9 @@ export default function Account({ user, plan, content }) {
           </Box>
         </Container>
       </main>
+      <Box>
+        <Footer content={content} />
+      </Box>
     </div>
   );
 }

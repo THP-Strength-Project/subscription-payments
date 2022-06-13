@@ -65,6 +65,20 @@ export async function getHomePage(preview = false) {
           }
           title
         }
+        footer {
+          logo {
+            logoImage {
+              url
+              width
+              size
+            }
+          }
+          linksApi {
+            link
+            linkLabel
+          }
+        }
+      
       }
     }`,
     {
@@ -103,4 +117,57 @@ export const getAccountPage = async (preview = false) => {
   );
 
   return data.accountPage;
+};
+
+export const getSignPage = async (preview = false) => {
+  const data = await fetchAPI(
+    `
+    query SignInQuery($stage: Stage!, $id: ID!) {
+      signIn(where: {id: $id}, stage: $stage) {
+        heroImage {
+          width
+          height
+          size
+          url
+        }
+        heroSubtitle
+        logo {
+          width
+          height
+          size
+          url
+        }
+        signInSubtext
+        signInText
+        signUpSubtext
+        signUpText
+        footer {
+          linksApi {
+            link
+            linkLabel
+          }
+          logo {
+            logoText
+            logoImage {
+              height
+              size
+              url
+              width
+            }
+          }
+        }
+      }
+    }
+  
+  `,
+    {
+      preview,
+      variables: {
+        stage: preview ? 'DRAFT' : 'PUBLISHED',
+        id: 'cl4c0a2ulkoe90cmy6xyyck1o'
+      }
+    }
+  );
+
+  return data.signIn;
 };

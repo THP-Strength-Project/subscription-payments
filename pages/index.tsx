@@ -6,6 +6,7 @@ import Testimony from '@/components/Testimony';
 
 import { Box, Grid, Title, Text, Button, Image } from '@mantine/core';
 import Container from '@/components/Container';
+import Footer from '@/components/Footer';
 import { BsArrowRight } from 'react-icons/bs';
 import ProgramFeatures from '@/components/ProgramFeatures';
 import VideoPlayer from '@/components/VideoPlayer';
@@ -86,6 +87,9 @@ const Home = ({ content, preview }) => {
       {/* Gradient Card */}
 
       <GradientCard />
+      <Box>
+        <Footer content={content.footer} />
+      </Box>
     </Box>
   );
 };
