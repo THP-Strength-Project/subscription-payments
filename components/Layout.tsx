@@ -1,9 +1,12 @@
 import Navbar from './Navbar';
-import { AppShell } from '@mantine/core';
+// import Footer from './Footer';
+import { AppShell, Box } from '@mantine/core';
 
 const Layout = ({ children }) => (
   <AppShell padding={0} header={<Navbar />}>
-    {children}
+    <Box pt={80}>
+      {children}
+    </Box>
   </AppShell>
 );
 export default Layout;

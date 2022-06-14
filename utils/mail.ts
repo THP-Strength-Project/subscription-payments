@@ -38,7 +38,7 @@ export const sendEmail = (toEmail, emailData, templateId) => {
 };
 
 export const createNewTokenAndSendVerifyEmail = async (user) => {
-  console.log(user);
+
   let verifyToken = await prisma.token.create({
     data: {
       value: uuidv4(),
@@ -54,7 +54,7 @@ export const createNewTokenAndSendVerifyEmail = async (user) => {
       verifiedURL
     }
   };
-  console.log(emailData);
+
 
   await sendEmail(user.email, emailData, templateIds.verify);
 };
@@ -69,14 +69,14 @@ export const createTokenAndSendResetEmail = async (user) => {
 
   const claimURL = `${getURL()}/reset?token=${resetToken.value}`;
 
-  console.log(claimURL);
+
   const emailData = {
     user: {
       name: user.name,
       claimURL
     }
   };
-  console.log(emailData);
+
 
   await sendEmail(user.email, emailData, templateIds.reset);
 };

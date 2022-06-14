@@ -28,7 +28,7 @@ export const getStaticProps = async (context) => {
   const prices = await stripe.prices.list({
     active: true
   });
-  console.log(prices);
+
   const pricingCards = prices.data
     .filter((item) => item.type === 'recurring')
     .map((item) => {

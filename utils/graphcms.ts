@@ -1,3 +1,16 @@
+export const imageLoader = ({src, width}) => {
+  const match = /^(https?:\/\/media.graphassets.com)(?:\/[^\/]+)?\/([^\/]+)$/.exec(src);
+
+  if (!match) {
+    throw new Error('Invalid GraphCMS asset URL');
+  }
+
+  const [prefix, handle] = match.slice(1);
+  const resizedSrc = `${prefix}/resize=width:${width}/${handle}`;
+
+  return resizedSrc;
+}
+
 async function fetchAPI(query, { variables, preview } = {}) {
   const API_KEY = preview
     ? process.env.GRAPHCMS_DEV_AUTH_TOKEN
@@ -37,17 +50,25 @@ export async function getHomePage(preview = false) {
           size
           url
           width
+          height
         }
         featuredInTitle
         featuredInAssets {
+          id
           size
           url
           width
+          height
         }
+        video {
+          url
+        }
+        videoTitle
         testimonyTitle
         testimonySubtitle
         testimonySubheader
         testimonials {
+          id
           clientName
           clientTestimony
           url
@@ -55,13 +76,17 @@ export async function getHomePage(preview = false) {
             size
             url
             width
+            height
           }
         }
         featureSections {
+          id
           badgeText
           buttonText
           image {
             url
+            width
+            height
           }
           title
         }

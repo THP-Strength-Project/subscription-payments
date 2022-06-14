@@ -1,11 +1,22 @@
-import theme from '@/utils/theme';
-import { Box, Image, Paper } from '@mantine/core';
+import { imageLoader } from '@/utils/graphcms';
+import { Box, Paper } from '@mantine/core';
+import Image from 'next/image'
 
-const ImageCard = ({ src, alt }) => {
+const ImageCard = ({ image }) => {
   return (
-    <Paper radius="lg" shadow="sm">
-      <Image radius="lg" src={src} alt={alt} />
-    </Paper>
+    <Box sx={theme => ({
+      boxShadow: theme.shadows.sm,
+      borderRadius: theme.radius.lg,
+      overflow: 'clip'
+    })}>
+      <Image
+        src={image.url}
+        alt={"image"}
+        width={image.width}
+        height={image.height}
+        loader={imageLoader}
+      />
+    </Box>
   );
 };
 

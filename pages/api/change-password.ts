@@ -10,7 +10,7 @@ const changePassword = async (req, res) => {
   let user = await getUserFromToken(req.headers.cookie);
 
   if (!user) {
-    console.log('Not user');
+
     return res.status(401).send('oops');
   }
 
@@ -20,7 +20,7 @@ const changePassword = async (req, res) => {
 
   if (!bcrypt.compareSync(password, user.password)) {
     //handle this
-    console.log('Not right current password');
+
     return res.status(401).send('oops');
   }
 

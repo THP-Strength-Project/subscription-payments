@@ -52,7 +52,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         verifiedURL
       }
     };
-    console.log(emailData);
+
 
     await sendVerifyEmail(user.email, emailData);
   } catch (e) {

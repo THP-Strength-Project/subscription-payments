@@ -1,95 +1,33 @@
-import { getHomePage } from '../utils/graphcms';
-import PreviewBanner from '../components/preview-banner';
-import ImageCard from '@/components/ImageCard';
+import { Box  } from '@mantine/core';
+import { getHomePage } from '@/utils/graphcms';
+import PreviewBanner from '@/components/preview-banner';
+import Hero from '@/components/Hero'
 import FeaturedIn from '@/components/FeaturedIn';
 import Testimony from '@/components/Testimony';
-
-import { Box, Grid, Title, Text, Button, Image } from '@mantine/core';
-import Container from '@/components/Container';
-import Footer from '@/components/Footer';
-import { BsArrowRight } from 'react-icons/bs';
 import ProgramFeatures from '@/components/ProgramFeatures';
 import VideoPlayer from '@/components/VideoPlayer';
 import GradientCard from '@/components/GradientCard';
-import Section from '@/components/Section';
+import Footer from '@/components/Footer';
+
+const badgeColors = ['red', 'green', 'purple', 'yellow']
+const getBadgeColor = i => {
+  return badgeColors[i] || Math.floor(Math.random() * badgeColors.length - 1)
+}
 
 const Home = ({ content, preview }) => {
   return (
     <Box>
       <PreviewBanner preview={preview} />
-      {/* hero */}
-
-      <Container
-        sx={{
-          height: 'calc(100vh - 50px)',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}
-      >
-        <Grid gutter={80}>
-          <Grid.Col
-            span={6}
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'column'
-            }}
-          >
-            <Box py={40}>
-              <Title order={1}>{content.title}</Title>
-            </Box>
-            <Box py={20}>
-              <Text size="xl">{content.subTitle}</Text>
-            </Box>
-            <Box py={80} sx={{ width: '100%' }}>
-              <Button rightIcon={<BsArrowRight />} size="xl">
-                {content.buttonLabel}
-              </Button>
-            </Box>
-          </Grid.Col>
-          <Grid.Col span={6}>
-            <ImageCard src={content.featuredImage.url} alt="cat" />
-          </Grid.Col>
-        </Grid>
-      </Container>
-
-      {/* logos */}
-      <FeaturedIn content={content} />
-
-      {/* testimonials */}
-      <Testimony content={content} />
-      {/* Featured In */}
-
-      {/* Video Player */}
-      <Section>
-        <VideoPlayer />
-      </Section>
-
-      {/* Program Features */}
+      <Hero content={content}/>
+      <FeaturedIn content={content} />      
+      <VideoPlayer title={content.videoTitle} video={content.video.url}/>
       {content.featureSections.map((feature, i) => {
-        const last = i === content.featureSections.length - 1;
         const even = i % 2 === 0;
-        return (
-          <Section
-            mb={last ? 0 : 'initial'}
-            pb={last ? 240 : 'initial'}
-            sx={(theme) => ({
-              backgroundColor: even ? theme.colors.gray[2] : theme.white
-            })}
-          >
-            <ProgramFeatures feature={feature} alternate={even} />
-          </Section>
-        );
+        return <ProgramFeatures feature={feature} even={even} key={feature.id} badge={getBadgeColor(i)}/>
       })}
-
-      {/* Gradient Card */}
-
+      <Testimony content={content} />
       <GradientCard />
-      <Box>
-        <Footer content={content.footer} />
-      </Box>
+      <Footer content={content.footer} />
     </Box>
   );
 };
