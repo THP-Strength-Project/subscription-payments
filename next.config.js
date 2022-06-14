@@ -5,5 +5,8 @@ module.exports = {
     // your project has type errors.
     // !! WARN !!
     ignoreBuildErrors: true
+  },
+  images: {
+    domains: ['media.graphcms.com','media.graphassets.com'],
   }
 };

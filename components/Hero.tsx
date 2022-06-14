@@ -5,10 +5,14 @@ import ImageCard from './ImageCard'
 
 const Hero = ({content}) => {
   return (
-    <Container
+    <Box sx={theme => ({
+      height: 'calc(100vh - 50px)',
+      backgroundColor: theme.colors.dark
+    })}>
+      <Container
         sx={{
-          height: 'calc(100vh - 50px)',
           display: 'flex',
+          height: '100%',
           justifyContent: 'center',
           alignItems: 'center'
         }}
@@ -24,10 +28,10 @@ const Hero = ({content}) => {
             }}
           >
             <Box py={40}>
-              <Title order={1}>{content.title}</Title>
+              <Title order={1} sx={theme => ({color: theme.white})}>{content.title}</Title>
             </Box>
             <Box py={20}>
-              <Text size="xl">{content.subTitle}</Text>
+              <Text size="xl" color="white">{content.subTitle}</Text>
             </Box>
             <Box py={80} sx={{ width: '100%' }}>
               <Button rightIcon={<BsArrowRight />} size="xl">
@@ -36,10 +40,11 @@ const Hero = ({content}) => {
             </Box>
           </Grid.Col>
           <Grid.Col span={6}>
-            <ImageCard src={content.featuredImage.url} alt="cat" />
+            <ImageCard image={content.featuredImage}  />
           </Grid.Col>
         </Grid>
       </Container>
+    </Box>
   )
 }
 

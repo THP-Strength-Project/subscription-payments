@@ -10,6 +10,11 @@ import GradientCard from '@/components/GradientCard';
 import Section from '@/components/Section';
 import Footer from '@/components/Footer';
 
+const badgeColors = ['red', 'green', 'purple', 'yellow']
+const getBadgeColor = i => {
+  return badgeColors[i] || Math.floor(Math.random() * badgeColors.length - 1)
+}
+
 const Home = ({ content, preview }) => {
   return (
     <Box>
@@ -22,31 +27,18 @@ const Home = ({ content, preview }) => {
       <FeaturedIn content={content} />      
 
       {/* Video Player */}
-      <Section>
-        <VideoPlayer />
-      </Section>
+
+      <VideoPlayer title={content.videoTitle} video={content.video.url}/>
 
       {/* Program Features */}
       {content.featureSections.map((feature, i) => {
-        const last = i === content.featureSections.length - 1;
         const even = i % 2 === 0;
-        return (
-          <Section
-            sx={(theme) => ({
-              backgroundColor: even ? theme.colors.gray[2] : theme.white
-            })}
-          >
-            <ProgramFeatures feature={feature} alternate={even} />
-          </Section>
-        );
+        return <ProgramFeatures feature={feature} even={even} key={feature.id} badge={getBadgeColor(i)}/>
       })}
 
-      <Section>
-        <Testimony content={content} />
-      </Section>
 
+      <Testimony content={content} />
       {/* Gradient Card */}
-
       <GradientCard />
       <Box>
         <Footer content={content.footer} />
