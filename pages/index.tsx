@@ -7,7 +7,6 @@ import Testimony from '@/components/Testimony';
 import ProgramFeatures from '@/components/ProgramFeatures';
 import VideoPlayer from '@/components/VideoPlayer';
 import GradientCard from '@/components/GradientCard';
-import Section from '@/components/Section';
 import Footer from '@/components/Footer';
 
 const badgeColors = ['red', 'green', 'purple', 'yellow']
@@ -19,30 +18,16 @@ const Home = ({ content, preview }) => {
   return (
     <Box>
       <PreviewBanner preview={preview} />
-      {/* hero */}
-
       <Hero content={content}/>
-
-      {/* logos */}
       <FeaturedIn content={content} />      
-
-      {/* Video Player */}
-
       <VideoPlayer title={content.videoTitle} video={content.video.url}/>
-
-      {/* Program Features */}
       {content.featureSections.map((feature, i) => {
         const even = i % 2 === 0;
         return <ProgramFeatures feature={feature} even={even} key={feature.id} badge={getBadgeColor(i)}/>
       })}
-
-
       <Testimony content={content} />
-      {/* Gradient Card */}
       <GradientCard />
-      <Box>
-        <Footer content={content.footer} />
-      </Box>
+      <Footer content={content.footer} />
     </Box>
   );
 };
