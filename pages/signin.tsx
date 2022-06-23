@@ -14,13 +14,10 @@ import Link from 'next/link';
 import Footer from '@/components/Footer';
 
 const SignIn = ({ content }) => {
-  console.log('signin: line 16', content);
-
   const form = useForm({
     initialValues: {
       email: '',
-      password: '',
-      rememberMe: false
+      password: ''
     },
 
     validate: {
@@ -31,7 +28,6 @@ const SignIn = ({ content }) => {
 
   const signIn = async ({ email, password }) => {
     const result = await post('/signin', { email, password });
-
   };
 
   return (
@@ -92,12 +88,6 @@ const SignIn = ({ content }) => {
               <Link href="/forgot-password">
                 <a>Forgot my password</a>
               </Link>
-
-              <Checkbox
-                mt="md"
-                label="Remember me"
-                {...form.getInputProps('rememberMe', { type: 'checkbox' })}
-              />
 
               <Group position="right" mt="md">
                 <Button type="submit">Submit</Button>

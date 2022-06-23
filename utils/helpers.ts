@@ -1,4 +1,5 @@
 import { Price } from 'types';
+import { getPricingPage } from './graphcms';
 
 export const getURL = () => {
   const url =
@@ -6,15 +7,14 @@ export const getURL = () => {
       ? process.env.URL
       : process?.env?.VERCEL_URL && process.env.VERCEL_URL !== ''
       ? process.env.VERCEL_URL
-      : process?.env?.NEXT_PUBLIC_VERCEL_URL && process.env.NEXT_PUBLIC_VERCEL_URL !== ''
+      : process?.env?.NEXT_PUBLIC_VERCEL_URL &&
+        process.env.NEXT_PUBLIC_VERCEL_URL !== ''
       ? process.env.NEXT_PUBLIC_VERCEL_URL
       : 'http://localhost:3000';
   return url.includes('http') ? url : `https://${url}`;
 };
 
 export const postData = async ({ url, data }: { url: string; data? }) => {
-
-
   const res: Response = await fetch(url, {
     method: 'POST',
     headers: new Headers({ 'Content-Type': 'application/json' }),
@@ -23,8 +23,6 @@ export const postData = async ({ url, data }: { url: string; data? }) => {
   });
 
   if (!res.ok) {
-
-
     throw Error(res.statusText);
   }
 
@@ -47,3 +45,16 @@ export const formatUserForClient = ({
 }) => {
   return { email, id, name, isVerified, created, updated };
 };
+
+// export const pricingCMS = async getStaticProps({ preview = false }) {
+//     const page = await getPricingPage(preview);
+
+//     return {
+//       props: {
+//         content: page,
+//         preview
+//       },
+
+//       revalidate: 10
+//     };
+//   }

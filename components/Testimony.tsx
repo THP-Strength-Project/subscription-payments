@@ -1,4 +1,4 @@
-import { Box, Grid, Title, Text,  Image, Paper } from '@mantine/core';
+import { Box, Grid, Title, Text, Image, Paper } from '@mantine/core';
 import Container from '@/components/Container';
 import ImageCard from './ImageCard';
 
@@ -6,11 +6,10 @@ const Testimony = ({ content }) => {
   return (
     <Container>
       <Box py={80}>
-        <Box sx={{textAlign: 'center', marginBottom: 40}}>
-          <Title order={3}>{content.testimonyTitle}</Title>
-          <Title order={1}>{content.testimonySubtitle}</Title>
+        <Box sx={{ textAlign: 'center', marginBottom: 40 }}>
+          <Title order={1}>{content.testimonyTitle}</Title>
           <Title order={5} sx={{ color: 'dark grey', fontWeight: 'lighter' }}>
-            {content.testimonySubheader}
+            {content.testimonySubtitle}
           </Title>
         </Box>
         <Grid justify="space-between" align="center" grow gutter="xs">
@@ -25,7 +24,11 @@ const Testimony = ({ content }) => {
                   p={6}
                 >
                   <Grid.Col span={3}>
-                    <Image src={tes.clientImage.url} height={80} fit="contain" />
+                    <Image
+                      src={tes.clientImage.url}
+                      height={80}
+                      fit="contain"
+                    />
                   </Grid.Col>
                   <Grid.Col span={9}>
                     <Box sx={{ fontWeight: 'bold' }}>{tes.clientName}</Box>
