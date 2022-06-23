@@ -8,7 +8,7 @@ const Pricing = ({ content }) => {
   console.log(content);
   return (
     <Paper>
-      {content.pricingCards.map((card) => {
+      {pricingCards.map((card) => {
         return (
           <div style={{ marginBottom: '20px' }}>
             <div>{card.id}</div>
@@ -46,7 +46,6 @@ export async function getStaticProps(context) {
     });
   return {
     props: {
-      content: page,
       pricingCards
     }
   };
