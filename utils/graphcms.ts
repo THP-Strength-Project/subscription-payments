@@ -1,5 +1,6 @@
-export const imageLoader = ({src, width}) => {
-  const match = /^(https?:\/\/media.graphassets.com)(?:\/[^\/]+)?\/([^\/]+)$/.exec(src);
+export const imageLoader = ({ src, width }) => {
+  const match =
+    /^(https?:\/\/media.graphassets.com)(?:\/[^\/]+)?\/([^\/]+)$/.exec(src);
 
   if (!match) {
     throw new Error('Invalid GraphCMS asset URL');
@@ -9,7 +10,7 @@ export const imageLoader = ({src, width}) => {
   const resizedSrc = `${prefix}/resize=width:${width}/${handle}`;
 
   return resizedSrc;
-}
+};
 
 async function fetchAPI(query, { variables, preview } = {}) {
   const API_KEY = preview
@@ -66,7 +67,6 @@ export async function getHomePage(preview = false) {
         videoTitle
         testimonyTitle
         testimonySubtitle
-        testimonySubheader
         testimonials {
           id
           clientName
@@ -195,4 +195,50 @@ export const getSignPage = async (preview = false) => {
   );
 
   return data.signIn;
+};
+
+export const getPricingPage = async (preview = false) => {
+  const data = await fetchAPI(
+    `
+    query pricing($id: ID!) {
+      values: pricing(where: {id: $id}, stage: DRAFT) {
+        
+        customFeatureSections(first: 500) {
+          id
+          stage
+         
+          title
+          
+        }
+        id
+        pricingSubtitle
+        pricingTitle
+       
+        standardFeatures(first: 500) {
+          id
+          stage
+          updatedAt
+          title
+          documentInStages(includeCurrent: true) {
+            id
+            stage
+            updatedAt
+            publishedAt
+          }
+        }
+        
+      }
+    }
+  
+  `,
+    {
+      preview,
+      variables: {
+        stage: preview ? 'DRAFT' : 'PUBLISHED',
+        id: 'cl4oj1twtcn5t09n1cdmq01dd'
+      }
+    }
+  );
+
+  return data.pricing;
 };

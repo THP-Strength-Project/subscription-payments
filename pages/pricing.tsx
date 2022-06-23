@@ -1,11 +1,14 @@
 import React from 'react';
 import Link from 'next/link';
 import { stripe } from '@/utils/stripe';
+import { getPricingPage } from '@/utils/graphcms';
+import { Button, Group, Box, Grid, Image, Paper } from '@mantine/core';
 
-const Pricing = ({ pricingCards }) => {
+const Pricing = ({ content }) => {
+  console.log(content);
   return (
-    <div>
-      {pricingCards.map((card) => {
+    <Paper>
+      {content.pricingCards.map((card) => {
         return (
           <div style={{ marginBottom: '20px' }}>
             <div>{card.id}</div>
@@ -19,16 +22,19 @@ const Pricing = ({ pricingCards }) => {
           </div>
         );
       })}
-    </div>
+    </Paper>
   );
 };
 
 export default Pricing;
-export const getStaticProps = async (context) => {
+
+//Using Next.js to fetch Stripe products
+export async function getStaticProps(context) {
   const prices = await stripe.prices.list({
     active: true
   });
 
+  // Using  Next.js to hoist pricing and product props to render on page
   const pricingCards = prices.data
     .filter((item) => item.type === 'recurring')
     .map((item) => {
@@ -40,7 +46,8 @@ export const getStaticProps = async (context) => {
     });
   return {
     props: {
+      content: page,
       pricingCards
     }
   };
-};
+}
