@@ -1,6 +1,6 @@
-import { getURL } from './helpers';
+import { getURL } from './helpers'
 
-const API_URL = getURL() + '/api';
+const API_URL = getURL() + '/api'
 
 export const post = async (url, body) => {
   const res = await fetch(`${API_URL}${url}`, {
@@ -9,15 +9,15 @@ export const post = async (url, body) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(body)
-  });
+  })
 
   if (!res.ok) {
-    throw new Error('Network response was not OK');
+    throw new Error('Network response was not OK')
   }
 
-  const data = await res.json();
-  return data;
-};
+  const data = await res.json()
+  return data
+}
 
 export const get = async (url) => {
   const res = await fetch(`${API_URL}${url}`, {
@@ -25,12 +25,12 @@ export const get = async (url) => {
     headers: {
       'Content-Type': 'application/json'
     }
-  });
+  })
 
   if (!res.ok) {
-    throw new Error('Network response was not OK');
+    throw new Error('Network response was not OK')
   }
 
-  const data = await res.json();
-  return data;
-};
+  const data = await res.json()
+  return data
+}

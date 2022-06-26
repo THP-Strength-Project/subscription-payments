@@ -1,17 +1,9 @@
-import {
-  TextInput,
-  Button,
-  Group,
-  Box,
-  Grid,
-  Image,
-  Checkbox
-} from '@mantine/core';
-import { useForm } from '@mantine/form';
-import { post } from '@/utils/api';
-import { getSignPage } from '@/utils/graphcms';
-import Link from 'next/link';
-import Footer from '@/components/Footer';
+import { TextInput, Button, Group, Box, Grid, Image, Checkbox } from '@mantine/core'
+import { useForm } from '@mantine/form'
+import { post } from '@/utils/api'
+import { getSignPage } from '@/utils/graphcms'
+import Link from 'next/link'
+import Footer from '@/components/Footer'
 
 const SignIn = ({ content }) => {
   const form = useForm({
@@ -24,11 +16,11 @@ const SignIn = ({ content }) => {
       email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email')
       // password: (value) => '^(?=.*[a-z])(?=.*[A-Z](?=.{6,})'
     }
-  });
+  })
 
   const signIn = async ({ email, password }) => {
-    const result = await post('/signin', { email, password });
-  };
+    const result = await post('/signin', { email, password })
+  }
 
   return (
     <div>
@@ -72,18 +64,8 @@ const SignIn = ({ content }) => {
           </Box>
           <Box sx={{ maxWidth: 300 }} mx="auto">
             <form onSubmit={form.onSubmit(signIn)}>
-              <TextInput
-                required
-                label="Email"
-                placeholder="your@email.com"
-                {...form.getInputProps('email')}
-              />
-              <TextInput
-                required
-                label="Password"
-                placeholder="Password"
-                {...form.getInputProps('password')}
-              />
+              <TextInput required label="Email" placeholder="your@email.com" {...form.getInputProps('email')} />
+              <TextInput required label="Password" placeholder="Password" {...form.getInputProps('password')} />
 
               <Link href="/forgot-password">
                 <a>Forgot my password</a>
@@ -100,12 +82,12 @@ const SignIn = ({ content }) => {
         <Footer content={content.footer} />
       </Box>
     </div>
-  );
-};
+  )
+}
 
-export default SignIn;
+export default SignIn
 export async function getStaticProps({ preview = false }) {
-  const page = await getSignPage(preview);
+  const page = await getSignPage(preview)
 
   return {
     props: {
@@ -114,5 +96,5 @@ export async function getStaticProps({ preview = false }) {
     },
 
     revalidate: 10
-  };
+  }
 }

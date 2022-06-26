@@ -6,7 +6,8 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "prettier-format": "prettier --config .prettierrc './**/*.+(ts|tsx|js|jsx)' --write"
   },
   "dependencies": {
     "@mantine/core": "^4.2.5",
@@ -50,7 +51,7 @@
     "eslint": "^8.18.0",
     "eslint-config-prettier": "^8.5.0",
     "postcss": "8.4.5",
-    "prettier": "^2.5.1",
+    "prettier": "^2.7.1",
     "typescript": "^4.7.4"
   },
   "prettier": {

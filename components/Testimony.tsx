@@ -1,6 +1,6 @@
-import { Box, Grid, Title, Text, Image, Paper } from '@mantine/core';
-import Container from '@/components/Container';
-import ImageCard from './ImageCard';
+import { Box, Grid, Title, Text, Image, Paper } from '@mantine/core'
+import Container from '@/components/Container'
+import ImageCard from './ImageCard'
 
 const Testimony = ({ content }) => {
   return (
@@ -16,25 +16,13 @@ const Testimony = ({ content }) => {
           {content.testimonials.map((tes) => (
             <Grid.Col span={4} key={tes.id}>
               <Paper shadow="xs" p={5} radius="md" m={40}>
-                <Grid
-                  justify="space-between"
-                  align="center"
-                  grow
-                  gutter="xl"
-                  p={6}
-                >
+                <Grid justify="space-between" align="center" grow gutter="xl" p={6}>
                   <Grid.Col span={3}>
-                    <Image
-                      src={tes.clientImage.url}
-                      height={80}
-                      fit="contain"
-                    />
+                    <Image src={tes.clientImage.url} height={80} fit="contain" />
                   </Grid.Col>
                   <Grid.Col span={9}>
                     <Box sx={{ fontWeight: 'bold' }}>{tes.clientName}</Box>
-                    <Text sx={{ fontWeight: 'normal' }}>
-                      {tes.clientTestimony}
-                    </Text>
+                    <Text sx={{ fontWeight: 'normal' }}>{tes.clientTestimony}</Text>
                   </Grid.Col>
                 </Grid>
               </Paper>
@@ -43,7 +31,7 @@ const Testimony = ({ content }) => {
         </Grid>
       </Box>
     </Container>
-  );
-};
+  )
+}
 
-export default Testimony;
+export default Testimony

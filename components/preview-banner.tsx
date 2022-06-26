@@ -17,7 +17,7 @@ const PreviewBanner = ({ preview }) => {
         <button>Exit Preview Mode</button>
       </a>
     </div>
-  ) : null;
-};
+  ) : null
+}
 
-export default PreviewBanner;
+export default PreviewBanner

@@ -1,15 +1,18 @@
-import {Box, Title, Paper, AspectRatio } from '@mantine/core';
-import Container from '@/components/Container';
-import ReactPlayer from 'react-player';
+import { Box, Title, Paper, AspectRatio } from '@mantine/core'
+import Container from '@/components/Container'
+import ReactPlayer from 'react-player'
 
-const VideoPlayer = ({title, video}) => {
+const VideoPlayer = ({ title, video }) => {
   return (
-    <Box sx={theme => ({backgroundColor: theme.colors.dark})}>
+    <Box sx={(theme) => ({ backgroundColor: theme.colors.dark })}>
       <Container>
-        <Box py={80} sx={{textAlign: 'center'}}>
-          <Title order={2}  sx={theme => ({
-            color: theme.white
-          })}>
+        <Box py={80} sx={{ textAlign: 'center' }}>
+          <Title
+            order={2}
+            sx={(theme) => ({
+              color: theme.white
+            })}
+          >
             {title}
           </Title>
           <Paper mt={60}>
@@ -23,17 +26,16 @@ const VideoPlayer = ({title, video}) => {
                   file: {
                     attributes: {
                       poster: 'https://placekitten.com/g/600/339'
-                    },
-                  },
+                    }
+                  }
                 }}
               />
             </AspectRatio>
           </Paper>
-
         </Box>
       </Container>
     </Box>
-  );
-};
+  )
+}
 
-export default VideoPlayer;
+export default VideoPlayer

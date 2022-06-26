@@ -1,19 +1,19 @@
-import { useState } from 'react';
-import { post } from '@/utils/api';
+import { useState } from 'react'
+import { post } from '@/utils/api'
 
 const ForgotPassword = () => {
-  const [email, setEmail] = useState('');
-  const [done, setDone] = useState(false);
+  const [email, setEmail] = useState('')
+  const [done, setDone] = useState(false)
 
   const handleEmail = (e) => {
-    setEmail(e.target.value);
-  };
+    setEmail(e.target.value)
+  }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    await post('/reset', { email });
-    setDone(true);
-  };
+    e.preventDefault()
+    await post('/reset', { email })
+    setDone(true)
+  }
 
   return (
     <div>
@@ -23,17 +23,12 @@ const ForgotPassword = () => {
         </div>
       ) : (
         <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            value={email}
-            placeholder="email"
-            onChange={handleEmail}
-          />
+          <input type="email" value={email} placeholder="email" onChange={handleEmail} />
           <button type="submit">submit</button>
         </form>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default ForgotPassword;
+export default ForgotPassword

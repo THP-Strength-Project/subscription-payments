@@ -1,4 +1,4 @@
-import { MantineThemeOverride } from '@mantine/core';
+import { MantineThemeOverride } from '@mantine/core'
 
 const theme: MantineThemeOverride = {
   colorScheme: 'light',
@@ -68,30 +68,8 @@ const theme: MantineThemeOverride = {
       '#33250b',
       '#191306'
     ],
-    red: [
-      '#FDF1F4',
-      '#fce8ec',
-      '#f9d0d9',
-      '#f2a2b3',
-      '#e95c7b',
-      '#df1642',
-      '#9c0f2e',
-      '#59091a',
-      '#2d040d',
-      '#160207'
-    ],
-    grey: [
-      '#fcfcfc',
-      '#f5f5f5',
-      '#eeeeee',
-      '#e0e0e0',
-      '#bdbdbd',
-      '#9e9e9e',
-      '#757575',
-      '#616161',
-      '#424242',
-      '#323232'
-    ]
+    red: ['#FDF1F4', '#fce8ec', '#f9d0d9', '#f2a2b3', '#e95c7b', '#df1642', '#9c0f2e', '#59091a', '#2d040d', '#160207'],
+    grey: ['#fcfcfc', '#f5f5f5', '#eeeeee', '#e0e0e0', '#bdbdbd', '#9e9e9e', '#757575', '#616161', '#424242', '#323232']
   },
   fontSizes: {
     xs: 9,
@@ -159,6 +137,6 @@ const theme: MantineThemeOverride = {
     }
   },
   loader: 'oval'
-};
+}
 
-export default theme;
+export default theme

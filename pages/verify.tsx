@@ -1,13 +1,12 @@
-import prisma from '../utils/prisma';
+import prisma from '../utils/prisma'
 
 const Verify = () => {
-  return <h3>Signed Up</h3>;
-};
-export default Verify;
+  return <h3>Signed Up</h3>
+}
+export default Verify
 
 export const getServerSideProps = async ({ query }) => {
-
-  const { token } = query;
+  const { token } = query
 
   if (!token) {
     //handle this
@@ -15,7 +14,7 @@ export const getServerSideProps = async ({ query }) => {
 
   const match = await prisma.token.delete({
     where: { value: token }
-  });
+  })
 
   if (!match) {
     //handle this
@@ -26,9 +25,9 @@ export const getServerSideProps = async ({ query }) => {
     data: {
       isVerified: true
     }
-  });
+  })
 
   return {
     props: {}
-  };
-};
+  }
+}

@@ -105,6 +105,6 @@
 
 // export default webhookHandler;
 
-const webhooks = () => {};
+const webhooks = () => {}
 
-export default webhooks;
+export default webhooks

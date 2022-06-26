@@ -1,12 +1,12 @@
-import { Header, Grid } from '@mantine/core';
-import NavLink from './NavLink';
+import { Header, Grid } from '@mantine/core'
+import NavLink from './NavLink'
 const Navbar = () => {
   return (
     <Header
       height={80}
       p="lg"
       fixed
-      sx={theme => ({
+      sx={(theme) => ({
         backgroundColor: theme.colors.dark,
         borderBottom: 0,
         boxShadow: theme.shadows.sm
@@ -21,7 +21,7 @@ const Navbar = () => {
         </Grid>
       </Grid>
     </Header>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

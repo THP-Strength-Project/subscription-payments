@@ -1,6 +1,6 @@
-import { Box, Button, Grid, Title, Text } from '@mantine/core';
-import Container from './Container';
-import { BsArrowRight } from 'react-icons/bs';
+import { Box, Button, Grid, Title, Text } from '@mantine/core'
+import Container from './Container'
+import { BsArrowRight } from 'react-icons/bs'
 
 const GradientCard = () => {
   return (
@@ -23,8 +23,7 @@ const GradientCard = () => {
               <Title
                 order={2}
                 sx={{
-                  background:
-                    'linear-gradient(270deg, #6A82FB 0%, #FC5C7D 100%)',
+                  background: 'linear-gradient(270deg, #6A82FB 0%, #FC5C7D 100%)',
                   WebkitTextFillColor: 'transparent',
                   webkitBackgroundClip: 'text',
                   webkitTextFillColor: 'transparent',
@@ -32,13 +31,11 @@ const GradientCard = () => {
                   paddingBottom: 20
                 }}
               >
-                I'm surprised you had the courage to take the responsibility
-                yourself.
+                I'm surprised you had the courage to take the responsibility yourself.
               </Title>
               <Text size="lg" color="#9E9E9E">
-                A tremor in the Force. The last time I felt it was in the
-                presence of my old master. Don't act so surprised, Your
-                Highness.
+                A tremor in the Force. The last time I felt it was in the presence of my old master. Don't act so
+                surprised, Your Highness.
               </Text>
             </Box>
           </Grid.Col>
@@ -52,7 +49,7 @@ const GradientCard = () => {
         </Grid>
       </Container>
     </Box>
-  );
-};
+  )
+}
 
-export default GradientCard;
+export default GradientCard

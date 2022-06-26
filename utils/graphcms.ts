@@ -1,21 +1,18 @@
 export const imageLoader = ({ src, width }) => {
-  const match =
-    /^(https?:\/\/media.graphassets.com)(?:\/[^\/]+)?\/([^\/]+)$/.exec(src);
+  const match = /^(https?:\/\/media.graphassets.com)(?:\/[^\/]+)?\/([^\/]+)$/.exec(src)
 
   if (!match) {
-    throw new Error('Invalid GraphCMS asset URL');
+    throw new Error('Invalid GraphCMS asset URL')
   }
 
-  const [prefix, handle] = match.slice(1);
-  const resizedSrc = `${prefix}/resize=width:${width}/${handle}`;
+  const [prefix, handle] = match.slice(1)
+  const resizedSrc = `${prefix}/resize=width:${width}/${handle}`
 
-  return resizedSrc;
-};
+  return resizedSrc
+}
 
 async function fetchAPI(query, { variables, preview } = {}) {
-  const API_KEY = preview
-    ? process.env.GRAPHCMS_DEV_AUTH_TOKEN
-    : process.env.GRAPHCMS_PROD_AUTH_TOKEN;
+  const API_KEY = preview ? process.env.GRAPHCMS_DEV_AUTH_TOKEN : process.env.GRAPHCMS_PROD_AUTH_TOKEN
 
   const res = await fetch(process.env.GRAPHCMS_PROJECT_API, {
     method: 'POST',
@@ -27,16 +24,16 @@ async function fetchAPI(query, { variables, preview } = {}) {
       query,
       variables
     })
-  });
+  })
 
-  const json = await res.json();
+  const json = await res.json()
 
   if (json.errors) {
-    console.error(json.errors);
-    throw new Error('Failed to fetch API');
+    console.error(json.errors)
+    throw new Error('Failed to fetch API')
   }
 
-  return json.data;
+  return json.data
 }
 
 export async function getHomePage(preview = false) {
@@ -113,8 +110,8 @@ export async function getHomePage(preview = false) {
         id: 'cl37ua45h8ial0bn6d2pp18nn'
       }
     }
-  );
-  return data.homePage;
+  )
+  return data.homePage
 }
 
 export const getAccountPage = async (preview = false) => {
@@ -139,10 +136,10 @@ export const getAccountPage = async (preview = false) => {
         id: 'cl3kv0yw87pfw0cn1t34crl6x'
       }
     }
-  );
+  )
 
-  return data.accountPage;
-};
+  return data.accountPage
+}
 
 export const getSignPage = async (preview = false) => {
   const data = await fetchAPI(
@@ -192,10 +189,10 @@ export const getSignPage = async (preview = false) => {
         id: 'cl4c0a2ulkoe90cmy6xyyck1o'
       }
     }
-  );
+  )
 
-  return data.signIn;
-};
+  return data.signIn
+}
 
 export const getPricingPage = async (preview = false) => {
   const data = await fetchAPI(
@@ -238,7 +235,7 @@ export const getPricingPage = async (preview = false) => {
         id: 'cl4oj1twtcn5t09n1cdmq01dd'
       }
     }
-  );
+  )
 
-  return data.pricing;
-};
+  return data.pricing
+}
