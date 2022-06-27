@@ -42,7 +42,7 @@ export default function Account({ user, plan, content }) {
     },
 
     validate: {
-      newEmail: (value, values) => (value === user.email ? 'Emails as the same' : null)
+      newEmail: (value) => (value === user.email ? 'Emails as the same' : null)
     }
   })
 
@@ -163,8 +163,8 @@ export async function getServerSideProps(context) {
     customer: user.customerId
   })
 
-  const { amount, product } = subscriptions.data[0]?.items.data[0].plan
-  const productObj = await stripe.products.retrieve(product)
+  const { amount, product } = subscriptions.data[0]?.items?.data[0]?.plan
+  const productObj = await stripe.products.retrieve(product as string)
 
   const content = await getAccountPage(context.preview)
   return {

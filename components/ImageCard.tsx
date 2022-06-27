@@ -1,5 +1,5 @@
 import { imageLoader } from '@/utils/graphcms'
-import { Box, Paper } from '@mantine/core'
+import { Box} from '@mantine/core'
 import Image from 'next/image'
 
 const ImageCard = ({ image }) => {

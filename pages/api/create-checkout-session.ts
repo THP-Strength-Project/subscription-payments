@@ -5,7 +5,7 @@ import { getUserFromToken } from '@/utils/auth'
 
 const createCheckoutSession = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
-    const { price, quantity = 1, metadata = {} } = req.body
+    const { price, quantity = 1 } = req.body
 
     try {
       const user = await getUserFromToken(req.headers.cookie)
@@ -32,7 +32,7 @@ const createCheckoutSession = async (req: NextApiRequest, res: NextApiResponse) 
       })
 
       return res.status(200).json({ url: session.url })
-    } catch (err: any) {
+    } catch (err) {
       console.log(err)
       res.status(500).json({ error: { statusCode: 500, message: err.message } })
     }

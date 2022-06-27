@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import Link from 'next/link'
 import { stripe } from '@/utils/stripe'
-import { Box, Grid, Title, Text, Select } from '@mantine/core'
+import { Box, Grid, Text, Select } from '@mantine/core'
 import Container from '@/components/Container'
 import PriceCard from '@/components/PriceCard'
 

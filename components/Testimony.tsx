@@ -1,6 +1,5 @@
 import { Box, Grid, Title, Text, Image, Paper } from '@mantine/core'
 import Container from '@/components/Container'
-import ImageCard from './ImageCard'
 
 const Testimony = ({ content }) => {
   return (

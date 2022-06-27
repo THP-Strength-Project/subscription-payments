@@ -1,4 +1,4 @@
-import { TextInput, Button, Group, Box, Grid, Image, Checkbox } from '@mantine/core'
+import { TextInput, Button, Group, Box, Grid, Image } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { post } from '@/utils/api'
 import { getSignPage } from '@/utils/graphcms'
@@ -20,6 +20,7 @@ const SignIn = ({ content }) => {
 
   const signIn = async ({ email, password }) => {
     const result = await post('/signin', { email, password })
+    return result
   }
 
   return (

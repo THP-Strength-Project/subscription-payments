@@ -1,5 +1,5 @@
 export const imageLoader = ({ src, width }) => {
-  const match = /^(https?:\/\/media.graphassets.com)(?:\/[^\/]+)?\/([^\/]+)$/.exec(src)
+  const match = /^(https?:\/\/media.graphassets.com)(?:\/[^/]+)?\/([^/]+)$/.exec(src)
 
   if (!match) {
     throw new Error('Invalid GraphCMS asset URL')
@@ -11,8 +11,7 @@ export const imageLoader = ({ src, width }) => {
   return resizedSrc
 }
 
-async function fetchAPI(query, { variables, preview } = {}) {
-  const API_KEY = preview ? process.env.GRAPHCMS_DEV_AUTH_TOKEN : process.env.GRAPHCMS_PROD_AUTH_TOKEN
+async function fetchAPI(query, { variables }: {variables?: object, preview?: boolean}) {
 
   const res = await fetch(process.env.GRAPHCMS_PROJECT_API, {
     method: 'POST',
@@ -196,8 +195,7 @@ export const getSignPage = async (preview = false) => {
 
 export const getPricingPage = async (preview = false) => {
   const data = await fetchAPI(
-    `
-    query pricing($id: ID!) {
+    `query pricing($id: ID!) {
       values: pricing(where: {id: $id}, stage: DRAFT) {
         
         customFeatureSections(first: 500) {

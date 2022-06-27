@@ -1,4 +1,4 @@
-import { Box, Grid, Title, Text, Button, Image, Paper } from '@mantine/core'
+import { Box, Grid, Image,  } from '@mantine/core'
 import NavLink from '@/components/NavLink'
 import Container from '@/components/Container'
 
