@@ -1,10 +1,10 @@
-import { getPortalUrl } from '../utils/stripe-client';
-import { stripe } from '@/utils/stripe';
-import { getUserFromToken } from '../utils/auth';
-import { useForm } from '@mantine/form';
-import { getAccountPage } from '@/utils/graphcms';
-import { post } from '@/utils/api';
-import Footer from '@/components/Footer';
+import { getPortalUrl } from '../utils/stripe-client'
+import { stripe } from '@/utils/stripe'
+import { getUserFromToken } from '../utils/auth'
+import { useForm } from '@mantine/form'
+import { getAccountPage } from '@/utils/graphcms'
+import { post } from '@/utils/api'
+import Footer from '@/components/Footer'
 import {
   Paper,
   Navbar,
@@ -17,13 +17,13 @@ import {
   Container,
   Image,
   SimpleGrid
-} from '@mantine/core';
+} from '@mantine/core'
 
 export default function Account({ user, plan, content }) {
   const fetchPortal = async () => {
-    const { url } = await getPortalUrl();
-    location.href = url;
-  };
+    const { url } = await getPortalUrl()
+    location.href = url
+  }
 
   const passwordForm = useForm({
     initialValues: {
@@ -32,10 +32,9 @@ export default function Account({ user, plan, content }) {
     },
 
     validate: {
-      newPassword: (value, values) =>
-        value === values.password ? 'Passwords are the same' : null
+      newPassword: (value, values) => (value === values.password ? 'Passwords are the same' : null)
     }
-  });
+  })
 
   const emailForm = useForm({
     initialValues: {
@@ -43,20 +42,19 @@ export default function Account({ user, plan, content }) {
     },
 
     validate: {
-      newEmail: (value, values) =>
-        value === user.email ? 'Emails as the same' : null
+      newEmail: (value) => (value === user.email ? 'Emails as the same' : null)
     }
-  });
+  })
 
   const onSubmit = async (values) => {
-    await post('/change-password', values);
-    passwordForm.reset();
-  };
+    await post('/change-password', values)
+    passwordForm.reset()
+  }
 
   const handleChangeEmail = async (values) => {
-    await post('/change-email', values);
-    emailForm.reset();
-  };
+    await post('/change-email', values)
+    emailForm.reset()
+  }
 
   return (
     <div>
@@ -128,13 +126,7 @@ export default function Account({ user, plan, content }) {
                     Change Email
                   </Text>
                   <form onSubmit={emailForm.onSubmit(handleChangeEmail)}>
-                    <Input
-                      label="Current Email"
-                      initialvalue={user.email}
-                      value={user.email}
-                      disabled
-                      readOnly
-                    />
+                    <Input label="Current Email" initialvalue={user.email} value={user.email} disabled readOnly />
 
                     <Input
                       mt="sm"
@@ -158,23 +150,23 @@ export default function Account({ user, plan, content }) {
         <Footer content={content} />
       </Box>
     </div>
-  );
+  )
 }
 
 export async function getServerSideProps(context) {
-  const user = await getUserFromToken(context.req.headers.cookie);
+  const user = await getUserFromToken(context.req.headers.cookie)
 
   //handle error and loading states here
 
   const subscriptions = await stripe.subscriptions.list({
     limit: 1,
     customer: user.customerId
-  });
+  })
 
-  const { amount, product } = subscriptions.data[0]?.items.data[0].plan;
-  const productObj = await stripe.products.retrieve(product);
+  const { amount, product } = subscriptions.data[0]?.items?.data[0]?.plan
+  const productObj = await stripe.products.retrieve(product as string)
 
-  const content = await getAccountPage(context.preview);
+  const content = await getAccountPage(context.preview)
   return {
     props: {
       content,
@@ -188,5 +180,5 @@ export async function getServerSideProps(context) {
         name: productObj.name
       }
     }
-  };
+  }
 }

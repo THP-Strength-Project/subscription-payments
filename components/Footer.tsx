@@ -1,6 +1,6 @@
-import { Box, Grid, Title, Text, Button, Image, Paper } from '@mantine/core';
-import NavLink from '@/components/NavLink';
-import Container from '@/components/Container';
+import { Box, Grid, Image,  } from '@mantine/core'
+import NavLink from '@/components/NavLink'
+import Container from '@/components/Container'
 
 const Footer = ({ content }) => {
   return (
@@ -19,7 +19,7 @@ const Footer = ({ content }) => {
               <Grid.Col span={2} sx={{ paddingTop: 30 }}>
                 <NavLink href={link.link} name={link.linkLabel} />
               </Grid.Col>
-            );
+            )
           })}
         </Grid>
       </Box>
@@ -27,7 +27,7 @@ const Footer = ({ content }) => {
         © Copyrights 2022 THP Strength | All Rights Reserved | Terms of Services
       </Box>
     </Container>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

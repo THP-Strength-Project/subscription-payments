@@ -105,6 +105,8 @@
 
 // export default webhookHandler;
 
-const webhooks = () => {};
 
-export default webhooks;
+
+export default function() {
+  console.log('hello')
+}

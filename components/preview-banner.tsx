@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 const PreviewBanner = ({ preview }) => {
   return preview ? (
     <div
@@ -13,11 +15,13 @@ const PreviewBanner = ({ preview }) => {
       }}
     >
       <h3 style={{ padding: '10px' }}>Preview Mode</h3>
-      <a href="/api/exit-preview">
-        <button>Exit Preview Mode</button>
-      </a>
+      <Link href="/api/exit-preview">
+        <a>
+          <button>Exit Preview Mode</button>
+        </a>
+      </Link>
     </div>
-  ) : null;
-};
+  ) : null
+}
 
-export default PreviewBanner;
+export default PreviewBanner

@@ -1,19 +1,19 @@
-import prisma from '@/utils/prisma';
-import { createTokenAndSendResetEmail } from '@/utils/mail';
+import prisma from '@/utils/prisma'
+import { createTokenAndSendResetEmail } from '@/utils/mail'
 
 const resetPassword = async (req, res) => {
-  const { email } = req.body;
+  const { email } = req.body
 
   const user = await prisma.user.findUnique({
     where: {
       email
     }
-  });
+  })
   if (!user) {
     //handle this
   }
-  await createTokenAndSendResetEmail(user);
+  await createTokenAndSendResetEmail(user)
 
-  res.json({ ok: true });
-};
-export default resetPassword;
+  res.json({ ok: true })
+}
+export default resetPassword
