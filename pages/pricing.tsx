@@ -32,11 +32,10 @@ const Pricing = ({ stripeSubscriptions }) => {
             </Text>
           </Grid.Col>
 
-          <Grid.Col span={4} sx={{ marginTop: 40 }}>
+          <Grid.Col span={4} sx={{ marginTop: 40, marginBottom: 40 }}>
             <Select
               size="lg"
               shadow="sm"
-              label="Frequency"
               placeholder="Pick one"
               transition="scale-y"
               transitionDuration={300}
@@ -50,33 +49,27 @@ const Pricing = ({ stripeSubscriptions }) => {
           </Grid.Col>
 
           <Grid.Col span={12}>
-            <Grid gutter="lg" justify={'left'}>
-              <Grid.Col span={6}>
-                <PriceCard stripePrice={getPriceById(activeSub)} />
+            <Grid gutter="lg" justify="center">
+              <Grid.Col span={4}>
+                <PriceCard
+                  stripePrice={getPriceById(activeSub)}
+                  badge="Most Popular"
+                  badgeColor="green"
+                  buttonText="Select Package"
+                />
               </Grid.Col>
-              <Grid.Col span={6}>
-                <PriceCard stripePrice={getPriceById(activeSub)} />
+              <Grid.Col span={4}>
+                <PriceCard
+                  buttonText="Contact Us"
+                  stripePrice={getPriceById(activeSub)}
+                  badge="Custom"
+                  badgeColor="blue"
+                />
               </Grid.Col>
             </Grid>
           </Grid.Col>
         </Grid>
       </Container>
-      {/* <Paper>
-        {stripeSubscriptions.map((card) => {
-          return (
-            <div style={{ marginBottom: '20px' }}>
-              <div>{card.id}</div>
-              <div>{card.amount}</div>
-              <div>{card.months}</div>
-              <Link href={`/signup?price=${card.id}`}>
-                <a>
-                  <button>Order</button>
-                </a>
-              </Link>
-            </div>
-          );
-        })}
-      </Paper> */}
     </Box>
   )
 }
