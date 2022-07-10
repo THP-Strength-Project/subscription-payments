@@ -8,7 +8,8 @@ const PriceCard: FC<{
   badge?: string
   badgeColor?: string
   buttonText: string
-}> = ({ stripePrice, badge, badgeColor, buttonText }) => {
+  features: { id: string; featureName: string }[]
+}> = ({ stripePrice, badge, badgeColor, buttonText, features }) => {
   const theme = useMantineTheme()
   const month = stripePrice.months === 1 ? 'month' : 'months'
 
@@ -34,19 +35,20 @@ const PriceCard: FC<{
 
       <Box my="xl">
         <List spacing="sm" size="md" center icon={<BsCheckCircle fontSize={'1.75em'} color={theme.colors.green[5]} />}>
-          <List.Item>Clone or download repository from GitHub</List.Item>
-          <List.Item>Clone or download repository from GitHub</List.Item>
-          <List.Item>Clone or download repository from GitHub</List.Item>
-          <List.Item>Clone or download repository from GitHub</List.Item>
+          {features.map((feature) => (
+            <List.Item key={feature.id}>
+              <Text size="md" weight={'bold'}>
+                {feature.featureName}
+              </Text>
+            </List.Item>
+          ))}
         </List>
       </Box>
       <Box sx={{ width: '100%' }} my="xl">
-        <NextLink href={`/signup?price=${stripePrice.id}`}>
-          <a>
-            <Button fullWidth color="blue" size="lg" sx={{ textDecoration: 'none' }}>
-              {buttonText}
-            </Button>
-          </a>
+        <NextLink href={`/signup?price=${stripePrice.id}`} passHref>
+          <Button component="a" fullWidth color="blue" sx={{ textDecoration: 'none' }}>
+            {buttonText}
+          </Button>
         </NextLink>
       </Box>
     </Paper>

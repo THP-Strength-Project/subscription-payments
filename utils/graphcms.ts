@@ -11,8 +11,7 @@ export const imageLoader = ({ src, width }) => {
   return resizedSrc
 }
 
-async function fetchAPI(query, { variables }: {variables?: object, preview?: boolean}) {
-
+async function fetchAPI(query, { variables }: { variables?: object; preview?: boolean }) {
   const res = await fetch(process.env.GRAPHCMS_PROJECT_API, {
     method: 'POST',
     headers: {
@@ -38,7 +37,7 @@ async function fetchAPI(query, { variables }: {variables?: object, preview?: boo
 export async function getHomePage(preview = false) {
   const data = await fetchAPI(
     `
-    query MyQuery($stage: Stage!, $id: ID!) {
+    query HomePageQuery($stage: Stage!, $id: ID!) {
       homePage(where: {id: $id}, stage: $stage) {
         title
         subTitle
@@ -86,20 +85,6 @@ export async function getHomePage(preview = false) {
           }
           title
         }
-        footer {
-          logo {
-            logoImage {
-              url
-              width
-              size
-            }
-          }
-          linksApi {
-            link
-            linkLabel
-          }
-        }
-      
       }
     }`,
     {
@@ -162,21 +147,6 @@ export const getSignPage = async (preview = false) => {
         signInText
         signUpSubtext
         signUpText
-        footer {
-          linksApi {
-            link
-            linkLabel
-          }
-          logo {
-            logoText
-            logoImage {
-              height
-              size
-              url
-              width
-            }
-          }
-        }
       }
     }
   
@@ -195,33 +165,24 @@ export const getSignPage = async (preview = false) => {
 
 export const getPricingPage = async (preview = false) => {
   const data = await fetchAPI(
-    `query pricing($id: ID!) {
-      values: pricing(where: {id: $id}, stage: DRAFT) {
-        
-        customFeatureSections(first: 500) {
-          id
-          stage
-         
-          title
-          
-        }
+    `query PricingPageQuery($id: ID!, $stage: Stage!) {
+      pricing(where: {id: $id}, stage: $stage) {
         id
         pricingSubtitle
         pricingTitle
-       
-        standardFeatures(first: 500) {
+        faqs {
           id
-          stage
-          updatedAt
-          title
-          documentInStages(includeCurrent: true) {
-            id
-            stage
-            updatedAt
-            publishedAt
-          }
+          question
+          answer
         }
-        
+        standardPlanFeatures {
+          id
+          featureName
+        }
+        customPlanFeatures {
+          id
+          featureName
+        }
       }
     }
   

@@ -1,8 +1,8 @@
-import { Box, Grid, Image,  } from '@mantine/core'
+import { Box, Grid, Image } from '@mantine/core'
 import NavLink from '@/components/NavLink'
 import Container from '@/components/Container'
 
-const Footer = ({ content }) => {
+const Footer = ({ links = [], logo = '' }) => {
   return (
     <Container>
       <Box
@@ -11,10 +11,10 @@ const Footer = ({ content }) => {
         }}
       >
         <Box>
-          <Image src={content.logo.logoImage.url} height={50} fit="contain" />
+          <Image src={logo} height={50} fit="contain" />
         </Box>
         <Grid>
-          {content.linksApi.map((link) => {
+          {links.map((link) => {
             return (
               <Grid.Col span={2} sx={{ paddingTop: 30 }}>
                 <NavLink href={link.link} name={link.linkLabel} />

@@ -92,7 +92,7 @@ const SignUp = ({ content }) => {
           </Box>
         </Grid.Col>
       </Grid>
-      <Footer content={content.footer} />
+      <Footer />
     </div>
   )
 }

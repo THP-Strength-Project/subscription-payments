@@ -27,7 +27,7 @@ const Home = ({ content, preview }) => {
       })}
       <Testimony content={content} />
       <GradientCard />
-      <Footer content={content.footer} />
+      <Footer />
     </Box>
   )
 }

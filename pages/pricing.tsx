@@ -1,10 +1,20 @@
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 import { stripe } from '@/utils/stripe'
 import { Box, Grid, Text, Select } from '@mantine/core'
 import Container from '@/components/Container'
 import PriceCard from '@/components/PriceCard'
+import FAQList from '@/components/FAQList'
+import Footer from '@/components/Footer'
+import { getPricingPage } from '@/utils/graphcms'
 
-const Pricing = ({ stripeSubscriptions }) => {
+const Pricing: FC<{
+  content: {
+    faqs: { question: string; answer: string }[]
+    standardPlanFeatures: { featureName: string; id: string }[]
+    customPlanFeatures: { featureName: string; id: string }[]
+  }
+  stripeSubscriptions: { id: string; months: number; amount: number }[]
+}> = ({ stripeSubscriptions, content }) => {
   const [activeSub, setSub] = useState(stripeSubscriptions[0].id)
 
   const handleChange = (value) => {
@@ -56,6 +66,7 @@ const Pricing = ({ stripeSubscriptions }) => {
                   badge="Most Popular"
                   badgeColor="green"
                   buttonText="Select Package"
+                  features={content.standardPlanFeatures}
                 />
               </Grid.Col>
               <Grid.Col span={4}>
@@ -64,12 +75,17 @@ const Pricing = ({ stripeSubscriptions }) => {
                   stripePrice={getPriceById(activeSub)}
                   badge="Custom"
                   badgeColor="blue"
+                  features={[...content.standardPlanFeatures, ...content.customPlanFeatures]}
                 />
               </Grid.Col>
             </Grid>
           </Grid.Col>
         </Grid>
+        <Box mt={60} sx={(theme) => ({ paddingBottom: theme.spacing.xl * 3 })}>
+          <FAQList items={content.faqs} />
+        </Box>
       </Container>
+      <Footer />
     </Box>
   )
 }
@@ -94,9 +110,11 @@ export async function getStaticProps() {
     })
     .sort((a, b) => a.months - b.months)
 
+  const content = await getPricingPage()
   return {
     props: {
-      stripeSubscriptions
+      stripeSubscriptions,
+      content
     }
   }
 }
