@@ -80,7 +80,7 @@ const SignIn = ({ content }) => {
         </Grid.Col>
       </Grid>
       <Box>
-        <Footer content={content.footer} />
+        <Footer />
       </Box>
     </div>
   )

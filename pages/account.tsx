@@ -147,7 +147,7 @@ export default function Account({ user, plan, content }) {
         </Container>
       </main>
       <Box>
-        <Footer content={content} />
+        <Footer />
       </Box>
     </div>
   )
