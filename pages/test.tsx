@@ -4,6 +4,7 @@ import Button from '@/components/Button'
 import TestimonyCard from '@/components/TestimonyCard'
 import Feature from '@/components/Feature'
 import BottomCTA from '@/components/BottomCTA'
+import Footer from '@/components/Footer'
 
 const TestPage = () => {
   const features = [
@@ -36,6 +37,7 @@ const TestPage = () => {
         <Feature feature={feature} reverse={i % 2 === 1 ? true : false} />
       ))}
       <BottomCTA />
+      <Footer />
     </div>
   )
 }

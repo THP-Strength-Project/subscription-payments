@@ -1,5 +1,6 @@
-import { Image, AspectRatio, Box } from '@mantine/core'
 import { FC } from 'react'
+import Image from 'next/image'
+import { AspectRatio, Box } from '@mantine/core'
 
 const FeatureImage: FC<{ image: string; maxWidth?: number; width?: string }> = ({
   image,
@@ -17,7 +18,13 @@ const FeatureImage: FC<{ image: string; maxWidth?: number; width?: string }> = (
       })}
     >
       <AspectRatio ratio={4 / 3} mx="auto">
-        <Image src={image || 'https://media.graphassets.com/fsoA5g2CTlunlHr2TiRw'} alt="Panda" width="100%" />
+        <Image
+          src={image || 'https://media.graphassets.com/fsoA5g2CTlunlHr2TiRw'}
+          alt="Panda"
+          layout="fill"
+          placeholder="blur"
+          blurDataURL={`/_next/image?url=/${image}&w=16&q=1`}
+        />
       </AspectRatio>
     </Box>
   )
