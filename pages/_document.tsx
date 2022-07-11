@@ -10,12 +10,26 @@ export default class _Document extends Document {
     return (
       <Html>
         <Head>
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
           <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@100;400;700&display=swap"
-            rel="stylesheet"
-            crossOrigin="true"
+            rel="preload"
+            href="/fonts/Satoshi/Satoshi-Regular.ttf"
+            as="font"
+            type="font/ttf"
+            crossOrigin="anonymous"
+          />
+          <link
+            rel="preload"
+            href="/fonts/Satoshi/Satoshi-Bold.ttf"
+            as="font"
+            type="font/ttf"
+            crossOrigin="anonymous"
+          />
+          <link
+            rel="preload"
+            href="/fonts/Satoshi/Satoshi-Italic.ttf"
+            as="font"
+            type="font/ttf"
+            crossOrigin="anonymous"
           />
         </Head>
         <body>

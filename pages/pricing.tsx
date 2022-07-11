@@ -12,6 +12,8 @@ const Pricing: FC<{
     faqs: { question: string; answer: string }[]
     standardPlanFeatures: { featureName: string; id: string }[]
     customPlanFeatures: { featureName: string; id: string }[]
+    title: string
+    subtitle: string
   }
   stripeSubscriptions: { id: string; months: number; amount: number }[]
 }> = ({ stripeSubscriptions, content }) => {
@@ -28,7 +30,7 @@ const Pricing: FC<{
       <Container>
         <Grid justify="center" align="center" sx={{ width: '100%', textAlign: 'center' }}>
           <Grid.Col span={9} py={40}>
-            <Text sx={{ fontSize: '3.5em' }}>Choose a flexible training plan to reach your goals.</Text>
+            <Text sx={{ fontSize: '3.5em' }}>{content.title}</Text>
           </Grid.Col>
           <Grid.Col span={9}>
             <Text
@@ -37,8 +39,7 @@ const Pricing: FC<{
                 color: theme.colors.gray[6]
               })}
             >
-              A tremor in the Force. The last time I felt it was in the presence of my old master.Don't act so
-              surprised, Your Highness. You weren't on any mercy mission this time.
+              {content.subtitle}
             </Text>
           </Grid.Col>
 
