@@ -3,6 +3,7 @@ import Head from 'next/head'
 import theme from '@/utils/theme'
 import { MantineProvider } from '@mantine/core'
 import Layout from '@/components/Layout'
+import '../styles/main.css'
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props

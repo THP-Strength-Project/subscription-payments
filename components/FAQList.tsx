@@ -5,7 +5,7 @@ const FAQList: FC<{ items: { question: string; answer: string }[] }> = ({ items 
   return (
     <Box>
       <Title order={3} align="center" sx={(theme) => ({ marginBottom: theme.spacing.xl * 2 })}>
-        Frequently Asked Quetsions
+        Frequently Asked Questions
       </Title>
       <Accordion
         iconPosition="right"

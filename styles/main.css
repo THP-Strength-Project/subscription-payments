@@ -1,6 +1,23 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/Satoshi/Satoshi-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/Satoshi/Satoshi-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/Satoshi/Satoshi-Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
 
 *,
 *:before,
@@ -8,24 +25,19 @@
   box-sizing: inherit;
 }
 
-*:focus {
-  @apply outline-none ring-2 ring-pink-500 ring-opacity-50;
-}
-
 html {
   height: 100%;
   box-sizing: border-box;
   touch-action: manipulation;
   font-feature-settings: 'case' 1, 'rlig' 1, 'calt' 0;
+  font-size: calc(0.6em + 1vw);
 }
 
 html,
 body {
-  font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Helvetica Neue',
-    'Helvetica', sans-serif;
+  font-family: 'Satoshi', -apple-system, system-ui, BlinkMacSystemFont, 'Helvetica Neue', 'Helvetica', sans-serif;
   text-rendering: optimizeLegibility;
   -moz-osx-font-smoothing: grayscale;
-  @apply text-white bg-zinc-800 antialiased;
 }
 
 body {

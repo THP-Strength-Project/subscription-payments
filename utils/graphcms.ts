@@ -168,8 +168,8 @@ export const getPricingPage = async (preview = false) => {
     `query PricingPageQuery($id: ID!, $stage: Stage!) {
       pricing(where: {id: $id}, stage: $stage) {
         id
-        pricingSubtitle
-        pricingTitle
+        title: pricingSubtitle
+        subtitle: pricingTitle
         faqs {
           id
           question
