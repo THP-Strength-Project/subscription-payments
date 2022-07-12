@@ -6,9 +6,9 @@ const Button: FC<{
   active?: boolean
   size?: number
   text: string
-  type?: 'ghost' | 'filled' | 'transparent'
-  color?: string
-}> = ({ size, text, type = 'filled', active = false, fullWidth = false, color }) => {
+  type?: 'ghost' | 'filled' | 'transparent' | 'white'
+  color?: 'white' | 'black' | 'transparent'
+}> = ({ size, text, type = 'filled', active = false, fullWidth = false, color = 'white' }) => {
   const gray = 'rgba(0, 2, 24, 0.48)'
   const border = `1px solid ${gray}`
 
@@ -22,8 +22,8 @@ const Button: FC<{
       <UnstyledButton
         sx={(theme) => ({
           width: fullWidth ? '100%' : 'initial',
-          backgroundColor: type === 'filled' ? 'black' : 'white',
-          color: color || (type === 'filled' ? 'white' : type === 'ghost' ? 'black' : gray),
+          backgroundColor: color,
+          color: color === 'white' ? 'black' : color === 'black' ? 'white' : 'black',
           padding: '0.8em 1em',
           borderRadius: '2em',
           fontSize: '.8em',
@@ -33,13 +33,14 @@ const Button: FC<{
           alignItems: 'center',
           fontWeight: 'bold',
           textTransform: 'uppercase',
-          border: type === 'ghost' ? border : '1px solid transparent',
+          border: color === 'white' ? '1px solid white' : color === 'black' ? '1px solid black' : `1px solid ${gray}`,
           cursor: 'pointer',
           transition: 'all .2s ease-in-out',
           '&:hover': {
-            color: type === 'ghost' ? gray : type === 'filled' ? 'black' : gray,
-            background: 'white',
-            border
+            color: color === 'transparent' ? gray : color === 'white' ? 'white' : 'black',
+            background: color === 'transparent' ? 'transparent' : color === 'white' ? 'transparent' : 'white',
+            border:
+              color === 'white' ? '1px solid white' : color === 'black' ? `1px solid ${gray}` : `1px solid ${gray}`
           },
           '&:active': {
             transform: 'scale(1.1)'

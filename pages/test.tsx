@@ -6,6 +6,7 @@ import TestimonyCard from '@/components/TestimonyCard'
 import Feature from '@/components/Feature'
 import BottomCTA from '@/components/BottomCTA'
 import Footer from '@/components/Footer'
+import PriceBox from '@/components/PriceBox'
 
 const TestPage = () => {
   const features = [
@@ -40,6 +41,11 @@ const TestPage = () => {
       ))}
       <BottomCTA />
       <Footer />
+      <Box sx={{ width: '400px', display: 'flex' }}>
+        <PriceBox />
+        <PriceBox gradient />
+        <PriceBox />
+      </Box>
     </Box>
   )
 }
