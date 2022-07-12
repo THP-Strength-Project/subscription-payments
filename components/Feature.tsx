@@ -36,13 +36,13 @@ const Feature: FC<{
   }, [control, inView])
 
   return (
-    <Grid align="center" justify="center" gutter={100}>
-      <Grid.Col span={6} sx={{ order: reverse ? 2 : 1 }}>
+    <Grid align="center" justify="center">
+      <Grid.Col span={5} sx={{ order: reverse ? 2 : 1 }}>
         <motion.div ref={ref} variants={imageVariants} initial="hidden" animate={control}>
           <FeatureImage image={feature.image} />
         </motion.div>
       </Grid.Col>
-      <Grid.Col span={6} sx={{ order: reverse ? 1 : 2 }}>
+      <Grid.Col span={5} sx={{ order: reverse ? 1 : 2 }}>
         <motion.div ref={ref} variants={textVariants} initial="hidden" animate={control}>
           <FeatureText body={feature.body} title={feature.title} titleWithColor={feature.titleWithColor} />
         </motion.div>

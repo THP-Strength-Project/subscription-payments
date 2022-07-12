@@ -11,6 +11,7 @@ const Button: FC<{
 }> = ({ size, text, type = 'filled', active = false, fullWidth = false, color }) => {
   const gray = 'rgba(0, 2, 24, 0.48)'
   const border = `1px solid ${gray}`
+
   return (
     <Box
       sx={{

@@ -8,10 +8,11 @@ const FeatureImage: FC<{ image: string; width?: string }> = ({ image, width = '1
     <Box
       sx={{
         width,
+        maxWidth: '600px',
         borderRadius: '1.8em',
         overflow: 'hidden',
         position: 'relative',
-        padding: '2em'
+        padding: '3em'
       }}
     >
       <Box sx={{ position: 'absolute', zIndex: -1, top: 0, left: 0, width: '100%', overflow: 'hidden' }}>
