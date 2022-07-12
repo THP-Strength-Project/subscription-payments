@@ -62,8 +62,7 @@ const HeroTitle: FC<HeroTitleProps> = ({ text, color, size, delay = 0, duration 
         lineHeight: '80px',
         letterSpacing: '-2px',
         userSelect: 'none',
-        display: 'flex',
-        overflow: 'hidden'
+        display: 'flex'
       })}
       initial="hidden"
       animate="visible"

@@ -25,7 +25,7 @@ const Feature: FC<{
   feature: { image: string; body: string; title: string; titleWithColor: string }
 }> = ({ feature, reverse }) => {
   const control = useAnimation()
-  const [ref, inView] = useInView({ triggerOnce: true })
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.5 })
 
   useEffect(() => {
     if (inView) {

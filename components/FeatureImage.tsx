@@ -1,7 +1,5 @@
 import { FC } from 'react'
-// import Image from 'next/image'
 import { AspectRatio, Box, Image } from '@mantine/core'
-import { imageLoader } from '@/utils/graphcms'
 
 const FeatureImage: FC<{ image: string; width?: string }> = ({ image, width = '100%' }) => {
   return (
@@ -12,7 +10,7 @@ const FeatureImage: FC<{ image: string; width?: string }> = ({ image, width = '1
         borderRadius: '1.8em',
         overflow: 'hidden',
         position: 'relative',
-        padding: '3em'
+        padding: '1em'
       }}
     >
       <Box sx={{ position: 'absolute', zIndex: -1, top: 0, left: 0, width: '100%', overflow: 'hidden' }}>

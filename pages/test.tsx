@@ -32,7 +32,7 @@ const TestPage = () => {
   return (
     <Box px="50px">
       <HeroTitle text="Jump. Higher. Now." />
-      <VideoBox />
+      {/* <VideoBox /> */}
       <Button text="Click me" type="filled" size={1} />
       <TestimonyCard title="This is my name" />
       {features.map((feature, i) => (
