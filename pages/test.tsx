@@ -1,3 +1,4 @@
+import { Box } from '@mantine/core'
 import HeroTitle from '@/components/HeroTitle'
 import VideoBox from '@/components/VideoBox'
 import Button from '@/components/Button'
@@ -11,24 +12,25 @@ const TestPage = () => {
     {
       title: 'Write more',
       titleWithColor: 'Full color text',
-      body: 'Fusce dapibus, tellus ac cursus commodo, tortor mauris imentum nibh, ut fermentum massa. Fusce dapibus, tellus ac cursus commodo, tortor mauris imentum nibh, ut fermentum massa. Fusce dapibus, tellus ac cursus commodo, tortor mauris imentum nibh, ut fermentum massa. Fusce dapibus, tellus ac cursus commodo, tortor mauris imentum nibh, ut fermentum massa'
+      body: 'Fusce dapibus, tellus ac cursus commodo, tortor mauris imentum nibh, ut fermentum massa. Fusce dapibus, tellus ac cursus commodo, tortor mauris imentum nibh, ut fermentum massa. Fusce dapibus, tellus ac cursus commodo, tortor mauris imentum nibh, ut fermentum massa. Fusce dapibus, tellus ac cursus commodo, tortor mauris imentum nibh, ut fermentum massa',
+      image: 'https://media.graphassets.com/TZxcgeiFTryijCNHnFiu'
     },
     {
       title: 'Write more',
       titleWithColor: 'Full color text',
       body: 'Fusce dapibus, tellus ac cursus commodo, tortor mauris imentum nibh, ut fermentum massa. Fusce dapibus, tellus ac cursus commodo, tortor mauris imentum nibh, ut fermentum massa. Fusce dapibus, tellus ac cursus commodo, tortor mauris imentum nibh, ut fermentum massa. Fusce dapibus, tellus ac cursus commodo, tortor mauris imentum nibh, ut fermentum massa',
-      image: 'https://media.graphassets.com/HJSij3UcQKW2fi1CrOIR'
+      image: 'https://media.graphassets.com/PI0e1fQ5QxmCVmBOjZpa'
     },
     {
       title: 'Write more',
       titleWithColor: 'Full color text',
       body: 'Fusce dapibus, tellus ac cursus commodo, tortor mauris imentum nibh, ut fermentum massa. Fusce dapibus, tellus ac cursus commodo, tortor mauris imentum nibh, ut fermentum massa. Fusce dapibus, tellus ac cursus commodo, tortor mauris imentum nibh, ut fermentum massa. Fusce dapibus, tellus ac cursus commodo, tortor mauris imentum nibh, ut fermentum massa',
-      image: 'https://media.graphassets.com/D58wQFDMQsWyEvO40Zp4'
+      image: 'https://media.graphassets.com/E31ICLKLRW2JfCqPiZkk'
     }
   ]
 
   return (
-    <div>
+    <Box px="50px">
       <HeroTitle text="Jump. Higher. Now." />
       <VideoBox />
       <Button text="Click me" type="filled" size={1} />
@@ -38,7 +40,7 @@ const TestPage = () => {
       ))}
       <BottomCTA />
       <Footer />
-    </div>
+    </Box>
   )
 }
 

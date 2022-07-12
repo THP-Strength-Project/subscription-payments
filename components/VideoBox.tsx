@@ -1,5 +1,5 @@
 import { FC, useState, useEffect } from 'react'
-import { motion, useAnimation } from 'framer-motion'
+import { motion, useAnimation, Variants } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import ReactPlayer from 'react-player/lazy'
 import { Box, AspectRatio } from '@mantine/core'
@@ -8,9 +8,9 @@ import { FaPlay } from 'react-icons/fa'
 const defaultPlaceholderUrl = 'https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/360/Big_Buck_Bunny_360_10s_1MB.mp4'
 const defaultMainUrl = 'https://youtu.be/V7Yw6X0pNRw'
 
-const animationVariants = {
-  visible: { opacity: 1, scale: 1, transition: { type: 'spring' } },
-  hidden: { opacity: 0, scale: 0.8 }
+const animationVariants: Variants = {
+  visible: { opacity: 1, scale: 1, y: 0, transition: { type: 'spring', bounce: 0.4 } },
+  hidden: { opacity: 0, scale: 0.8, y: 20 }
 }
 
 const VideoBox: FC<{ placeholderVideoUrl: string; mainVideoUrl: string }> = ({

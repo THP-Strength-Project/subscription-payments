@@ -1,4 +1,4 @@
-export const imageLoader = ({ src, width }) => {
+export const imageLoader = ({ src, width, height }) => {
   const match = /^(https?:\/\/media.graphassets.com)(?:\/[^/]+)?\/([^/]+)$/.exec(src)
 
   if (!match) {
@@ -6,7 +6,7 @@ export const imageLoader = ({ src, width }) => {
   }
 
   const [prefix, handle] = match.slice(1)
-  const resizedSrc = `${prefix}/resize=width:${width}/${handle}`
+  const resizedSrc = `${prefix}/resize=width:${width},height:${height}/${handle}`
 
   return resizedSrc
 }

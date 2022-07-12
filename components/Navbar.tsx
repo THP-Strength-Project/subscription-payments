@@ -27,10 +27,10 @@ const Navbar = () => {
           </Grid.Col>
           <Grid.Col span={3}>
             <Grid align="center" justify="center">
-              <Grid.Col span={3}>
+              <Grid.Col span={4}>
                 <Button type="transparent" size={buttonSize} text="Login" />
               </Grid.Col>
-              <Grid.Col span={3}>
+              <Grid.Col span={4}>
                 <Button type="filled" size={buttonSize} text="Signup" />
               </Grid.Col>
             </Grid>

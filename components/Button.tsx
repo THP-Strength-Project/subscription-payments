@@ -39,6 +39,9 @@ const Button: FC<{
             color: type === 'ghost' ? gray : type === 'filled' ? 'black' : gray,
             background: 'white',
             border
+          },
+          '&:active': {
+            transform: 'scale(1.1)'
           }
         })}
       >
