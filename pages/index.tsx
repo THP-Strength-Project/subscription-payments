@@ -1,33 +1,55 @@
-import { Box } from '@mantine/core'
-import { getHomePage } from '@/utils/graphcms'
-import PreviewBanner from '@/components/preview-banner'
-import Hero from '@/components/Hero'
-import FeaturedIn from '@/components/FeaturedIn'
-import Testimony from '@/components/Testimony'
-import ProgramFeatures from '@/components/ProgramFeatures'
-import VideoPlayer from '@/components/VideoPlayer'
-import GradientCard from '@/components/GradientCard'
+import { Box, Center, Image } from '@mantine/core'
+import Container from '@/components/Container'
+import HeroTitle from '@/components/HeroTitle'
+import VideoBox from '@/components/VideoBox'
+import SubHero from '@/components/SubHero'
+import TestimonySection from '@/components/TestimonySection'
+import Feature from '@/components/Feature'
 import Footer from '@/components/Footer'
+import BottomCTA from '@/components/BottomCTA'
+import { getHomePage, HomePageContent } from '@/utils/graphcms'
+import { FC } from 'react'
 
-const badgeColors = ['red', 'green', 'purple', 'yellow']
-const getBadgeColor = (i) => {
-  return badgeColors[i] || Math.floor(Math.random() * badgeColors.length - 1)
-}
-
-const Home = ({ content, preview }) => {
+const Home: FC<{ content: HomePageContent; preview: boolean }> = ({ content, preview }) => {
   return (
-    <Box>
-      <PreviewBanner preview={preview} />
-      <Hero content={content} />
-      <FeaturedIn content={content} />
-      <VideoPlayer title={content.videoTitle} video={content.video.url} />
-      {content.featureSections.map((feature, i) => {
-        const even = i % 2 === 0
-        return <ProgramFeatures feature={feature} even={even} key={feature.id} badge={getBadgeColor(i)} />
-      })}
-      <Testimony content={content} />
-      <GradientCard />
-      <Footer />
+    <Box sx={{ paddingTop: '2em' }}>
+      <Container>
+        <Box component="section" sx={{ display: 'flex', justifyContent: 'center' }}>
+          <Box>
+            <Box sx={{ marginBottom: '2em' }}>
+              <Center>
+                <Image
+                  src="https://media.graphassets.com/vVvn7KnOTCqulY0rI9Yq"
+                  sx={{ width: '100%', maxWidth: '60px' }}
+                />
+              </Center>
+            </Box>
+            <Box sx={{ marginBottom: '10em' }}>
+              <HeroTitle text="Jump Higher Now" duration={0.01} />
+            </Box>
+            <Box>
+              <VideoBox />
+            </Box>
+          </Box>
+        </Box>
+        <Box mt="10em" component="section">
+          <SubHero text={content.miniFeature.body} buttonText={content.miniFeature.buttonText} />
+        </Box>
+        <Box mt="10em" component="section">
+          <TestimonySection testimonies={content.testimonies} title={content.testimonyTitle} />
+        </Box>
+        <Box component="section" mt="10em">
+          {content.featureSections.map((feature, i) => (
+            <Box my="10em">
+              <Feature feature={feature} reverse={i % 2 === 1 ? true : false} />
+            </Box>
+          ))}
+        </Box>
+      </Container>
+      <Box>
+        <BottomCTA />
+        <Footer />
+      </Box>
     </Box>
   )
 }
@@ -35,6 +57,8 @@ const Home = ({ content, preview }) => {
 export default Home
 export async function getStaticProps({ preview = false }) {
   const page = await getHomePage(preview)
+
+  console.log(page)
 
   return {
     props: {

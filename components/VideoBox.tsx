@@ -13,7 +13,9 @@ const animationVariants: Variants = {
   hidden: { opacity: 0, scale: 0.8, y: 20 }
 }
 
-const VideoBox: FC<{ placeholderVideoUrl: string; mainVideoUrl: string }> = ({
+const MotionBox = motion(Box)
+
+const VideoBox: FC<{ placeholderVideoUrl?: string; mainVideoUrl?: string }> = ({
   placeholderVideoUrl = defaultPlaceholderUrl,
   mainVideoUrl = defaultMainUrl
 }) => {
@@ -31,55 +33,57 @@ const VideoBox: FC<{ placeholderVideoUrl: string; mainVideoUrl: string }> = ({
   }, [control, inView])
 
   return (
-    <motion.div ref={ref} variants={animationVariants} initial="hidden" animate={control}>
+    <MotionBox
+      ref={ref}
+      variants={animationVariants}
+      initial="hidden"
+      animate={control}
+      onMouseOver={(e) => setHovered(true)}
+      onMouseOut={(e) => setHovered(false)}
+      sx={(theme) => ({
+        borderRadius: '1em',
+        maxWidth: '1200px',
+        overflow: 'hidden',
+        boxShadow: theme.shadows.md,
+        position: 'relative'
+      })}
+    >
       <Box
-        sx={(theme) => ({
-          borderRadius: '1em',
-          maxWidth: '800px',
-          overflow: 'hidden',
-          boxShadow: theme.shadows.md,
-          position: 'relative'
-        })}
-        onMouseOver={(e) => setHovered(true)}
-        onMouseOut={(e) => setHovered(false)}
+        sx={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          zIndex: 2
+        }}
       >
         <Box
-          sx={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            zIndex: 2
-          }}
+          sx={(theme) => ({
+            borderRadius: '100%',
+            width: '5em',
+            height: '5em',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: theme.colors.gray[2],
+            boxShadow: theme.shadows.lg,
+            cursor: 'pointer',
+            transition: 'transform .3s ease-in-out',
+            transform: hovered ? 'scale(1.3)' : 'scale(1)'
+          })}
+          onClick={(e) => setClicked(true)}
         >
-          <Box
-            sx={(theme) => ({
-              borderRadius: '100%',
-              width: '5em',
-              height: '5em',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: theme.colors.gray[2],
-              boxShadow: theme.shadows.lg,
-              cursor: 'pointer',
-              transition: 'transform .3s ease-in-out',
-              transform: hovered ? 'scale(1.3)' : 'scale(1)'
-            })}
-            onClick={(e) => setClicked(true)}
-          >
-            <FaPlay size="1em" />
-          </Box>
+          <FaPlay size="1em" />
         </Box>
-        <AspectRatio ratio={16 / 9}>
-          <ReactPlayer loop width="100%" height="100%" url={placeholderVideoUrl} playing volume={0} />
-        </AspectRatio>
+      </Box>
+      <AspectRatio ratio={16 / 9}>
+        <ReactPlayer loop width="100%" height="100%" url={placeholderVideoUrl} playing volume={0} />
+      </AspectRatio>
 
-        {/* <Modal opened={clicked} withCloseButton={false} onClose={() => setClicked(false)} size="100vw">
+      {/* <Modal opened={clicked} withCloseButton={false} onClose={() => setClicked(false)} size="100vw">
         <ReactPlayer width="100%" height="100%" url={mainVideoUrl} playing />
       </Modal> */}
-      </Box>
-    </motion.div>
+    </MotionBox>
   )
 }
 

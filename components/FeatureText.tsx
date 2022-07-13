@@ -1,7 +1,7 @@
 import { Title, Text, Box } from '@mantine/core'
 import { FC } from 'react'
 
-const FeatureText: FC<{ title: string; titleWithColor: string; body: string }> = ({ title, titleWithColor, body }) => {
+const FeatureText: FC<{ title: string; coloredTitle: string; body: string }> = ({ title, coloredTitle, body }) => {
   return (
     <Box>
       <Box>
@@ -11,7 +11,7 @@ const FeatureText: FC<{ title: string; titleWithColor: string; body: string }> =
             color: theme.colors.red[3]
           })}
         >
-          {titleWithColor}
+          {coloredTitle}
         </Title>
       </Box>
       <Box sx={{ marginTop: '2em' }}>

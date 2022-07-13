@@ -1,5 +1,6 @@
 import { Box } from '@mantine/core'
 import Image from 'next/image'
+import { imageLoader } from '@/utils/graphcms'
 
 const ImageCard = ({ image }) => {
   return (

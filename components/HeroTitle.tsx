@@ -1,11 +1,13 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { Title } from '@mantine/core'
-import { motion, Variants, HTMLMotionProps } from 'framer-motion'
+import { motion, Variants, HTMLMotionProps, useAnimation } from 'framer-motion'
+import { useInView } from 'react-intersection-observer'
 
 // create an interface for out components props vs doing them inline inside of FC
 // extend the HTMLMotionProps from motion so we get the autocomplete
 // for motion elements on our component
 interface HeroTitleProps extends HTMLMotionProps<'div'> {
+  order?: number
   text: string
   color?: string
   size?: number
@@ -48,14 +50,27 @@ const child: Variants = {
   }
 }
 
-const HeroTitle: FC<HeroTitleProps> = ({ text, color, size, delay = 0, duration = 0.05 }) => {
+const HeroTitle: FC<HeroTitleProps> = ({ text, color, size, delay = 0, duration = 0.05, order = 1 }) => {
   const fontSize = size ? `${size}rem` : '4rem'
   // To do the animation, we need to seperate every letter,
   // this is the same as doing a .split('')
   const letters = Array.from(text)
+
+  const control = useAnimation()
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.5 })
+
+  useEffect(() => {
+    if (inView) {
+      control.start('visible')
+    } else {
+      control.start('hidden')
+    }
+  }, [control, inView])
+
   return (
     <MotionTitle
-      order={1}
+      ref={ref}
+      order={order}
       sx={(theme) => ({
         fontSize,
         color: color || theme.colors.violet[3],
@@ -65,7 +80,7 @@ const HeroTitle: FC<HeroTitleProps> = ({ text, color, size, delay = 0, duration 
         display: 'flex'
       })}
       initial="hidden"
-      animate="visible"
+      animate={control}
       variants={container({ delay, duration })}
     >
       {letters.map((letter, i) => (

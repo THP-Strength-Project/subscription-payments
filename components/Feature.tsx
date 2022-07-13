@@ -4,6 +4,7 @@ import { motion, useAnimation, Variants } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import FeatureImage from './FeatureImage'
 import FeatureText from './FeatureText'
+import { GrpahCMSImage } from '@/utils/graphcms'
 
 const imageVariants: Variants = {
   visible: { opacity: 1, scale: 1, y: 0, transition: { type: 'spring', bounce: 0.3 } },
@@ -22,7 +23,7 @@ const textVariants: Variants = {
 
 const Feature: FC<{
   reverse: boolean
-  feature: { image: string; body: string; title: string; titleWithColor: string }
+  feature: { image: GrpahCMSImage; body: string; title: string; coloredTitle: string }
 }> = ({ feature, reverse }) => {
   const control = useAnimation()
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.5 })
@@ -36,15 +37,15 @@ const Feature: FC<{
   }, [control, inView])
 
   return (
-    <Grid align="center" justify="center">
-      <Grid.Col span={5} sx={{ order: reverse ? 2 : 1 }}>
+    <Grid align="center" justify="center" gutter={80}>
+      <Grid.Col span={6} sx={{ order: reverse ? 2 : 1 }}>
         <motion.div ref={ref} variants={imageVariants} initial="hidden" animate={control}>
           <FeatureImage image={feature.image} />
         </motion.div>
       </Grid.Col>
-      <Grid.Col span={5} sx={{ order: reverse ? 1 : 2 }}>
+      <Grid.Col span={6} sx={{ order: reverse ? 1 : 2 }}>
         <motion.div ref={ref} variants={textVariants} initial="hidden" animate={control}>
-          <FeatureText body={feature.body} title={feature.title} titleWithColor={feature.titleWithColor} />
+          <FeatureText body={feature.body} title={feature.title} coloredTitle={feature.coloredTitle} />
         </motion.div>
       </Grid.Col>
     </Grid>

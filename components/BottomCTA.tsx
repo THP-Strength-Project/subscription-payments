@@ -37,7 +37,7 @@ const BottomCTA: FC<{ title: string; text: string; buttonText: string }> = ({ ti
         <Text sx={{ fontSize: '1.75em', lineHeight: '1.3em' }}>{text}</Text>
 
         <Box sx={{ marginTop: '1.8em', display: 'flex', justifyContent: 'center' }}>
-          <Button text={buttonText} type="transparent" size={1.8} color="black" />
+          <Button text={buttonText} color="white" size={1.8} />
         </Box>
       </Box>
     </Box>

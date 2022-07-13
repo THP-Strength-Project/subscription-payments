@@ -1,3 +1,10 @@
+export interface GrpahCMSImage {
+  height?: number
+  width?: number
+  size?: number
+  url: string
+}
+
 export const imageLoader = ({ src, width, height }) => {
   const match = /^(https?:\/\/media.graphassets.com)(?:\/[^/]+)?\/([^/]+)$/.exec(src)
 
@@ -34,68 +41,65 @@ async function fetchAPI(query, { variables }: { variables?: object; preview?: bo
   return json.data
 }
 
-export async function getHomePage(preview = false) {
+export interface HomePageContent {
+  featureSections: { id: string; body: string; coloredTitle: string; title: string; image: GrpahCMSImage }[]
+  logo: GrpahCMSImage
+  slug: string
+  title: string
+  testimonyTitle: string
+  testimonies: { id: string; name: string; quote: string }[]
+  miniFeature: { body: string; id: string; buttonText: string }
+}
+
+export async function getHomePage(preview = false): Promise<HomePageContent> {
   const data = await fetchAPI(
     `
-    query HomePageQuery($stage: Stage!, $id: ID!) {
-      homePage(where: {id: $id}, stage: $stage) {
-        title
-        subTitle
-        buttonLabel
-        featuredImage {
-          size
-          url
-          width
-          height
-        }
-        featuredInTitle
-        featuredInAssets {
-          id
-          size
-          url
-          width
-          height
-        }
-        video {
-          url
-        }
-        videoTitle
-        testimonyTitle
-        testimonySubtitle
-        testimonials {
-          id
-          clientName
-          clientTestimony
-          url
-          clientImage {
+      query HomePageQuery($id: ID!, $stage: Stage!) {
+        homePage(where: {id: $id}, stage: $stage) {
+          miniFeature {
+            body
+            id
+            buttonText
+          }
+          featureSections {
+            ... on Feature {
+              id
+              body
+              coloredTitle
+              image {
+                height
+                url
+                width
+              }
+              title
+            }
+          }
+          logo {
+            height
             size
             url
             width
-            height
           }
-        }
-        featureSections {
-          id
-          badgeText
-          buttonText
-          image {
-            url
-            width
-            height
-          }
+          slug
           title
+          testimonyTitle
+          testimonies {
+            id
+            name
+            quote
+          }
         }
       }
-    }`,
+    `,
     {
       preview,
       variables: {
         stage: preview ? 'DRAFT' : 'PUBLISHED',
-        id: 'cl37ua45h8ial0bn6d2pp18nn'
+        id: 'cl5j103y3mi7h09mxza1a09v5'
       }
     }
   )
-  return data.homePage
+  return data.homePage as HomePageContent
 }
 
 export const getAccountPage = async (preview = false) => {
