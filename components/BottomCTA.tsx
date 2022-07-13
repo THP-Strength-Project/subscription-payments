@@ -2,6 +2,7 @@ import { FC } from 'react'
 import { Box, Title, Text } from '@mantine/core'
 import Button from '@/components/Button'
 import Image from 'next/image'
+import { breakpoints } from '@/utils/breakpoints'
 
 const BottomCTA: FC<{ title: string; text: string; buttonText: string }> = ({ title, text, buttonText }) => {
   return (
@@ -15,7 +16,13 @@ const BottomCTA: FC<{ title: string; text: string; buttonText: string }> = ({ ti
         padding: '5em',
         minHeight: '70vh',
         position: 'relative',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        [breakpoints.phone]: {
+          padding: '5em 1em'
+        },
+        [breakpoints.tablet]: {
+          padding: '5em 1em'
+        }
       }}
     >
       <Box

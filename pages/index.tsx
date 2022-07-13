@@ -15,17 +15,9 @@ const Home: FC<{ content: HomePageContent; preview: boolean }> = ({ content, pre
     <Box sx={{ paddingTop: '2em' }}>
       <Container>
         <Box component="section" sx={{ display: 'flex', justifyContent: 'center' }}>
-          <Box>
-            <Box sx={{ marginBottom: '2em' }}>
-              <Center>
-                <Image
-                  src="https://media.graphassets.com/vVvn7KnOTCqulY0rI9Yq"
-                  sx={{ width: '100%', maxWidth: '60px' }}
-                />
-              </Center>
-            </Box>
+          <Box sx={{ width: '100%' }}>
             <Box sx={{ marginBottom: '10em' }}>
-              <HeroTitle text="Jump Higher Now" duration={0.01} />
+              <HeroTitle text="Jump Higher Now" duration={0.5} />
             </Box>
             <Box>
               <VideoBox />

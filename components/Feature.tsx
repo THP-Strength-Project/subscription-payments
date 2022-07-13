@@ -5,6 +5,7 @@ import { useInView } from 'react-intersection-observer'
 import FeatureImage from './FeatureImage'
 import FeatureText from './FeatureText'
 import { GrpahCMSImage } from '@/utils/graphcms'
+import { breakpoints } from '@/utils/breakpoints'
 
 const imageVariants: Variants = {
   visible: { opacity: 1, scale: 1, y: 0, transition: { type: 'spring', bounce: 0.3 } },
@@ -38,12 +39,20 @@ const Feature: FC<{
 
   return (
     <Grid align="center" justify="center" gutter={80}>
-      <Grid.Col span={6} sx={{ order: reverse ? 2 : 1 }}>
+      <Grid.Col
+        md={6}
+        xs={12}
+        sx={{ order: reverse ? 2 : 1, [breakpoints.phone]: { order: 1 }, [breakpoints.tablet]: { order: 1 } }}
+      >
         <motion.div ref={ref} variants={imageVariants} initial="hidden" animate={control}>
           <FeatureImage image={feature.image} />
         </motion.div>
       </Grid.Col>
-      <Grid.Col span={6} sx={{ order: reverse ? 1 : 2 }}>
+      <Grid.Col
+        md={6}
+        xs={12}
+        sx={{ order: reverse ? 1 : 2, [breakpoints.phone]: { order: 2 }, [breakpoints.tablet]: { order: 2 } }}
+      >
         <motion.div ref={ref} variants={textVariants} initial="hidden" animate={control}>
           <FeatureText body={feature.body} title={feature.title} coloredTitle={feature.coloredTitle} />
         </motion.div>
