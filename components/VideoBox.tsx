@@ -42,10 +42,11 @@ const VideoBox: FC<{ placeholderVideoUrl?: string; mainVideoUrl?: string }> = ({
       onMouseOut={(e) => setHovered(false)}
       sx={(theme) => ({
         borderRadius: '1em',
-        maxWidth: '1200px',
+        maxWidth: '800px',
         overflow: 'hidden',
         boxShadow: theme.shadows.md,
-        position: 'relative'
+        position: 'relative',
+        margin: '0 auto'
       })}
     >
       <Box

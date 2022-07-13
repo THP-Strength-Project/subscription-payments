@@ -54,7 +54,7 @@ const HeroTitle: FC<HeroTitleProps> = ({ text, color, size, delay = 0, duration 
   const fontSize = size ? `${size}rem` : '4rem'
   // To do the animation, we need to seperate every letter,
   // this is the same as doing a .split('')
-  const letters = Array.from(text)
+  const letters = text.split(' ')
 
   const control = useAnimation()
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.5 })
@@ -77,18 +77,20 @@ const HeroTitle: FC<HeroTitleProps> = ({ text, color, size, delay = 0, duration 
         lineHeight: '80px',
         letterSpacing: '-2px',
         userSelect: 'none',
-        display: 'flex'
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'center'
       })}
       initial="hidden"
       animate={control}
       variants={container({ delay, duration })}
     >
-      {letters.map((letter, i) => (
+      {letters.map((word, i) => (
         // we must convert an empty ' ' into the actual unicode value otherwise
         // JSX will not actually render an empty space
         // https://www.htmlsymbols.xyz/unicode
         <motion.span variants={child} key={i}>
-          {letter === ' ' ? '\u00A0' : letter}
+          {word + '\u00A0'}
         </motion.span>
       ))}
     </MotionTitle>

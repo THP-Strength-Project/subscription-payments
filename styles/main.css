@@ -62,3 +62,7 @@ a {
 .height-screen-helper {
   height: calc(100vh - 80px);
 }
+
+* {
+  /* border: 2px solid red; */
+}

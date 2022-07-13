@@ -1,13 +1,28 @@
-import { Header, Grid, Image, SimpleGrid } from '@mantine/core'
+import { Box, Header, Grid, Image, SimpleGrid } from '@mantine/core'
 import Button from './Button'
 import Container from './Container'
+import MobileMenu from './MobileMenu'
+import { breakpoints } from '@/utils/breakpoints'
 
 const Navbar = () => {
   const buttonSize = 1.4
 
   return (
     <Header height={80} p="xl">
-      <Container>
+      <Box
+        sx={{ display: 'none', [breakpoints.phone]: { display: 'unset' }, [breakpoints.tablet]: { display: 'unset' } }}
+      >
+        <Box sx={{ display: 'flex', justifyContent: 'end' }}>
+          <MobileMenu />
+          <Image src="https://media.graphassets.com/vVvn7KnOTCqulY0rI9Yq" sx={{ width: '100%', maxWidth: '40px' }} />
+        </Box>
+      </Box>
+      <Container
+        sx={{
+          [breakpoints.tablet]: { display: 'none' },
+          [breakpoints.phone]: { display: 'none' }
+        }}
+      >
         <Grid justify="space-between" gutter="sm" align="center">
           <Grid.Col span={3}>
             <Image src="https://media.graphassets.com/vVvn7KnOTCqulY0rI9Yq" sx={{ width: '100%', maxWidth: '40px' }} />
