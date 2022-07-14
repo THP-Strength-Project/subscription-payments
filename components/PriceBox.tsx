@@ -1,23 +1,23 @@
-import { FC, useEffect } from 'react'
-import { Box, Text, Title, List } from '@mantine/core'
-import { motion, Variants, HTMLMotionProps, useAnimation } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
-import Button from '@/components/Button'
-import { BsCheckCircleFill } from 'react-icons/bs'
+import { FC, useEffect } from 'react';
+import { Box, Text, Title, List } from '@mantine/core';
+import { motion, Variants, HTMLMotionProps, useAnimation } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+import Button from '@/components/Button';
+import { BsCheckCircleFill } from 'react-icons/bs';
 
 interface PlanProps extends HTMLMotionProps<'div'> {
-  name: string
-  cost: number
-  interval: number
-  subTitle: string
-  features: string[]
-  buttonText: string
-  gradient?: boolean
-  delay?: number
-  duration?: number
+  name: string;
+  cost: number;
+  interval: number;
+  subTitle: string;
+  features: string[];
+  buttonText: string;
+  gradient?: boolean;
+  delay?: number;
+  duration?: number;
 }
 
-const MotionBox = motion(Box)
+const MotionBox = motion(Box);
 
 const variants: Variants = {
   visible: {
@@ -30,7 +30,7 @@ const variants: Variants = {
     y: 20,
     transition: { type: 'spring', damping: 12, stiffness: 200 }
   }
-}
+};
 
 const PriceBox: FC<PlanProps> = ({
   name = 'Basic',
@@ -43,16 +43,16 @@ const PriceBox: FC<PlanProps> = ({
   delay = 0,
   duration = 0.5
 }) => {
-  const control = useAnimation()
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.8 })
+  const control = useAnimation();
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.8 });
 
   useEffect(() => {
     if (inView) {
-      control.start('visible')
+      control.start('visible');
     } else {
-      control.start('hidden')
+      control.start('hidden');
     }
-  }, [control, inView])
+  }, [control, inView]);
 
   return (
     <MotionBox
@@ -64,7 +64,9 @@ const PriceBox: FC<PlanProps> = ({
         backgroundColor: 'rgb(226, 231, 240)',
         borderRadius: '2em',
         padding: '3em',
-        background: gradient ? 'url(./dark_gradient.png) no-repeat bottom left' : '',
+        background: gradient
+          ? 'url(./dark_gradient.png) no-repeat bottom left'
+          : '',
         backgroundSize: gradient ? 'cover' : 'initial'
       }}
     >
@@ -86,7 +88,11 @@ const PriceBox: FC<PlanProps> = ({
             {'/' + interval}
           </Box>
         </Title>
-        <Title order={5} sx={(theme) => ({ color: gradient ? 'white' : theme.colors.gray[5] })} my={10}>
+        <Title
+          order={5}
+          sx={(theme) => ({ color: gradient ? 'white' : theme.colors.gray[5] })}
+          my={10}
+        >
           {subTitle}
         </Title>
       </Box>
@@ -95,20 +101,34 @@ const PriceBox: FC<PlanProps> = ({
           spacing="sm"
           size="md"
           center
-          icon={<BsCheckCircleFill fontSize={'1.5em'} color={gradient ? 'white' : 'black'} />}
+          icon={
+            <BsCheckCircleFill
+              fontSize={'1.5em'}
+              color={gradient ? 'white' : 'black'}
+            />
+          }
         >
           {features.map((feature) => (
             <List.Item key={feature}>
-              <Text sx={{ fontSize: '1.4em', color: gradient ? 'white' : 'black' }}>{feature}</Text>
+              <Text
+                sx={{ fontSize: '1.4em', color: gradient ? 'white' : 'black' }}
+              >
+                {feature}
+              </Text>
             </List.Item>
           ))}
         </List>
       </Box>
       <Box>
-        <Button text={buttonText} color={gradient ? 'white' : 'transparent'} fullWidth size={1.4} />
+        <Button
+          text={buttonText}
+          color={gradient ? 'white' : 'transparent'}
+          fullWidth
+          size={1.4}
+        />
       </Box>
     </MotionBox>
-  )
-}
+  );
+};
 
-export default PriceBox
+export default PriceBox;
