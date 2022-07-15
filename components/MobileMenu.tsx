@@ -1,9 +1,9 @@
-import { useRef } from 'react'
-import { motion, useCycle, Variants } from 'framer-motion'
-import { useDimensions } from '@/utils/hooks'
-import { Box } from '@mantine/core'
-import MobileMenuList from './MobileMenuList'
-import MobileMenuToggle from './MobileMenuToggle'
+import { useRef } from 'react';
+import { motion, useCycle, Variants } from 'framer-motion';
+import { useDimensions } from '@/utils/hooks';
+import { Box } from '@mantine/core';
+import MobileMenuList from './MobileMenuList';
+import MobileMenuToggle from './MobileMenuToggle';
 
 const sidebar: Variants = {
   open: (height = 1000) => ({
@@ -23,17 +23,23 @@ const sidebar: Variants = {
       damping: 40
     }
   }
-}
+};
 
-const MotionBox = motion(Box)
+const MotionBox = motion(Box);
 
 const MobileMenu = () => {
-  const [isOpen, toggleOpen] = useCycle(false, true)
-  const ref = useRef(null)
-  const { height } = useDimensions(ref)
+  const [isOpen, toggleOpen] = useCycle(false, true);
+  const ref = useRef(null);
+  const { height } = useDimensions(ref);
 
   return (
-    <MotionBox sx={{ width: '300px' }} initial={false} animate={isOpen ? 'open' : 'closed'} custom={height} ref={ref}>
+    <MotionBox
+      sx={{ width: '300px' }}
+      initial={false}
+      animate={isOpen ? 'open' : 'closed'}
+      custom={height}
+      ref={ref}
+    >
       <MotionBox
         variants={sidebar}
         sx={(theme) => ({
@@ -47,10 +53,10 @@ const MobileMenu = () => {
           zIndex: 3
         })}
       />
-      <MobileMenuList />
+      <MobileMenuList toggle={() => toggleOpen()} />
       <MobileMenuToggle toggle={() => toggleOpen()} />
     </MotionBox>
-  )
-}
+  );
+};
 
-export default MobileMenu
+export default MobileMenu;

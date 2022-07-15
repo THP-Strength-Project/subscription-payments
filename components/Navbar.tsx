@@ -1,20 +1,27 @@
-import { Box, Header, Grid, Image, SimpleGrid } from '@mantine/core'
-import Button from './Button'
-import Container from './Container'
-import MobileMenu from './MobileMenu'
-import { breakpoints } from '@/utils/breakpoints'
+import { Box, Header, Grid, Image, SimpleGrid } from '@mantine/core';
+import Button from './Button';
+import Container from './Container';
+import MobileMenu from './MobileMenu';
+import { breakpoints } from '@/utils/breakpoints';
 
 const Navbar = () => {
-  const buttonSize = 1.4
+  const buttonSize = 1.4;
 
   return (
     <Header height={80} p="xl">
       <Box
-        sx={{ display: 'none', [breakpoints.phone]: { display: 'unset' }, [breakpoints.tablet]: { display: 'unset' } }}
+        sx={{
+          display: 'none',
+          [breakpoints.phone]: { display: 'unset' },
+          [breakpoints.tablet]: { display: 'unset' }
+        }}
       >
         <Box sx={{ display: 'flex', justifyContent: 'end' }}>
           <MobileMenu />
-          <Image src="https://media.graphassets.com/vVvn7KnOTCqulY0rI9Yq" sx={{ width: '100%', maxWidth: '40px' }} />
+          <Image
+            src="https://media.graphassets.com/vVvn7KnOTCqulY0rI9Yq"
+            sx={{ width: '100%', maxWidth: '40px' }}
+          />
         </Box>
       </Box>
       <Container
@@ -25,7 +32,10 @@ const Navbar = () => {
       >
         <Grid justify="space-between" gutter="sm" align="center">
           <Grid.Col span={3}>
-            <Image src="https://media.graphassets.com/vVvn7KnOTCqulY0rI9Yq" sx={{ width: '100%', maxWidth: '40px' }} />
+            <Image
+              src="https://media.graphassets.com/vVvn7KnOTCqulY0rI9Yq"
+              sx={{ width: '100%', maxWidth: '40px' }}
+            />
           </Grid.Col>
           <Grid.Col span={5}>
             <Grid align="center" justify="center">
@@ -53,7 +63,7 @@ const Navbar = () => {
         </Grid>
       </Container>
     </Header>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

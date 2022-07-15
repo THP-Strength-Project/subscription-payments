@@ -1,6 +1,6 @@
-import { Box } from '@mantine/core'
-import { motion } from 'framer-motion'
-import MobileMenuListItem from './MobileMenuListItem'
+import { Box } from '@mantine/core';
+import { motion } from 'framer-motion';
+import MobileMenuListItem from './MobileMenuListItem';
 
 const variants = {
   open: {
@@ -9,12 +9,19 @@ const variants = {
   closed: {
     transition: { staggerChildren: 0.05, staggerDirection: -1 }
   }
-}
+};
 
-const itemIds = [0, 1, 2, 3, 4]
-const MotionBox = motion(Box)
+const itemIds = [
+  { text: 'Home', link: '/' },
+  { text: 'Pricing', link: '/pricing' },
+  { text: 'Team', link: '/team' },
+  { text: 'FAQs', link: '/other' },
+  { text: 'Login', link: '/login' },
+  { text: 'Signup', link: '/signup' }
+];
+const MotionBox = motion(Box);
 
-const MobileMenuList = () => (
+const MobileMenuList = ({ toggle }) => (
   <MotionBox
     component="ul"
     variants={variants}
@@ -28,9 +35,9 @@ const MobileMenuList = () => (
     }}
   >
     {itemIds.map((i) => (
-      <MobileMenuListItem i={i} key={i} />
+      <MobileMenuListItem toggle={toggle} i={i} key={i} />
     ))}
   </MotionBox>
-)
+);
 
-export default MobileMenuList
+export default MobileMenuList;

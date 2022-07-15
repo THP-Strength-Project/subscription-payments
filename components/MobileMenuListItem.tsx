@@ -1,5 +1,6 @@
-import { Box } from '@mantine/core'
-import { motion, Variants } from 'framer-motion'
+import { Box, Text, Anchor } from '@mantine/core';
+import { motion, Variants } from 'framer-motion';
+import Link from 'next/link';
 
 const variants: Variants = {
   open: {
@@ -16,11 +17,11 @@ const variants: Variants = {
       y: { stiffness: 1000 }
     }
   }
-}
+};
 
-const MotionBox = motion(Box)
+const MotionBox = motion(Box);
 
-const MobileMenuListItem = ({ i }) => {
+const MobileMenuListItem = ({ i, toggle }) => {
   // const style = { border: `2px solid ${colors[i]}` }
   return (
     <MotionBox
@@ -37,27 +38,18 @@ const MobileMenuListItem = ({ i }) => {
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
     >
-      <Box
-        sx={{
-          width: '40px',
-          height: '40px',
-          borderRadius: '50%',
-          flex: '40px 0',
-          marginRight: '20px',
-          border: '1px solid #FF008C'
-        }}
-      />
-      <Box
-        sx={{
-          borderRadius: '5px',
-          width: '200px',
-          height: '20px',
-          flex: 1,
-          border: '1px solid #D309E1'
-        }}
-      />
+      <Link href={i.link} passHref>
+        <Anchor
+          sx={{ textDecoration: 'none' }}
+          onClick={() => {
+            toggle();
+          }}
+        >
+          <Text sx={{ fontSize: '2em' }}>{i.text}</Text>
+        </Anchor>
+      </Link>
     </MotionBox>
-  )
-}
+  );
+};
 
-export default MobileMenuListItem
+export default MobileMenuListItem;
