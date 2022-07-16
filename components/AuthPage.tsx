@@ -1,13 +1,13 @@
-import { Box, Text } from '@mantine/core'
-import { FC, useEffect } from 'react'
-import AuthForm from './AuthForm'
-import { useRouter } from 'next/router'
-import { goToCheckout } from '@/utils/stripe-client'
-import { post } from '@/utils/api'
-import Container from './Container'
-import Footer from './Footer'
-import HeroTitle from './HeroTitle'
-import { breakpoints } from '@/utils/breakpoints'
+import { Box, Text } from '@mantine/core';
+import { FC, useEffect } from 'react';
+import AuthForm from './AuthForm';
+import { useRouter } from 'next/router';
+import { goToCheckout } from '@/utils/stripe-client';
+import { post } from '@/utils/api';
+import Container from './Container';
+import Footer from './Footer';
+import HeroTitle from './HeroTitle';
+import { breakpoints } from '@/utils/breakpoints';
 
 const columnStyle = {
   width: '50%',
@@ -19,26 +19,26 @@ const columnStyle = {
   [breakpoints.tablet]: {
     width: '100%'
   }
-}
+};
 
 const AuthPage: FC<{ signup?: boolean }> = ({ signup = false }) => {
-  const router = useRouter()
+  const router = useRouter();
 
   useEffect(() => {
     if (signup && !router.query.price) {
-      router.push('/pricing')
+      router.push('/pricing');
     }
-  }, [])
+  }, []);
 
   const handleSubmit = async ({ email, password, name }) => {
     if (signup) {
-      await post('/signup', { email, password, name })
-      goToCheckout(router.query.price)
+      await post('/signup', { email, password, name });
+      goToCheckout(router.query.price);
     } else {
-      await post('/signin', { email, password })
-      router.push('/account')
+      await post('/signin', { email, password });
+      router.push('/account');
     }
-  }
+  };
 
   return (
     <Box sx={{}}>
@@ -55,12 +55,13 @@ const AuthPage: FC<{ signup?: boolean }> = ({ signup = false }) => {
         }}
       >
         <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
-          <Box sx={columnStyle}>
-            <Box sx={{ width: '100%' }}>
-              <AuthForm signup={signup} onSubmit={handleSubmit} />
-            </Box>
-          </Box>
-          <Box sx={columnStyle}>
+          <Box
+            sx={{
+              ...columnStyle,
+              [breakpoints.phone]: { display: 'none' },
+              [breakpoints.tablet]: { display: 'none' }
+            }}
+          >
             <Box
               sx={{
                 backgroundColor: 'rgb(226, 231, 240)',
@@ -75,16 +76,28 @@ const AuthPage: FC<{ signup?: boolean }> = ({ signup = false }) => {
                 color="rgba(0,0,0,0.7)"
                 justify="start"
               />
-              <Text sx={{ fontSize: '2em', marginTop: '2em', color: 'rgba(0,0,0,0.4)', textAlign: 'end' }}>
+              <Text
+                sx={{
+                  fontSize: '2em',
+                  marginTop: '2em',
+                  color: 'rgba(0,0,0,0.4)',
+                  textAlign: 'end'
+                }}
+              >
                 {'- '}Michael Jordan
               </Text>
+            </Box>
+          </Box>
+          <Box sx={columnStyle}>
+            <Box sx={{ width: '100%' }}>
+              <AuthForm signup={signup} onSubmit={handleSubmit} />
             </Box>
           </Box>
         </Box>
       </Container>
       <Footer />
     </Box>
-  )
-}
+  );
+};
 
-export default AuthPage
+export default AuthPage;
