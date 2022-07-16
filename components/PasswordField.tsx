@@ -6,12 +6,12 @@ interface PasswordProps extends PasswordInputProps {
   forgotPasswordLink?: string
 }
 
-const PasswordField: FC<PasswordProps> = ({ forgotPasswordLink, disabled, ...rest }) => {
+const PasswordField: FC<PasswordProps> = ({ forgotPasswordLink, disabled, label, ...rest }) => {
   return (
     <Box>
       <Group position="apart" mb={10}>
         <Text component="label" htmlFor="your-password" size="lg" weight={100}>
-          Your password
+          {label}
         </Text>
 
         {forgotPasswordLink && !disabled && (

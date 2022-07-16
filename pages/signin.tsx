@@ -1,20 +1,27 @@
 import { getSignPage } from '@/utils/graphcms'
 import AuthPage from '@/components/AuthPage'
+import { isUserSignedIn } from '@/utils/auth'
 
 const SignIn = ({ content }) => {
   return <AuthPage />
 }
 
 export default SignIn
-export async function getStaticProps({ preview = false }) {
+export async function getServerSideProps({ preview = false, req }) {
+  if (isUserSignedIn(req.headers.cookie || '')) {
+    return {
+      redirect: {
+        destination: '/account',
+        permanent: false
+      }
+    }
+  }
   const page = await getSignPage(preview)
 
   return {
     props: {
       content: page,
       preview
-    },
-
-    revalidate: 10
+    }
   }
 }
