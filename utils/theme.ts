@@ -2,7 +2,7 @@ import { MantineThemeOverride } from '@mantine/core'
 
 const theme: MantineThemeOverride = {
   colorScheme: 'light',
-  primaryColor: 'red',
+  primaryColor: 'purple',
   fontFamily: 'Satoshi',
   lineHeight: '100%',
   primaryShade: 5,

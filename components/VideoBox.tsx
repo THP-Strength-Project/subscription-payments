@@ -35,7 +35,6 @@ const VideoBox: FC<{ placeholderVideoUrl?: string; mainVideoUrl?: string }> = ({
   return (
     <MotionBox
       ref={ref}
-      variants={animationVariants}
       initial="hidden"
       animate={control}
       onMouseOver={(e) => setHovered(true)}

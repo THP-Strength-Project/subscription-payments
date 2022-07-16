@@ -12,15 +12,13 @@ const TestimonyCard: FC<{ name: string; text: string; sx?: Sx }> = ({ name, text
         ...sx
       }}
     >
-      <Box>
-        <Blockquote
-          cite={name}
-          styles={{ cite: { color: 'black', fontSize: '.8em' } }}
-          sx={{ fontSize: '1.5em', color: 'rgba(0, 0, 0, 0.6)', lineHeight: '1.5em', fontWeight: 400 }}
-        >
-          {text}
-        </Blockquote>
-      </Box>
+      <Blockquote
+        cite={name}
+        styles={{ cite: { color: 'black', fontSize: '.8em' } }}
+        sx={{ fontSize: '1.5em', color: 'rgba(0, 0, 0, 0.6)', lineHeight: '1.5em', fontWeight: 400 }}
+      >
+        {text}
+      </Blockquote>
     </Box>
   )
 }

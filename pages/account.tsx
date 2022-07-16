@@ -19,7 +19,7 @@ import {
   SimpleGrid
 } from '@mantine/core'
 
-export default function Account({ user, plan, content }) {
+export default function Account({ user, plan }) {
   const fetchPortal = async () => {
     const { url } = await getPortalUrl()
     location.href = url
@@ -63,7 +63,7 @@ export default function Account({ user, plan, content }) {
           <Navbar height={60} p="sm">
             <SimpleGrid cols={4}>
               <Box>
-                <Image width={30} src={content.logo.logoImage.url} />
+                <Image width={30} src={''} />
               </Box>
               <Box>
                 <Text size="lg" weight="bold">
@@ -166,10 +166,8 @@ export async function getServerSideProps(context) {
   const { amount, product } = subscriptions.data[0]?.items?.data[0]?.plan
   const productObj = await stripe.products.retrieve(product as string)
 
-  const content = await getAccountPage(context.preview)
   return {
     props: {
-      content,
       user: {
         email: user.email,
         id: user.id,

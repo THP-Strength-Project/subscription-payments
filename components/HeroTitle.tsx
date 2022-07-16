@@ -13,6 +13,7 @@ interface HeroTitleProps extends HTMLMotionProps<'div'> {
   size?: number
   delay?: number
   duration?: number
+  justify?: string
 }
 
 // create a motion animatable component out of the Title component
@@ -50,7 +51,15 @@ const child: Variants = {
   }
 }
 
-const HeroTitle: FC<HeroTitleProps> = ({ text, color, size, delay = 0, duration = 0.05, order = 1 }) => {
+const HeroTitle: FC<HeroTitleProps> = ({
+  justify = 'center',
+  text,
+  color,
+  size,
+  delay = 0,
+  duration = 0.05,
+  order = 1
+}) => {
   const fontSize = size ? `${size}rem` : '4rem'
   // To do the animation, we need to seperate every letter,
   // this is the same as doing a .split('')
@@ -79,7 +88,7 @@ const HeroTitle: FC<HeroTitleProps> = ({ text, color, size, delay = 0, duration 
         userSelect: 'none',
         display: 'flex',
         flexWrap: 'wrap',
-        justifyContent: 'center'
+        justifyContent: justify
       })}
       initial="hidden"
       animate={control}
