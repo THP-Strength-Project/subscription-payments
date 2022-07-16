@@ -35,8 +35,8 @@ const AuthPage: FC<{ signup?: boolean }> = ({ signup = false }) => {
       await post('/signup', { email, password, name })
       goToCheckout(router.query.price)
     } else {
-      const result = await post('/signin', { email, password })
-      return result
+      await post('/signin', { email, password })
+      router.push('/account')
     }
   }
 
