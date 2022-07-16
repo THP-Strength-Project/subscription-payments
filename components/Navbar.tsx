@@ -68,12 +68,20 @@ const Navbar = () => {
                     />
                   </Grid.Col>
                   <Grid.Col span={5}>
-                    <Button
-                      color="white"
-                      size={buttonSize}
-                      text="my account"
-                      onClick={onSignout}
-                    />
+                    <NextLink href="/account" passHref>
+                      <Anchor
+                        sx={{
+                          textDecoration: 'none',
+                          '&:hover': { textDecoration: 'none' }
+                        }}
+                      >
+                        <Button
+                          color="white"
+                          size={buttonSize}
+                          text="My Account"
+                        />
+                      </Anchor>
+                    </NextLink>
                   </Grid.Col>
                 </>
               ) : (
