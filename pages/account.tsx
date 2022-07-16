@@ -2,22 +2,13 @@ import { getPortalUrl } from '../utils/stripe-client'
 import { stripe } from '@/utils/stripe'
 import { getUserFromToken } from '../utils/auth'
 import { useForm } from '@mantine/form'
-import { getAccountPage } from '@/utils/graphcms'
 import { post } from '@/utils/api'
-import Footer from '@/components/Footer'
-import {
-  Paper,
-  Navbar,
-  Box,
-  Text,
-  Button,
-  PasswordInput,
-  Group,
-  Input,
-  Container,
-  Image,
-  SimpleGrid
-} from '@mantine/core'
+import { Box, Text, Group, Input, Badge } from '@mantine/core'
+import Container from '@/components/Container'
+import HeroTitle from '@/components/HeroTitle'
+import Button from '@/components/Button'
+import PasswordField from '@/components/PasswordField'
+import InputField from '@/components/InputField'
 
 export default function Account({ user, plan }) {
   const fetchPortal = async () => {
@@ -57,104 +48,108 @@ export default function Account({ user, plan }) {
   }
 
   return (
-    <div>
-      <header>
-        <Paper shadow="xs">
-          <Navbar height={60} p="sm">
-            <SimpleGrid cols={4}>
-              <Box>
-                <Image width={30} src={''} />
-              </Box>
-              <Box>
-                <Text size="lg" weight="bold">
-                  Account / {user.name}
-                </Text>
-              </Box>
-            </SimpleGrid>
-          </Navbar>
-        </Paper>
-      </header>
-      <main style={{ background: '#efefef' }}>
-        <Container>
-          <Box sx={{ height: 'calc(100vh - 60px)', overflowY: 'auto' }} p="sm">
-            <Box mb="xl">
-              <Text size="xl" weight="bold" mb="sm">
-                Billing
-              </Text>
-              <Paper shadow="sm" p="sm">
-                <Text size="lg">Current Plan</Text>
-                <Text size="sm">
-                  {plan.name} - {plan.amount / 100}
-                </Text>
-
-                <Button onClick={fetchPortal}>Change Plan</Button>
-              </Paper>
+    <Container sx={{ padding: '5em 0' }}>
+      <Box p="sm">
+        <Box mb="xl">
+          <HeroTitle text="Billing" justify="start" size={2} color="black" />
+          <Box
+            sx={(theme) => ({
+              backgroundColor: theme.colors.gray[1],
+              padding: '2em',
+              borderRadius: '2em'
+            })}
+          >
+            <Box sx={{ marginBottom: '2em' }}>
+              <Badge variant="outline">Current Plan</Badge>
             </Box>
-
-            <Box>
-              <Text size="xl" weight="bold" mb="sm">
-                Settings
-              </Text>
-              <Paper shadow="sm" p="sm">
-                <Box mb="lg">
-                  <Text size="lg" mb="lg">
-                    Change Password
-                  </Text>
-                  <form onSubmit={passwordForm.onSubmit(onSubmit)}>
-                    <PasswordInput
-                      label="Current Password"
-                      placeholder="Password"
-                      {...passwordForm.getInputProps('password')}
-                    />
-
-                    <PasswordInput
-                      mt="sm"
-                      label="New password"
-                      placeholder="New password"
-                      {...passwordForm.getInputProps('newPassword')}
-                    />
-
-                    <Group position="right" mt="md">
-                      <Button type="submit">Change</Button>
-                    </Group>
-                  </form>
+            <Box sx={{ marginBottom: '2em' }}>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Box sx={{ paddingRight: '1.3em' }}>
+                  <Text sx={(theme) => ({ fontSize: '3em', color: theme.colors.gray[8] })}>{plan.name}</Text>
                 </Box>
-
-                {/** */}
                 <Box>
-                  <Text size="lg" mb="lg">
-                    Change Email
+                  <Text sx={{ fontSize: '1.2em' }}>/ every {plan.interval}</Text>
+                  <Text sx={(theme) => ({ fontSize: '1.2em', color: theme.colors.green[6] })}>
+                    ${plan.amount / 100}
                   </Text>
-                  <form onSubmit={emailForm.onSubmit(handleChangeEmail)}>
-                    <Input label="Current Email" initialvalue={user.email} value={user.email} disabled readOnly />
-
-                    <Input
-                      mt="sm"
-                      label="New Email"
-                      type="email"
-                      placeholder="New Email"
-                      {...emailForm.getInputProps('newEmail')}
-                    />
-
-                    <Group position="right" mt="md">
-                      <Button type="submit">Change</Button>
-                    </Group>
-                  </form>
                 </Box>
-              </Paper>
+              </Box>
+            </Box>
+            <Box sx={{ display: 'flex', justifyContent: 'end' }}>
+              <Button onClick={fetchPortal} text={'Change Plan'} color="black" />
             </Box>
           </Box>
-        </Container>
-      </main>
-      <Box>
-        <Footer />
+        </Box>
+
+        <Box>
+          <HeroTitle text="Settings" justify="start" size={1} color="black" />
+          <Box
+            sx={(theme) => ({
+              backgroundColor: theme.colors.gray[1],
+              padding: '2em',
+              borderRadius: '2em'
+            })}
+          >
+            <Box mb="lg">
+              <Box sx={{ paddingRight: '1.3em', marginBottom: '2em' }}>
+                <Text sx={(theme) => ({ fontSize: '3em', color: theme.colors.gray[8] })}>Change Password</Text>
+              </Box>
+              <form onSubmit={passwordForm.onSubmit(onSubmit)}>
+                <PasswordField
+                  label="Current Password"
+                  placeholder="Password"
+                  {...passwordForm.getInputProps('password')}
+                />
+
+                <Box sx={{ marginTop: '2em' }}>
+                  <PasswordField
+                    label="New password"
+                    placeholder="New password"
+                    {...passwordForm.getInputProps('newPassword')}
+                  />
+                </Box>
+
+                <Group position="right" mt="md">
+                  <Button type="submit" color="black" text="Change" />
+                </Group>
+              </form>
+            </Box>
+
+            {/** */}
+            <Box>
+              <Box sx={{ paddingRight: '1.3em', marginBottom: '2em' }}>
+                <Text sx={(theme) => ({ fontSize: '3em', color: theme.colors.gray[8] })}>Change Email</Text>
+              </Box>
+              <form onSubmit={emailForm.onSubmit(handleChangeEmail)}>
+                <Box>
+                  <InputField label="Current Email" initialvalue={user.email} value={user.email} disabled readOnly />
+                </Box>
+
+                <Box sx={{ marginTop: '2em' }}>
+                  <InputField
+                    mt="sm"
+                    label="New Email"
+                    type="email"
+                    placeholder="New Email"
+                    {...emailForm.getInputProps('newEmail')}
+                  />
+                </Box>
+
+                <Group position="right" mt="md">
+                  <Button type="submit" color="black" text="change" />
+                </Group>
+              </form>
+            </Box>
+          </Box>
+        </Box>
       </Box>
-    </div>
+    </Container>
   )
 }
 
 export async function getServerSideProps(context) {
-  const user = await getUserFromToken(context.req.headers.cookie)
+  console.log(context.req)
+  const user = await getUserFromToken(context.req.cookies)
 
   //handle error and loading states here
 
@@ -175,7 +170,8 @@ export async function getServerSideProps(context) {
       },
       plan: {
         amount,
-        name: productObj.name
+        name: productObj.name,
+        interval: subscriptions?.data[0]?.plan?.interval
       }
     }
   }

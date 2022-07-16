@@ -1,4 +1,5 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import Cookies from 'js-cookie'
 
 // Naive implementation - in reality would want to attach
 // a window or resize listener. Also use state/layoutEffect instead of ref/effect
@@ -13,4 +14,31 @@ export const useDimensions = (ref) => {
   }, [])
 
   return dimensions.current
+}
+
+export const useAuth = () => {
+  const cookieName: string = process.env.NEXT_PUBLIC_COOKIE_NAME
+
+  console.log(cookieName, Cookies.get(cookieName))
+  const setAuth = (jwt: string) => {
+    Cookies.set(cookieName, jwt)
+  }
+
+  const signout = () => {
+    Cookies.remove(cookieName)
+  }
+
+  const isSignedIn = () => {
+    const cookie = Cookies.get(cookieName)
+
+    console.log('cookie', cookie, cookieName)
+
+    if (cookie) {
+      return true
+    }
+
+    return false
+  }
+
+  return { isSignedIn, setAuth, signout }
 }
