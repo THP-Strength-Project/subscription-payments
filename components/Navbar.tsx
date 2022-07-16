@@ -1,21 +1,21 @@
-import { Box, Header, Grid, Image, Anchor, Divider } from '@mantine/core'
-import Button from './Button'
-import Container from './Container'
-import MobileMenu from './MobileMenu'
-import NextLink from 'next/link'
-import { breakpoints } from '@/utils/breakpoints'
-import { useAuth } from '@/utils/hooks'
-import { useRouter } from 'next/router'
+import { Box, Header, Grid, Image, Anchor } from '@mantine/core';
+import Button from './Button';
+import Container from './Container';
+import MobileMenu from './MobileMenu';
+import NextLink from 'next/link';
+import { breakpoints } from '@/utils/breakpoints';
+import { useAuth } from '@/utils/hooks';
+import { useRouter } from 'next/router';
 
 const Navbar = () => {
-  const { isSignedIn, signout } = useAuth()
-  const router = useRouter()
-  const buttonSize = 1.4
+  const { isSignedIn, signout } = useAuth();
+  const router = useRouter();
+  const buttonSize = 1.4;
 
   const onSignout = () => {
-    signout()
-    router.push('/')
-  }
+    signout();
+    router.push('/');
+  };
 
   return (
     <Header sx={{ borderBottom: 'none' }} height={80} p="xl">
@@ -75,25 +75,53 @@ const Navbar = () => {
               {isSignedIn() ? (
                 <>
                   <Grid.Col span={5}>
-                    <Button color="black" size={buttonSize} text="Sign out" onClick={onSignout} />
+                    <Button
+                      color="black"
+                      size={buttonSize}
+                      text="Sign out"
+                      onClick={onSignout}
+                    />
                   </Grid.Col>
                   <Grid.Col span={5}>
-                    <Button color="white" size={buttonSize} text="my account" onClick={onSignout} />
+                    <Button
+                      color="white"
+                      size={buttonSize}
+                      text="my account"
+                      onClick={onSignout}
+                    />
                   </Grid.Col>
                 </>
               ) : (
                 <>
                   <Grid.Col span={5}>
                     <NextLink href="/signin" passHref>
-                      <Anchor sx={{ textDecoration: 'none', '&:hover': { textDecoration: 'none' } }}>
-                        <Button color="transparent" size={buttonSize} text="Sign in" />
+                      <Anchor
+                        sx={{
+                          textDecoration: 'none',
+                          '&:hover': { textDecoration: 'none' }
+                        }}
+                      >
+                        <Button
+                          color="transparent"
+                          size={buttonSize}
+                          text="Sign in"
+                        />
                       </Anchor>
                     </NextLink>
                   </Grid.Col>
                   <Grid.Col span={5}>
                     <NextLink href="/signup" passHref>
-                      <Anchor sx={{ textDecoration: 'none', '&:hover': { textDecoration: 'none' } }}>
-                        <Button color="black" size={buttonSize} text="Sign up" />
+                      <Anchor
+                        sx={{
+                          textDecoration: 'none',
+                          '&:hover': { textDecoration: 'none' }
+                        }}
+                      >
+                        <Button
+                          color="black"
+                          size={buttonSize}
+                          text="Sign up"
+                        />
                       </Anchor>
                     </NextLink>
                   </Grid.Col>
@@ -104,7 +132,7 @@ const Navbar = () => {
         </Grid>
       </Container>
     </Header>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
