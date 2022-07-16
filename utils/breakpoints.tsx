@@ -3,10 +3,10 @@ import theme from './theme';
 const { xs, sm, md, lg, xl } = theme.breakpoints;
 
 export const breakpoints = {
-  phone: `@media only screen and (min-device-width: 320px) and (max-device-width: ${xs}px)`,
+  phone: `@media only screen and (min-device-width: 0px) and (max-device-width: ${xs}px)`,
   tablet: `@media only screen and (min-device-width: ${
     xs + 1
-  }px) and (max-device-width: ${sm}px)`,
+  }px) and (max-device-width: 920px)`,
   laptop: `@media only screen and (min-device-width: ${
     md + 1
   }px) and (max-device-width: ${lg}px)`,

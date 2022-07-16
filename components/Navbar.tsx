@@ -1,12 +1,12 @@
-import { Box, Header, Grid, Image, SimpleGrid, Anchor } from '@mantine/core'
-import Button from './Button'
-import Container from './Container'
-import MobileMenu from './MobileMenu'
-import NextLink from 'next/link'
-import { breakpoints } from '@/utils/breakpoints'
+import { Box, Header, Grid, Image, SimpleGrid, Anchor } from '@mantine/core';
+import Button from './Button';
+import Container from './Container';
+import MobileMenu from './MobileMenu';
+import NextLink from 'next/link';
+import { breakpoints } from '@/utils/breakpoints';
 
 const Navbar = () => {
-  const buttonSize = 1.4
+  const buttonSize = 1.4;
 
   return (
     <Header sx={{ borderBottom: 'none' }} height={80} p="xl">
@@ -46,31 +46,32 @@ const Navbar = () => {
               </a>
             </NextLink>
           </Grid.Col>
-          <Grid.Col span={5}>
-            <Grid align="center" justify="center">
-              <Grid.Col span={4}>
-                <Button color="white" size={buttonSize} text="Pricing" />
-              </Grid.Col>
-              <Grid.Col span={4}>
-                <Button color="white" size={buttonSize} text="Team" />
-              </Grid.Col>
-              <Grid.Col span={4}>
-                <Button color="white" size={buttonSize} text="Other" />
-              </Grid.Col>
-            </Grid>
-          </Grid.Col>
           <Grid.Col span={3}>
             <Grid align="center" justify="center" gutter={20}>
               <Grid.Col span={5}>
                 <NextLink href="/signin" passHref>
-                  <Anchor sx={{ textDecoration: 'none', '&:hover': { textDecoration: 'none' } }}>
-                    <Button color="transparent" size={buttonSize} text="Sign in" />
+                  <Anchor
+                    sx={{
+                      textDecoration: 'none',
+                      '&:hover': { textDecoration: 'none' }
+                    }}
+                  >
+                    <Button
+                      color="transparent"
+                      size={buttonSize}
+                      text="Sign in"
+                    />
                   </Anchor>
                 </NextLink>
               </Grid.Col>
               <Grid.Col span={5}>
                 <NextLink href="/signup" passHref>
-                  <Anchor sx={{ textDecoration: 'none', '&:hover': { textDecoration: 'none' } }}>
+                  <Anchor
+                    sx={{
+                      textDecoration: 'none',
+                      '&:hover': { textDecoration: 'none' }
+                    }}
+                  >
                     <Button color="black" size={buttonSize} text="Sign up" />
                   </Anchor>
                 </NextLink>
@@ -80,7 +81,7 @@ const Navbar = () => {
         </Grid>
       </Container>
     </Header>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

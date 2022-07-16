@@ -13,7 +13,6 @@ const variants = {
 
 const itemIds = [
   { text: 'Home', link: '/' },
-  { text: 'Pricing', link: '/pricing' },
   { text: 'Team', link: '/team' },
   { text: 'FAQs', link: '/other' },
   { text: 'Login', link: '/login' },
