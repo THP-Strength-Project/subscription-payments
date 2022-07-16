@@ -1,20 +1,26 @@
-import { Box, Center, Image } from '@mantine/core'
-import Container from '@/components/Container'
-import HeroTitle from '@/components/HeroTitle'
-import VideoBox from '@/components/VideoBox'
-import SubHero from '@/components/SubHero'
-import TestimonySection from '@/components/TestimonySection'
-import Feature from '@/components/Feature'
-import Footer from '@/components/Footer'
-import BottomCTA from '@/components/BottomCTA'
-import { getHomePage, HomePageContent } from '@/utils/graphcms'
-import { FC } from 'react'
+import { Box, Center, Image } from '@mantine/core';
+import Container from '@/components/Container';
+import HeroTitle from '@/components/HeroTitle';
+import VideoBox from '@/components/VideoBox';
+import SubHero from '@/components/SubHero';
+import TestimonySection from '@/components/TestimonySection';
+import Feature from '@/components/Feature';
+import Footer from '@/components/Footer';
+import BottomCTA from '@/components/BottomCTA';
+import { getHomePage, HomePageContent } from '@/utils/graphcms';
+import { FC } from 'react';
 
-const Home: FC<{ content: HomePageContent; preview: boolean }> = ({ content, preview }) => {
+const Home: FC<{ content: HomePageContent; preview: boolean }> = ({
+  content,
+  preview
+}) => {
   return (
     <Box sx={{ paddingTop: '2em' }}>
       <Container>
-        <Box component="section" sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Box
+          component="section"
+          sx={{ display: 'flex', justifyContent: 'center' }}
+        >
           <Box sx={{ width: '100%' }}>
             <Box sx={{ marginBottom: '10em' }}>
               <HeroTitle text="Jump Higher Now" duration={0.5} />
@@ -25,10 +31,16 @@ const Home: FC<{ content: HomePageContent; preview: boolean }> = ({ content, pre
           </Box>
         </Box>
         <Box mt="10em" component="section">
-          <SubHero text={content.miniFeature.body} buttonText={content.miniFeature.buttonText} />
+          <SubHero
+            text={content.miniFeature.body}
+            buttonText={content.miniFeature.buttonText}
+          />
         </Box>
         <Box mt="10em" component="section">
-          <TestimonySection testimonies={content.testimonies} title={content.testimonyTitle} />
+          <TestimonySection
+            testimonies={content.testimonies}
+            title={content.testimonyTitle}
+          />
         </Box>
         <Box component="section" mt="10em">
           {content.featureSections.map((feature, i) => (
@@ -43,14 +55,12 @@ const Home: FC<{ content: HomePageContent; preview: boolean }> = ({ content, pre
         <Footer />
       </Box>
     </Box>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
 export async function getStaticProps({ preview = false }) {
-  const page = await getHomePage(preview)
-
-  console.log(page)
+  const page = await getHomePage(preview);
 
   return {
     props: {
@@ -59,5 +69,5 @@ export async function getStaticProps({ preview = false }) {
     },
 
     revalidate: 10
-  }
+  };
 }

@@ -1,24 +1,28 @@
 export interface GrpahCMSImage {
-  height?: number
-  width?: number
-  size?: number
-  url: string
+  height?: number;
+  width?: number;
+  size?: number;
+  url: string;
 }
 
 export const imageLoader = ({ src, width, height }) => {
-  const match = /^(https?:\/\/media.graphassets.com)(?:\/[^/]+)?\/([^/]+)$/.exec(src)
+  const match =
+    /^(https?:\/\/media.graphassets.com)(?:\/[^/]+)?\/([^/]+)$/.exec(src);
 
   if (!match) {
-    throw new Error('Invalid GraphCMS asset URL')
+    throw new Error('Invalid GraphCMS asset URL');
   }
 
-  const [prefix, handle] = match.slice(1)
-  const resizedSrc = `${prefix}/resize=width:${width},height:${height}/${handle}`
+  const [prefix, handle] = match.slice(1);
+  const resizedSrc = `${prefix}/resize=width:${width},height:${height}/${handle}`;
 
-  return resizedSrc
-}
+  return resizedSrc;
+};
 
-async function fetchAPI(query, { variables }: { variables?: object; preview?: boolean }) {
+async function fetchAPI(
+  query,
+  { variables }: { variables?: object; preview?: boolean }
+) {
   const res = await fetch(process.env.GRAPHCMS_PROJECT_API, {
     method: 'POST',
     headers: {
@@ -29,26 +33,32 @@ async function fetchAPI(query, { variables }: { variables?: object; preview?: bo
       query,
       variables
     })
-  })
+  });
 
-  const json = await res.json()
+  const json = await res.json();
 
   if (json.errors) {
-    console.error(json.errors)
-    throw new Error('Failed to fetch API')
+    console.error(json.errors);
+    throw new Error('Failed to fetch API');
   }
 
-  return json.data
+  return json.data;
 }
 
 export interface HomePageContent {
-  featureSections: { id: string; body: string; coloredTitle: string; title: string; image: GrpahCMSImage }[]
-  logo: GrpahCMSImage
-  slug: string
-  title: string
-  testimonyTitle: string
-  testimonies: { id: string; name: string; quote: string }[]
-  miniFeature: { body: string; id: string; buttonText: string }
+  featureSections: {
+    id: string;
+    body: string;
+    coloredTitle: string;
+    title: string;
+    image: GrpahCMSImage;
+  }[];
+  logo: GrpahCMSImage;
+  slug: string;
+  title: string;
+  testimonyTitle: string;
+  testimonies: { id: string; name: string; quote: string }[];
+  miniFeature: { body: string; id: string; buttonText: string };
 }
 
 export async function getHomePage(preview = false): Promise<HomePageContent> {
@@ -98,8 +108,8 @@ export async function getHomePage(preview = false): Promise<HomePageContent> {
         id: 'cl5j103y3mi7h09mxza1a09v5'
       }
     }
-  )
-  return data.homePage as HomePageContent
+  );
+  return data.homePage as HomePageContent;
 }
 
 export const getAccountPage = async (preview = false) => {
@@ -124,10 +134,10 @@ export const getAccountPage = async (preview = false) => {
         id: 'cl3kv0yw87pfw0cn1t34crl6x'
       }
     }
-  )
+  );
 
-  return data.accountPage
-}
+  return data.accountPage;
+};
 
 export const getSignPage = async (preview = false) => {
   const data = await fetchAPI(
@@ -162,10 +172,10 @@ export const getSignPage = async (preview = false) => {
         id: 'cl4c0a2ulkoe90cmy6xyyck1o'
       }
     }
-  )
+  );
 
-  return data.signIn
-}
+  return data.signIn;
+};
 
 export const getPricingPage = async (preview = false) => {
   const data = await fetchAPI(
@@ -198,7 +208,35 @@ export const getPricingPage = async (preview = false) => {
         id: 'cl4oj1twtcn5t09n1cdmq01dd'
       }
     }
-  )
+  );
 
-  return data.pricing
-}
+  return data.pricing;
+};
+
+export const getFaqPage = async (preview = false) => {
+  const data = await fetchAPI(
+    `query FaqPageQuery($id: ID!, $stage: Stage!) {
+      faqPage(where: {id: $id}, stage: $stage) {
+        id
+        title
+        subtitle
+        faqs {
+          id
+          question
+          answer
+        }
+      }
+    }
+  
+  `,
+    {
+      preview,
+      variables: {
+        stage: preview ? 'DRAFT' : 'PUBLISHED',
+        id: 'cl5o85oilrxy90cmuf07an1nj'
+      }
+    }
+  );
+
+  return data.faqPage;
+};
