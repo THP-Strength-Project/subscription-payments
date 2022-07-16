@@ -1,20 +1,20 @@
-import { getPortalUrl } from '../utils/stripe-client'
-import { stripe } from '@/utils/stripe'
-import { getUserFromToken } from '../utils/auth'
-import { useForm } from '@mantine/form'
-import { post } from '@/utils/api'
-import { Box, Text, Group, Input, Badge } from '@mantine/core'
-import Container from '@/components/Container'
-import HeroTitle from '@/components/HeroTitle'
-import Button from '@/components/Button'
-import PasswordField from '@/components/PasswordField'
-import InputField from '@/components/InputField'
+import { getPortalUrl } from '../utils/stripe-client';
+import { stripe } from '@/utils/stripe';
+import { getUserFromToken } from '../utils/auth';
+import { useForm } from '@mantine/form';
+import { post } from '@/utils/api';
+import { Box, Text, Group, Input, Badge } from '@mantine/core';
+import Container from '@/components/Container';
+import HeroTitle from '@/components/HeroTitle';
+import Button from '@/components/Button';
+import PasswordField from '@/components/PasswordField';
+import InputField from '@/components/InputField';
 
 export default function Account({ user, plan }) {
   const fetchPortal = async () => {
-    const { url } = await getPortalUrl()
-    location.href = url
-  }
+    const { url } = await getPortalUrl();
+    location.href = url;
+  };
 
   const passwordForm = useForm({
     initialValues: {
@@ -23,9 +23,10 @@ export default function Account({ user, plan }) {
     },
 
     validate: {
-      newPassword: (value, values) => (value === values.password ? 'Passwords are the same' : null)
+      newPassword: (value, values) =>
+        value === values.password ? 'Passwords are the same' : null
     }
-  })
+  });
 
   const emailForm = useForm({
     initialValues: {
@@ -35,17 +36,17 @@ export default function Account({ user, plan }) {
     validate: {
       newEmail: (value) => (value === user.email ? 'Emails as the same' : null)
     }
-  })
+  });
 
   const onSubmit = async (values) => {
-    await post('/change-password', values)
-    passwordForm.reset()
-  }
+    await post('/change-password', values);
+    passwordForm.reset();
+  };
 
   const handleChangeEmail = async (values) => {
-    await post('/change-email', values)
-    emailForm.reset()
-  }
+    await post('/change-email', values);
+    emailForm.reset();
+  };
 
   return (
     <Container sx={{ padding: '5em 0' }}>
@@ -65,18 +66,36 @@ export default function Account({ user, plan }) {
             <Box sx={{ marginBottom: '2em' }}>
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <Box sx={{ paddingRight: '1.3em' }}>
-                  <Text sx={(theme) => ({ fontSize: '3em', color: theme.colors.gray[8] })}>{plan.name}</Text>
+                  <Text
+                    sx={(theme) => ({
+                      fontSize: '3em',
+                      color: theme.colors.gray[8]
+                    })}
+                  >
+                    {plan.name}
+                  </Text>
                 </Box>
                 <Box>
-                  <Text sx={{ fontSize: '1.2em' }}>/ every {plan.interval}</Text>
-                  <Text sx={(theme) => ({ fontSize: '1.2em', color: theme.colors.green[6] })}>
+                  <Text sx={{ fontSize: '1.2em' }}>
+                    / every {plan.interval}
+                  </Text>
+                  <Text
+                    sx={(theme) => ({
+                      fontSize: '1.2em',
+                      color: theme.colors.green[6]
+                    })}
+                  >
                     ${plan.amount / 100}
                   </Text>
                 </Box>
               </Box>
             </Box>
             <Box sx={{ display: 'flex', justifyContent: 'end' }}>
-              <Button onClick={fetchPortal} text={'Change Plan'} color="black" />
+              <Button
+                onClick={fetchPortal}
+                text={'Change Plan'}
+                color="black"
+              />
             </Box>
           </Box>
         </Box>
@@ -92,7 +111,14 @@ export default function Account({ user, plan }) {
           >
             <Box mb="lg">
               <Box sx={{ paddingRight: '1.3em', marginBottom: '2em' }}>
-                <Text sx={(theme) => ({ fontSize: '3em', color: theme.colors.gray[8] })}>Change Password</Text>
+                <Text
+                  sx={(theme) => ({
+                    fontSize: '3em',
+                    color: theme.colors.gray[8]
+                  })}
+                >
+                  Change Password
+                </Text>
               </Box>
               <form onSubmit={passwordForm.onSubmit(onSubmit)}>
                 <PasswordField
@@ -118,11 +144,24 @@ export default function Account({ user, plan }) {
             {/** */}
             <Box>
               <Box sx={{ paddingRight: '1.3em', marginBottom: '2em' }}>
-                <Text sx={(theme) => ({ fontSize: '3em', color: theme.colors.gray[8] })}>Change Email</Text>
+                <Text
+                  sx={(theme) => ({
+                    fontSize: '3em',
+                    color: theme.colors.gray[8]
+                  })}
+                >
+                  Change Email
+                </Text>
               </Box>
               <form onSubmit={emailForm.onSubmit(handleChangeEmail)}>
                 <Box>
-                  <InputField label="Current Email" initialvalue={user.email} value={user.email} disabled readOnly />
+                  <InputField
+                    label="Current Email"
+                    initialvalue={user.email}
+                    value={user.email}
+                    disabled
+                    readOnly
+                  />
                 </Box>
 
                 <Box sx={{ marginTop: '2em' }}>
@@ -144,23 +183,29 @@ export default function Account({ user, plan }) {
         </Box>
       </Box>
     </Container>
-  )
+  );
 }
 
 export async function getServerSideProps(context) {
-  console.log(context.req)
-  const user = await getUserFromToken(context.req.cookies)
-
+  console.log(context.req.cookies);
+  const user = await getUserFromToken(context.req.cookies);
+  if (!user) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      }
+    };
+  }
   //handle error and loading states here
 
   const subscriptions = await stripe.subscriptions.list({
     limit: 1,
     customer: user.customerId
-  })
-
-  const { amount, product } = subscriptions.data[0]?.items?.data[0]?.plan
-  const productObj = await stripe.products.retrieve(product as string)
-
+  });
+  const { amount, product } = subscriptions.data[0]?.items?.data[0]?.plan;
+  const productObj = await stripe.products.retrieve(product as string);
+  console.log(user);
   return {
     props: {
       user: {
@@ -174,5 +219,5 @@ export async function getServerSideProps(context) {
         interval: subscriptions?.data[0]?.plan?.interval
       }
     }
-  }
+  };
 }
