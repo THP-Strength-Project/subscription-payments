@@ -84,7 +84,6 @@ const HeroTitle: FC<HeroTitleProps> = ({
         fontSize,
         color: color || theme.colors.violet[3],
         lineHeight: '80px',
-        letterSpacing: '-2px',
         userSelect: 'none',
         display: 'flex',
         flexWrap: 'wrap',

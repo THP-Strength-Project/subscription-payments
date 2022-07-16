@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { UnstyledButton, Box, Button as MButton } from '@mantine/core'
+import { Box, Button as MButton } from '@mantine/core'
 
 const Button: FC<{
   fullWidth?: boolean
@@ -9,7 +9,8 @@ const Button: FC<{
   type?: 'button' | 'reset' | 'submit'
   color?: 'white' | 'black' | 'transparent'
   loading?: boolean
-}> = ({ size, text, type = 'text', active = false, fullWidth = false, color = 'white', loading = false }) => {
+  onClick?: () => void
+}> = ({ onClick, size, text, type = 'text', active = false, fullWidth = false, color = 'white', loading = false }) => {
   const gray = 'rgba(0, 2, 24, 0.48)'
 
   return (
@@ -20,6 +21,7 @@ const Button: FC<{
       }}
     >
       <MButton
+        onClick={onClick}
         loading={loading}
         type={type}
         sx={(theme) => ({
