@@ -14,9 +14,9 @@ const variants = {
 const itemIds = [
   { text: 'Home', link: '/' },
   { text: 'Team', link: '/team' },
-  { text: 'FAQs', link: '/other' },
-  { text: 'Login', link: '/login' },
-  { text: 'Signup', link: '/signup' }
+  { text: 'FAQs', link: '/faq' },
+  { text: 'Sig in', link: '/sigin' },
+  { text: 'Sign up', link: '/signup' }
 ];
 const MotionBox = motion(Box);
 
@@ -34,7 +34,7 @@ const MobileMenuList = ({ toggle }) => (
     }}
   >
     {itemIds.map((i) => (
-      <MobileMenuListItem toggle={toggle} i={i} key={i} />
+      <MobileMenuListItem toggle={toggle} i={i} key={i.text} />
     ))}
   </MotionBox>
 );

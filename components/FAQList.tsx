@@ -1,7 +1,9 @@
-import { FC } from 'react'
-import { Accordion } from '@mantine/core'
+import { FC } from 'react';
+import { Accordion } from '@mantine/core';
 
-const FAQList: FC<{ items: { question: string; answer: string }[] }> = ({ items = [] }) => {
+const FAQList: FC<{ items: { question: string; answer: string }[] }> = ({
+  items = []
+}) => {
   return (
     <Accordion
       iconPosition="right"
@@ -32,12 +34,12 @@ const FAQList: FC<{ items: { question: string; answer: string }[] }> = ({ items 
       }}
     >
       {items.map((item) => (
-        <Accordion.Item label={item.question} key={item.question}>
+        <Accordion.Item label={item.question} key={item.id || item.question}>
           {item.answer}
         </Accordion.Item>
       ))}
     </Accordion>
-  )
-}
+  );
+};
 
-export default FAQList
+export default FAQList;

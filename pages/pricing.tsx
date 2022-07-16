@@ -39,7 +39,7 @@ const Pricing: FC<{
               sx={{
                 fontSize: '3.5em',
                 [breakpoints.phone]: {
-                  'font-size': '2.3em'
+                  fontSize: '2.3em'
                 }
               }}
             >
@@ -59,9 +59,9 @@ const Pricing: FC<{
 
           <Grid.Col
             sx={{
-              'max-width': '40%',
+              maxWidth: '40%',
               [breakpoints.phone]: {
-                'max-width': '100%'
+                maxWidth: '100%'
               },
               marginTop: 40,
               marginBottom: 40
@@ -87,7 +87,7 @@ const Pricing: FC<{
               gutter="lg"
               sx={{
                 display: 'flex',
-                'justify-content': 'center',
+                justifyContent: 'center',
                 [breakpoints.phone]: {
                   flexDirection: 'column',
                   alignItems: 'center'
@@ -96,9 +96,9 @@ const Pricing: FC<{
             >
               <Grid.Col
                 sx={{
-                  'max-width': '40%',
+                  maxWidth: '40%',
                   [breakpoints.phone]: {
-                    'max-width': '100%'
+                    maxWidth: '100%'
                   }
                 }}
               >
@@ -112,9 +112,9 @@ const Pricing: FC<{
               </Grid.Col>
               <Grid.Col
                 sx={{
-                  'max-width': '40%',
+                  maxWidth: '40%',
                   [breakpoints.phone]: {
-                    'max-width': '100%'
+                    maxWidth: '100%'
                   }
                 }}
               >

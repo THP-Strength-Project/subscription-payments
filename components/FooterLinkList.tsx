@@ -32,7 +32,7 @@ const FooterLinkList: FC<{ links: any[]; title: string }> = ({
         {links.map((link) => {
           if (!link.external && !link.mail) {
             return (
-              <Box my="1em">
+              <Box key={link.url} my="1em">
                 <Link href={link.url} passHref>
                   <Anchor href={link.url} sx={linkStyles}>
                     {link.label}
@@ -43,7 +43,7 @@ const FooterLinkList: FC<{ links: any[]; title: string }> = ({
           }
 
           return (
-            <Box my="1em">
+            <Box key={link.url} my="1em">
               <Anchor
                 href={link.url}
                 sx={linkStyles}
