@@ -1,32 +1,42 @@
 import { FC } from 'react'
-import { Box, Title, Accordion } from '@mantine/core'
+import { Accordion } from '@mantine/core'
 
-const FAQList: FC<{ items: { question: string; answer: string }[] }> = ({ items }) => {
+const FAQList: FC<{ items: { question: string; answer: string }[] }> = ({ items = [] }) => {
   return (
-    <Box>
-      <Title order={3} align="center" sx={(theme) => ({ marginBottom: theme.spacing.xl * 2 })}>
-        Frequently Asked Questions
-      </Title>
-      <Accordion
-        iconPosition="right"
-        iconSize={40}
-        styles={{
-          label: {
-            fontSize: '2.5em'
-          },
-          content: {
-            fontSize: '1.5em',
-            lineHeight: '1.4em'
+    <Accordion
+      iconPosition="right"
+      iconSize={40}
+      styles={{
+        label: {
+          fontSize: '1.5em',
+          fontWeight: 'bold'
+        },
+        control: {
+          backgroundColor: 'rgb(226, 231, 240)',
+          padding: '1.8em',
+          '&:hover': {
+            backgroundColor: 'rgb(226, 231, 240)'
           }
-        }}
-      >
-        {items.map((item) => (
-          <Accordion.Item label={item.question} key={item.question}>
-            {item.answer}
-          </Accordion.Item>
-        ))}
-      </Accordion>
-    </Box>
+        },
+        item: {
+          marginBottom: '1em',
+          borderRadius: '1.2em',
+          overflow: 'hidden'
+        },
+        content: {
+          fontSize: '1.5em',
+          lineHeight: '1.4em',
+          backgroundColor: 'rgb(226, 231, 240)',
+          padding: '0 .6em'
+        }
+      }}
+    >
+      {items.map((item) => (
+        <Accordion.Item label={item.question} key={item.question}>
+          {item.answer}
+        </Accordion.Item>
+      ))}
+    </Accordion>
   )
 }
 

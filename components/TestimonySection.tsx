@@ -82,7 +82,7 @@ const TestimonySection: FC<TestimonySectionProps> = ({
         variants={container({ delay, duration })}
       >
         {testimonies.map((testimony) => (
-          <MotionCol span={12} md={4} variants={child}>
+          <MotionCol span={12} md={4} variants={child} sx={{ display: 'flex' }}>
             <TestimonyCard name={testimony.name} text={testimony.quote} sx={{ margin: '0 auto' }} />
           </MotionCol>
         ))}
