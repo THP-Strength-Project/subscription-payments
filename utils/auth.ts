@@ -24,7 +24,7 @@ export const getUserFromToken = async (
 };
 
 export const isUserSignedIn = (userCookie) => {
-  const parsedCookies = cookie.parse(userCookie);
+  const parsedCookies = cookie.parse(userCookie || "");
   if (!parsedCookies || !parsedCookies[process.env.COOKIE_NAME]) {
     return false;
   }

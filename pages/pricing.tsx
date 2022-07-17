@@ -166,6 +166,7 @@ export async function getStaticProps() {
     props: {
       stripeSubscriptions,
       content
-    }
+    },
+    revalidate: 10
   };
 }

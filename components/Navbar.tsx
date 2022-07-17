@@ -55,21 +55,6 @@ const Navbar = () => {
               </a>
             </NextLink>
           </Grid.Col>
-          <Grid.Col span={5}>
-            {!isSignedIn() && (
-              <Grid align="center" justify="center">
-                <Grid.Col span={4}>
-                  <Button color="white" size={buttonSize} text="Pricing" />
-                </Grid.Col>
-                <Grid.Col span={4}>
-                  <Button color="white" size={buttonSize} text="Team" />
-                </Grid.Col>
-                <Grid.Col span={4}>
-                  <Button color="white" size={buttonSize} text="Other" />
-                </Grid.Col>
-              </Grid>
-            )}
-          </Grid.Col>
           <Grid.Col span={3}>
             <Grid align="center" justify="center" gutter={20}>
               {isSignedIn() ? (
