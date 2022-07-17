@@ -7,6 +7,7 @@ import FAQList from '@/components/FAQList';
 import Footer from '@/components/Footer';
 import { getPricingPage } from '@/utils/graphcms';
 import { breakpoints } from '@/utils/breakpoints';
+import CustomePriceCard from '@/components/CustomPriceCard';
 
 const Pricing: FC<{
   content: {
@@ -118,9 +119,8 @@ const Pricing: FC<{
                   }
                 }}
               >
-                <PriceCard
+                <CustomePriceCard
                   buttonText="Contact Us"
-                  stripePrice={getPriceById(activeSub)}
                   badge="Custom"
                   badgeColor="blue"
                   features={[
