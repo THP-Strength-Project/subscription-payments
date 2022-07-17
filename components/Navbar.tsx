@@ -89,7 +89,6 @@ const Navbar = () => {
                           color="white"
                           size={buttonSize}
                           text="my account"
-                          onClick={onSignout}
                         />
                       </Anchor>
                     </NextLink>

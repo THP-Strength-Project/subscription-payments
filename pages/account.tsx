@@ -9,11 +9,17 @@ import HeroTitle from '@/components/HeroTitle';
 import Button from '@/components/Button';
 import PasswordField from '@/components/PasswordField';
 import InputField from '@/components/InputField';
+import { useState } from 'react';
+import ErrorMessage from '@/components/ErrorMessage';
 
 export default function Account({ user, plan }) {
   const fetchPortal = async () => {
-    const { url } = await getPortalUrl();
-    location.href = url;
+    const data = await getPortalUrl();
+    if (data.error) {
+      setError(data.message);
+      return;
+    }
+    location.href = data.url;
   };
 
   const passwordForm = useForm({
@@ -38,18 +44,32 @@ export default function Account({ user, plan }) {
     }
   });
 
+  const [errorMessage, setError] = useState('');
+
   const onSubmit = async (values) => {
-    await post('/change-password', values);
+    const data = await post('/change-password', values);
+    if (data.error) {
+      setError(data.message);
+    }
     passwordForm.reset();
   };
 
   const handleChangeEmail = async (values) => {
-    await post('/change-email', values);
+    const data = await post('/change-email', values);
+    if (data.error) {
+      setError(data.message);
+    }
     emailForm.reset();
   };
 
   return (
     <Container sx={{ padding: '5em 0' }}>
+      <ErrorMessage
+        message={errorMessage}
+        onClose={() => {
+          setError('');
+        }}
+      />
       <Box p="sm">
         <Box mb="xl">
           <HeroTitle text="Billing" justify="start" size={2} color="black" />
@@ -188,7 +208,18 @@ export default function Account({ user, plan }) {
 
 export async function getServerSideProps(context) {
   console.log(context.req.cookies);
-  const user = await getUserFromToken(context.req.cookies);
+
+  let user;
+  try {
+    user = await getUserFromToken(context.req.cookies);
+  } catch (e) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      }
+    };
+  }
   if (!user) {
     return {
       redirect: {
@@ -199,25 +230,33 @@ export async function getServerSideProps(context) {
   }
   //handle error and loading states here
 
-  const subscriptions = await stripe.subscriptions.list({
-    limit: 1,
-    customer: user.customerId
-  });
-  const { amount, product } = subscriptions.data[0]?.items?.data[0]?.plan;
-  const productObj = await stripe.products.retrieve(product as string);
-  console.log(user);
-  return {
-    props: {
-      user: {
-        email: user.email,
-        id: user.id,
-        name: user.name
-      },
-      plan: {
-        amount,
-        name: productObj.name,
-        interval: subscriptions?.data[0]?.plan?.interval
+  try {
+    const subscriptions = await stripe.subscriptions.list({
+      limit: 1,
+      customer: user.customerId
+    });
+    const { amount, product } = subscriptions.data[0]?.items?.data[0]?.plan;
+    const productObj = await stripe.products.retrieve(product as string);
+    return {
+      props: {
+        user: {
+          email: user.email,
+          id: user.id,
+          name: user.name
+        },
+        plan: {
+          amount,
+          name: productObj.name,
+          interval: subscriptions?.data[0]?.plan?.interval
+        }
       }
-    }
-  };
+    };
+  } catch (e) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      }
+    };
+  }
 }

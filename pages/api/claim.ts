@@ -1,5 +1,5 @@
-import bcrypt from 'bcrypt'
-import prisma from '@/utils/prisma'
+import bcrypt from 'bcrypt';
+import prisma from '@/utils/prisma';
 /**
  *
  * @param req the incoming request
@@ -13,20 +13,31 @@ import prisma from '@/utils/prisma'
  * 2. delete the token for the user
  */
 const claim = async (req, res) => {
-  const { password, token } = req.body
-  const salt = bcrypt.genSaltSync()
-  const newPassword = bcrypt.hashSync(password, salt)
+  const { password, token } = req.body;
+  const salt = bcrypt.genSaltSync();
+  const newPassword = bcrypt.hashSync(password, salt);
 
-  const claimToken = await prisma.token.delete({
-    where: { value: token }
-  })
+  let claimToken;
+  try {
+    claimToken = await prisma.token.delete({
+      where: { value: token }
+    });
+  } catch (e) {
+    res.status(500).send({ error: 'Sorry, try again.' });
+    return;
+  }
 
-  await prisma.user.update({
-    where: { id: claimToken.userId },
-    data: { password: newPassword }
-  })
+  try {
+    await prisma.user.update({
+      where: { id: claimToken.userId },
+      data: { password: newPassword }
+    });
+  } catch (e) {
+    res.status(500).send({ error: 'Sorry, try again.' });
+    return;
+  }
 
-  res.json({ ok: true })
-}
+  res.json({ ok: true });
+};
 
-export default claim
+export default claim;

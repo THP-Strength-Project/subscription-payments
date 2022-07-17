@@ -1,5 +1,5 @@
 import { Box, Text } from '@mantine/core';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import AuthForm from './AuthForm';
 import { useRouter } from 'next/router';
 import { goToCheckout } from '@/utils/stripe-client';
@@ -8,6 +8,7 @@ import Container from './Container';
 import Footer from './Footer';
 import HeroTitle from './HeroTitle';
 import { breakpoints } from '@/utils/breakpoints';
+import ErrorMessage from './ErrorMessage';
 
 const columnStyle = {
   width: '50%',
@@ -24,6 +25,8 @@ const columnStyle = {
 const AuthPage: FC<{ signup?: boolean }> = ({ signup = false }) => {
   const router = useRouter();
 
+  const [errorMessage, setError] = useState('');
+
   useEffect(() => {
     if (signup && !router.query.price) {
       router.push('/pricing');
@@ -32,16 +35,32 @@ const AuthPage: FC<{ signup?: boolean }> = ({ signup = false }) => {
 
   const handleSubmit = async ({ email, password, name }) => {
     if (signup) {
-      await post('/signup', { email, password, name });
+      const data = await post('/signup', { email, password, name });
+      if (data.error) {
+        // Do something with the message
+        setError(data.message);
+        return;
+      }
       goToCheckout(router.query.price);
     } else {
-      await post('/signin', { email, password });
+      const data = await post('/signin', { email, password });
+      if (data.error) {
+        // Do something with the message
+        setError(data.message);
+        return;
+      }
       router.push('/account');
     }
   };
 
   return (
     <Box sx={{}}>
+      <ErrorMessage
+        message={errorMessage}
+        onClose={() => {
+          setError('');
+        }}
+      />
       <Container
         sx={{
           padding: '5em',

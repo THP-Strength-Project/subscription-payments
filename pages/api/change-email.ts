@@ -1,19 +1,30 @@
-import { getUserFromToken } from '@/utils/auth'
-import prisma from '@/utils/prisma'
+import { getUserFromToken } from '@/utils/auth';
+import prisma from '@/utils/prisma';
 
 const changeEmail = async (req, res) => {
-  const user = await getUserFromToken(req.headers.cookie)
-
-  if (!user) {
-    return res.status(401).send('oops')
+  let user;
+  try {
+    user = await getUserFromToken(req.headers.cookie);
+  } catch (e) {
+    res.status(500).send({ error: 'oops' });
+    return;
   }
 
-  await prisma.user.update({
-    where: { id: user.id },
-    data: { email: req.body.newEmail }
-  })
+  if (!user) {
+    return res.status(401).send('oops');
+  }
 
-  res.json({ email: req.body.newEmail })
-}
+  try {
+    await prisma.user.update({
+      where: { id: user.id },
+      data: { email: req.body.newEmail }
+    });
+  } catch (e) {
+    res.status(500).send({ error: 'Could not change email, try again.' });
+    return;
+  }
 
-export default changeEmail
+  res.json({ email: req.body.newEmail });
+};
+
+export default changeEmail;
