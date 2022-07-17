@@ -2,8 +2,8 @@ import prisma from './prisma';
 import jwt from 'jsonwebtoken';
 import * as cookie from 'cookie';
 
-export const getUserFromToken: string | { [key: string]: string } = async (
-  cookies
+export const getUserFromToken = async (
+  cookies: string | { [key: string]: string }
 ) => {
   let authCookie;
   if (typeof cookies === 'string') {

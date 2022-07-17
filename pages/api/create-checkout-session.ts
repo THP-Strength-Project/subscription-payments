@@ -1,15 +1,19 @@
-import { stripe } from 'utils/stripe'
-import { getURL } from 'utils/helpers'
-import { NextApiRequest, NextApiResponse } from 'next'
-import { getUserFromToken } from '@/utils/auth'
+import { stripe } from 'utils/stripe';
+import { getURL } from 'utils/helpers';
+import { NextApiRequest, NextApiResponse } from 'next';
+import { getUserFromToken } from '@/utils/auth';
+import prisma from '@/utils/prisma';
 
-const createCheckoutSession = async (req: NextApiRequest, res: NextApiResponse) => {
+const createCheckoutSession = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+) => {
   if (req.method === 'POST') {
-    const { price, quantity = 1 } = req.body
-
+    const { price, quantity = 1 } = req.body;
+    let user;
     try {
-      const user = await getUserFromToken(req.headers.cookie)
-      if (!user) throw Error('Could not get user')
+      user = await getUserFromToken(req.headers.cookie);
+      if (!user) throw Error('Could not get user');
 
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
@@ -29,17 +33,18 @@ const createCheckoutSession = async (req: NextApiRequest, res: NextApiResponse) 
         // },
         success_url: `${getURL()}/account`,
         cancel_url: `${getURL()}/`
-      })
+      });
 
-      return res.status(200).json({ url: session.url })
+      return res.status(200).json({ url: session.url });
     } catch (err) {
-      console.log(err)
-      res.status(500).json({ error: { statusCode: 500, message: err.message } })
+      console.log(err);
+      await prisma.user.delete({ where: { id: user.id } });
+      res.status(500).json({ error: 'Sorry, try again.' });
     }
   } else {
-    res.setHeader('Allow', 'POST')
-    res.status(405).end('Method Not Allowed')
+    res.setHeader('Allow', 'POST');
+    res.status(405).end('Method Not Allowed');
   }
-}
+};
 
-export default createCheckoutSession
+export default createCheckoutSession;

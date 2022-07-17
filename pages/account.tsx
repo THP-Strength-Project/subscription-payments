@@ -188,7 +188,18 @@ export default function Account({ user, plan }) {
 
 export async function getServerSideProps(context) {
   console.log(context.req.cookies);
-  const user = await getUserFromToken(context.req.cookies);
+
+  let user;
+  try {
+    user = await getUserFromToken(context.req.cookies);
+  } catch (e) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      }
+    };
+  }
   if (!user) {
     return {
       redirect: {
@@ -199,25 +210,33 @@ export async function getServerSideProps(context) {
   }
   //handle error and loading states here
 
-  const subscriptions = await stripe.subscriptions.list({
-    limit: 1,
-    customer: user.customerId
-  });
-  const { amount, product } = subscriptions.data[0]?.items?.data[0]?.plan;
-  const productObj = await stripe.products.retrieve(product as string);
-  console.log(user);
-  return {
-    props: {
-      user: {
-        email: user.email,
-        id: user.id,
-        name: user.name
-      },
-      plan: {
-        amount,
-        name: productObj.name,
-        interval: subscriptions?.data[0]?.plan?.interval
+  try {
+    const subscriptions = await stripe.subscriptions.list({
+      limit: 1,
+      customer: user.customerId
+    });
+    const { amount, product } = subscriptions.data[0]?.items?.data[0]?.plan;
+    const productObj = await stripe.products.retrieve(product as string);
+    return {
+      props: {
+        user: {
+          email: user.email,
+          id: user.id,
+          name: user.name
+        },
+        plan: {
+          amount,
+          name: productObj.name,
+          interval: subscriptions?.data[0]?.plan?.interval
+        }
       }
-    }
-  };
+    };
+  } catch (e) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      }
+    };
+  }
 }
