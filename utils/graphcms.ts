@@ -5,6 +5,18 @@ export interface GrpahCMSImage {
   url: string;
 }
 
+export interface MemberContent {
+  id: string,
+  name: string,
+  bio: string,
+  image: GrpahCMSImage[],
+  instagramLink: string,
+  facebookLink: string,
+  twitterLink: string,
+  linkedInLink: string,
+  email: string,
+}
+
 export const imageLoader = ({ src, width, height }) => {
   const match =
     /^(https?:\/\/media.graphassets.com)(?:\/[^/]+)?\/([^/]+)$/.exec(src);
