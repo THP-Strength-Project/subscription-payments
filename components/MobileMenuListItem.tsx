@@ -24,8 +24,10 @@ const MotionBox = motion(Box);
 
 const MobileMenuListItem = ({ i, toggle }) => {
   const { signout } = useAuth();
-  const handleLogout = () => {
-    if(toggle.signout) signout()
+  const handleLogout = (item) => {
+    if (item.signout) {
+      signout()
+    }
     return
   }
   return (
@@ -42,7 +44,7 @@ const MobileMenuListItem = ({ i, toggle }) => {
       variants={variants}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
-      onClick={handleLogout}
+      onClick={() => handleLogout(i)}
     >
       <Link href={i.link} passHref>
         <Anchor
