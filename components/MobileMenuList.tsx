@@ -43,6 +43,7 @@ const MobileMenuList = ({ toggle }) => {
         top: '100px',
         width: '230px',
         margin: 0,
+        right: -10,
         zIndex: 4
       }}
     >
@@ -51,6 +52,6 @@ const MobileMenuList = ({ toggle }) => {
       ))}
     </MotionBox>
   );
-} 
+}
 
 export default MobileMenuList;
