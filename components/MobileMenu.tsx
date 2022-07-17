@@ -53,7 +53,7 @@ const MobileMenu = () => {
           zIndex: 3
         })}
       />
-      <MobileMenuList toggle={() => toggleOpen()} />
+      {isOpen && <MobileMenuList toggle={() => toggleOpen()} />}
       <MobileMenuToggle toggle={() => toggleOpen()} />
     </MotionBox>
   );
