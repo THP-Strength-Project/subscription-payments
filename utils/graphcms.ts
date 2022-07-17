@@ -240,3 +240,48 @@ export const getFaqPage = async (preview = false) => {
 
   return data.faqPage;
 };
+
+export const getTeamPage = async (preview = false) => {
+  const data = await fetchAPI(
+    `query TeamPageQuery($id: ID!, $stage: Stage!) {
+      teamPage(where: {id: $id}, stage: $stage) {
+        callToAction {
+          id
+          title
+          subtitle
+          buttonText
+        }
+        subtitle
+        teamMember {
+          ... on TeamMember {
+            id
+            image {
+              height
+              url
+              width
+            }
+            name
+            instagramLink
+            facebookLink
+            linkedInLink
+            twitterLink
+            email
+            bio
+          }
+        }
+        title
+      }
+    }
+  
+  `,
+    {
+      preview,
+      variables: {
+        stage: preview ? 'DRAFT' : 'PUBLISHED',
+        id: 'cl5onpumnzi790clpnrzcap1l'
+      }
+    }
+  );
+
+  return data.teamPage;
+};
