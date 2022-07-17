@@ -28,6 +28,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       }
     });
   } catch (e) {
+    console.log('Here');
+    console.log(e);
     res.status(500).json({ error: 'Sorry, try again.' });
     return;
   }
@@ -45,6 +47,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       }
     });
   } catch (e) {
+    console.log('Here 2');
+    console.log(e);
     await prisma.user.delete({ where: { id: user.id } });
     res.status(500).json({ error: 'Sorry, try again.' });
     return;
@@ -59,6 +63,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       }
     });
   } catch (e) {
+    console.log('Here 3');
+    console.log(e);
     await prisma.user.delete({ where: { id: user.id } });
     await stripe.customers.del(user.customerId);
     res.status(500).json({ error: 'Sorry, try again.' });

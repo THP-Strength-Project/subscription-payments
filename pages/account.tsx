@@ -9,11 +9,17 @@ import HeroTitle from '@/components/HeroTitle';
 import Button from '@/components/Button';
 import PasswordField from '@/components/PasswordField';
 import InputField from '@/components/InputField';
+import { useState } from 'react';
+import ErrorMessage from '@/components/ErrorMessage';
 
 export default function Account({ user, plan }) {
   const fetchPortal = async () => {
-    const { url } = await getPortalUrl();
-    location.href = url;
+    const data = await getPortalUrl();
+    if (data.error) {
+      setError(data.message);
+      return;
+    }
+    location.href = data.url;
   };
 
   const passwordForm = useForm({
@@ -38,18 +44,32 @@ export default function Account({ user, plan }) {
     }
   });
 
+  const [errorMessage, setError] = useState('');
+
   const onSubmit = async (values) => {
-    await post('/change-password', values);
+    const data = await post('/change-password', values);
+    if (data.error) {
+      setError(data.message);
+    }
     passwordForm.reset();
   };
 
   const handleChangeEmail = async (values) => {
-    await post('/change-email', values);
+    const data = await post('/change-email', values);
+    if (data.error) {
+      setError(data.message);
+    }
     emailForm.reset();
   };
 
   return (
     <Container sx={{ padding: '5em 0' }}>
+      <ErrorMessage
+        message={errorMessage}
+        onClose={() => {
+          setError('');
+        }}
+      />
       <Box p="sm">
         <Box mb="xl">
           <HeroTitle text="Billing" justify="start" size={2} color="black" />
