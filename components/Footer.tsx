@@ -10,7 +10,7 @@ const pageLinks = [
 ];
 
 const contactLinks = [
-  { label: 'Email', url: 'mailto:whatever@gmail.com', mail: true }
+  { label: 'Email', url: 'mailto:support@thpstrength.com', mail: true }
 ];
 const supportLinks = [{ label: 'FAQ', url: '/faq' }];
 const socialLinks = [
