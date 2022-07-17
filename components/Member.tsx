@@ -3,8 +3,8 @@ import { FC, useEffect } from 'react'
 import { motion, useAnimation, Variants } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import FeatureImage from './FeatureImage'
-import FeatureText from './FeatureText'
-import { GrpahCMSImage } from '@/utils/graphcms'
+import MemberText from './MemberText'
+import { MemberContent } from '@/utils/graphcms'
 import { breakpoints } from '@/utils/breakpoints'
 
 const imageVariants: Variants = {
@@ -24,7 +24,7 @@ const textVariants: Variants = {
 
 const Member: FC<{
     reverse: boolean
-    member: { image: GrpahCMSImage; bio: string; name: string; email: string }
+    member: MemberContent
 }> = ({ member, reverse }) => {
     console.log(member)
     const control = useAnimation()
@@ -45,7 +45,7 @@ const Member: FC<{
                 sx={{ order: reverse ? 2 : 1, [breakpoints.phone]: { order: 1 }, [breakpoints.tablet]: { order: 1 } }}
             >
                 <motion.div ref={ref} variants={imageVariants} initial="hidden" animate={control}>
-                    <FeatureImage image={member.image} />
+                    <FeatureImage image={member.image[0]} />
                 </motion.div>
             </Grid.Col>
             <Grid.Col
@@ -54,7 +54,7 @@ const Member: FC<{
                 sx={{ order: reverse ? 1 : 2, [breakpoints.phone]: { order: 2 }, [breakpoints.tablet]: { order: 2 } }}
             >
                 <motion.div ref={ref} variants={textVariants} initial="hidden" animate={control}>
-                    <FeatureText body={member.bio} title={member.name} coloredTitle={member.email} />[]
+                    <MemberText member={member} />[]
                 </motion.div>
             </Grid.Col>
         </Grid>

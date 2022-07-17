@@ -1,4 +1,4 @@
-import { Box, Center, Image } from '@mantine/core'
+import { Box } from '@mantine/core'
 import Container from '@/components/Container'
 import HeroTitle from '@/components/HeroTitle'
 import Footer from '@/components/Footer'
