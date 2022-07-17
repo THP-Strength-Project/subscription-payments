@@ -19,7 +19,6 @@ export const useDimensions = (ref) => {
 export const useAuth = () => {
   const cookieName: string = process.env.NEXT_PUBLIC_COOKIE_NAME
 
-  console.log(cookieName, Cookies.get(cookieName))
   const setAuth = (jwt: string) => {
     Cookies.set(cookieName, jwt)
   }
@@ -30,8 +29,6 @@ export const useAuth = () => {
 
   const isSignedIn = () => {
     const cookie = Cookies.get(cookieName)
-
-    console.log('cookie', cookie, cookieName)
 
     if (cookie) {
       return true

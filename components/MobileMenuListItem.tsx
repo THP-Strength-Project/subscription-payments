@@ -1,5 +1,6 @@
 import { Box, Text, Anchor } from '@mantine/core';
 import { motion, Variants } from 'framer-motion';
+import { useAuth } from '@/utils/hooks';
 import Link from 'next/link';
 
 const variants: Variants = {
@@ -22,7 +23,11 @@ const variants: Variants = {
 const MotionBox = motion(Box);
 
 const MobileMenuListItem = ({ i, toggle }) => {
-  // const style = { border: `2px solid ${colors[i]}` }
+  const { signout } = useAuth();
+  const handleLogout = () => {
+    if(toggle.signout) signout()
+    return
+  }
   return (
     <MotionBox
       sx={{
@@ -37,6 +42,7 @@ const MobileMenuListItem = ({ i, toggle }) => {
       variants={variants}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
+      onClick={handleLogout}
     >
       <Link href={i.link} passHref>
         <Anchor

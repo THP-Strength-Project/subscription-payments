@@ -50,8 +50,6 @@ export default Home
 export async function getStaticProps({ preview = false }) {
   const page = await getHomePage(preview)
 
-  console.log(page)
-
   return {
     props: {
       content: page,
