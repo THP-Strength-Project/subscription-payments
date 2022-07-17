@@ -1,4 +1,4 @@
-import { Box, Stack, Anchor, Image, Text, Alert } from '@mantine/core'
+import { Box, Stack, Anchor, Image, Text } from '@mantine/core'
 import PasswordField from './PasswordField'
 import InputField from './InputField'
 import { useForm } from '@mantine/form'
@@ -29,15 +29,12 @@ const AuthForm: FC<{ signup?: boolean; onSubmit: (values: { email: string; passw
   })
 
   const [loading, setLoading] = useState(false)
-  const [hasError, setHasError] = useState(false)
 
   const handleSubmit = async (values) => {
-    setHasError(false)
     setLoading(true)
     try {
       await onSubmit(values)
     } catch (e) {
-      setHasError(true)
     } finally {
       form.reset()
       setLoading(false)
@@ -67,16 +64,6 @@ const AuthForm: FC<{ signup?: boolean; onSubmit: (values: { email: string; passw
       </Box>
       <Box sx={{ marginBottom: '7em' }}>
         <HeroTitle text={signup ? 'Sign up' : 'Sign in'} size={2} />
-        {hasError && (
-          <Alert
-            title="oops!"
-            color="red"
-            styles={{ title: { fontSize: '1.5em' }, message: { fontSize: '1.2em', overflow: 'visible' } }}
-            sx={{ padding: '1.5em' }}
-          >
-            Something went wrong, try that again.
-          </Alert>
-        )}
       </Box>
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <Stack spacing="xl">
@@ -104,6 +91,7 @@ const AuthForm: FC<{ signup?: boolean; onSubmit: (values: { email: string; passw
             disabled={loading}
             size="lg"
             required
+            label="Your password"
             forgotPasswordLink={signup ? null : '/forgot'}
             {...form.getInputProps('password')}
             styles={{ innerInput: inputStyles }}

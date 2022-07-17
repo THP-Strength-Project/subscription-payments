@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import Cookies from 'js-cookie'
 
 // Naive implementation - in reality would want to attach
@@ -18,7 +18,6 @@ export const useDimensions = (ref) => {
 
 export const useAuth = () => {
   const cookieName: string = process.env.NEXT_PUBLIC_COOKIE_NAME
-
   const setAuth = (jwt: string) => {
     Cookies.set(cookieName, jwt)
   }
@@ -29,7 +28,6 @@ export const useAuth = () => {
 
   const isSignedIn = () => {
     const cookie = Cookies.get(cookieName)
-
     if (cookie) {
       return true
     }

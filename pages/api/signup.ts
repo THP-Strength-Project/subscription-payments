@@ -1,18 +1,18 @@
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import cookie from 'cookie';
-import { NextApiRequest, NextApiResponse } from 'next';
-import prisma from '../../utils/prisma';
-import { stripe } from '../../utils/stripe';
-import { sendVerifyEmail } from '../../utils/mail';
-import { v4 as uuidv4 } from 'uuid';
-import { getURL } from '@/utils/helpers';
+import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
+import cookie from 'cookie'
+import { NextApiRequest, NextApiResponse } from 'next'
+import prisma from '../../utils/prisma'
+import { stripe } from '../../utils/stripe'
+import { sendVerifyEmail } from '../../utils/mail'
+import { v4 as uuidv4 } from 'uuid'
+import { getURL } from '@/utils/helpers'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const salt = bcrypt.genSaltSync();
-  const { email, password, name } = req.body;
+  const salt = bcrypt.genSaltSync()
+  const { email, password, name } = req.body
 
-  let user;
+  let user
 
   try {
     user = await prisma.user.create({
@@ -26,18 +26,17 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           }
         }
       }
-    });
+    })
   } catch (e) {
-    console.log('Here');
-    console.log(e);
-    res.status(500).json({ error: 'Sorry, try again.' });
-    return;
+    console.log(e)
+    res.status(500).json({ error: 'Sorry, try again.' })
+    return
   }
   if (!user) {
-    res.status(500).json({ error: 'Sorry, try again.' });
-    return;
+    res.status(500).json({ error: 'Sorry, try again.' })
+    return
   }
-  let customer;
+  let customer
   try {
     customer = await stripe.customers.create({
       email,
@@ -45,13 +44,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       metadata: {
         id: user.id
       }
-    });
+    })
   } catch (e) {
-    console.log('Here 2');
-    console.log(e);
-    await prisma.user.delete({ where: { id: user.id } });
-    res.status(500).json({ error: 'Sorry, try again.' });
-    return;
+    console.log(e)
+    await prisma.user.delete({ where: { id: user.id } })
+    res.status(500).json({ error: 'Sorry, try again.' })
+    return
   }
 
   try {
@@ -61,26 +59,25 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       include: {
         tokens: true
       }
-    });
+    })
   } catch (e) {
-    console.log('Here 3');
-    console.log(e);
-    await prisma.user.delete({ where: { id: user.id } });
-    await stripe.customers.del(user.customerId);
-    res.status(500).json({ error: 'Sorry, try again.' });
-    return;
+    console.log(e)
+    await prisma.user.delete({ where: { id: user.id } })
+    await stripe.customers.del(user.customerId)
+    res.status(500).json({ error: 'Sorry, try again.' })
+    return
   }
 
-  const verifiedURL = `${getURL()}/verify?token=${user.tokens[0].value}`;
+  const verifiedURL = `${getURL()}/verify?token=${user.tokens[0].value}`
 
   const emailData = {
     user: {
       name: user.name,
       verifiedURL
     }
-  };
+  }
 
-  await sendVerifyEmail(user.email, emailData);
+  await sendVerifyEmail(user.email, emailData)
 
   const token = jwt.sign(
     {
@@ -90,7 +87,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     },
     process.env.JWT_SECRET as string,
     { expiresIn: '8d' }
-  );
+  )
 
   res.setHeader(
     'Set-Cookie',
@@ -100,7 +97,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       sameSite: 'lax',
       secure: process.env.NODE_ENV === 'production'
     })
-  );
+  )
 
-  res.json(user);
-};
+  res.json(user)
+}
