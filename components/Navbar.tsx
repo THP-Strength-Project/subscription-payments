@@ -27,8 +27,7 @@ const Navbar = () => {
           [breakpoints.tablet]: { display: 'unset' }
         }}
       >
-        <Box sx={{ display: 'flex', justifyContent: 'end' }}>
-          <MobileMenu />
+        <Box sx={{ display: 'flex', justifyContent: "flex-start" }}>
           <NextLink href="/">
             <a>
               <Image
@@ -37,6 +36,9 @@ const Navbar = () => {
               />
             </a>
           </NextLink>
+        </Box>
+        <Box sx={{ display: 'flex', justifyContent: "end" }}>
+          <MobileMenu />
         </Box>
       </Box>
       <Container

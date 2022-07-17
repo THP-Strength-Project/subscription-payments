@@ -17,7 +17,7 @@ const MobileMenuToggle = ({ toggle }) => (
       cursor: 'pointer',
       position: 'absolute',
       top: '18px',
-      left: '15px',
+      right: '-15px',
       zIndex: 4
     }}
   >
