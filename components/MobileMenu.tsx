@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { motion, useCycle, Variants } from 'framer-motion';
 import { useDimensions } from '@/utils/hooks';
 import { Box } from '@mantine/core';
@@ -8,6 +8,7 @@ import MobileMenuToggle from './MobileMenuToggle';
 const sidebar: Variants = {
   open: (height = 1000) => ({
     clipPath: `circle(${height * 2 + 200}px at 40px 40px)`,
+    opacity: 1,
     transition: {
       type: 'spring',
       stiffness: 20,
@@ -16,6 +17,7 @@ const sidebar: Variants = {
   }),
   closed: {
     clipPath: 'circle(30px at 40px 40px)',
+    opacity: 0,
     transition: {
       delay: 0.5,
       type: 'spring',
@@ -35,7 +37,13 @@ const MobileMenu = () => {
   const [isOpen, toggleOpen] = useCycle(false, true);
   const ref = useRef(null);
   const { height } = useDimensions(ref);
-
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflowY = 'hidden'
+      return
+    }
+    document.body.style.overflowY = 'auto'
+  }, [isOpen])
   return (
     <MotionBox
       sx={{ width: '300px' }}

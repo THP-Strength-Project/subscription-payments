@@ -38,12 +38,11 @@ const MobileMenuList = ({ toggle }) => {
       component="ul"
       variants={variants}
       sx={{
-        padding: '25px',
         position: 'absolute',
         top: '100px',
-        width: '230px',
+        width: '200px',
         margin: 0,
-        right: -10,
+        right: 0,
         zIndex: 4
       }}
     >

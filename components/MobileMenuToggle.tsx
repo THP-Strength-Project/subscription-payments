@@ -10,14 +10,12 @@ const MobileMenuToggle = ({ toggle }) => (
     onClick={toggle}
     sx={{
       borderRadius: '50%',
-      width: '50px',
-      height: '50px',
       background: 'transparent',
       userSelect: 'none',
       cursor: 'pointer',
       position: 'absolute',
-      top: '18px',
-      right: '-15px',
+      top: '30px',
+      right: '30px',
       zIndex: 4
     }}
   >
