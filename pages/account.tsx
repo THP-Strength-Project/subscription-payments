@@ -1,26 +1,26 @@
-import { getPortalUrl } from '../utils/stripe-client';
-import { stripe } from '@/utils/stripe';
-import { getUserFromToken } from '../utils/auth';
-import { useForm } from '@mantine/form';
-import { post } from '@/utils/api';
-import { Box, Text, Group, Input, Badge } from '@mantine/core';
-import Container from '@/components/Container';
-import HeroTitle from '@/components/HeroTitle';
-import Button from '@/components/Button';
-import PasswordField from '@/components/PasswordField';
-import InputField from '@/components/InputField';
-import { useState } from 'react';
-import ErrorMessage from '@/components/ErrorMessage';
+import { getPortalUrl } from '../utils/stripe-client'
+import { stripe } from '@/utils/stripe'
+import { getUserFromToken } from '../utils/auth'
+import { useForm } from '@mantine/form'
+import { post } from '@/utils/api'
+import { Box, Text, Group, Badge } from '@mantine/core'
+import Container from '@/components/Container'
+import HeroTitle from '@/components/HeroTitle'
+import Button from '@/components/Button'
+import PasswordField from '@/components/PasswordField'
+import InputField from '@/components/InputField'
+import { useState } from 'react'
+import ErrorMessage from '@/components/ErrorMessage'
 
 export default function Account({ user, plan }) {
   const fetchPortal = async () => {
-    const data = await getPortalUrl();
+    const data = await getPortalUrl()
     if (data.error) {
-      setError(data.message);
-      return;
+      setError(data.message)
+      return
     }
-    location.href = data.url;
-  };
+    location.href = data.url
+  }
 
   const passwordForm = useForm({
     initialValues: {
@@ -29,10 +29,9 @@ export default function Account({ user, plan }) {
     },
 
     validate: {
-      newPassword: (value, values) =>
-        value === values.password ? 'Passwords are the same' : null
+      newPassword: (value, values) => (value === values.password ? 'Passwords are the same' : null)
     }
-  });
+  })
 
   const emailForm = useForm({
     initialValues: {
@@ -42,32 +41,32 @@ export default function Account({ user, plan }) {
     validate: {
       newEmail: (value) => (value === user.email ? 'Emails as the same' : null)
     }
-  });
+  })
 
-  const [errorMessage, setError] = useState('');
+  const [errorMessage, setError] = useState('')
 
   const onSubmit = async (values) => {
-    const data = await post('/change-password', values);
+    const data = await post('/change-password', values)
     if (data.error) {
-      setError(data.message);
+      setError(data.message)
     }
-    passwordForm.reset();
-  };
+    passwordForm.reset()
+  }
 
   const handleChangeEmail = async (values) => {
-    const data = await post('/change-email', values);
+    const data = await post('/change-email', values)
     if (data.error) {
-      setError(data.message);
+      setError(data.message)
     }
-    emailForm.reset();
-  };
+    emailForm.reset()
+  }
 
   return (
     <Container sx={{ padding: '5em 0' }}>
       <ErrorMessage
         message={errorMessage}
         onClose={() => {
-          setError('');
+          setError('')
         }}
       />
       <Box p="sm">
@@ -96,9 +95,7 @@ export default function Account({ user, plan }) {
                   </Text>
                 </Box>
                 <Box>
-                  <Text sx={{ fontSize: '1.2em' }}>
-                    / every {plan.interval}
-                  </Text>
+                  <Text sx={{ fontSize: '1.2em' }}>/ every {plan.interval}</Text>
                   <Text
                     sx={(theme) => ({
                       fontSize: '1.2em',
@@ -111,17 +108,13 @@ export default function Account({ user, plan }) {
               </Box>
             </Box>
             <Box sx={{ display: 'flex', justifyContent: 'end' }}>
-              <Button
-                onClick={fetchPortal}
-                text={'Change Plan'}
-                color="black"
-              />
+              <Button onClick={fetchPortal} text={'Change Plan'} color="black" />
             </Box>
           </Box>
         </Box>
 
         <Box>
-          <HeroTitle text="Settings" justify="start" size={1} color="black" />
+          <HeroTitle text="Settings" justify="start" size={2} color="black" />
           <Box
             sx={(theme) => ({
               backgroundColor: theme.colors.gray[1],
@@ -143,13 +136,15 @@ export default function Account({ user, plan }) {
               <form onSubmit={passwordForm.onSubmit(onSubmit)}>
                 <PasswordField
                   label="Current Password"
-                  placeholder="Password"
+                  size="lg"
+                  placeholder="Current Password"
                   {...passwordForm.getInputProps('password')}
                 />
 
                 <Box sx={{ marginTop: '2em' }}>
                   <PasswordField
                     label="New password"
+                    size="lg"
                     placeholder="New password"
                     {...passwordForm.getInputProps('newPassword')}
                   />
@@ -176,6 +171,7 @@ export default function Account({ user, plan }) {
               <form onSubmit={emailForm.onSubmit(handleChangeEmail)}>
                 <Box>
                   <InputField
+                    size="lg"
                     label="Current Email"
                     initialvalue={user.email}
                     value={user.email}
@@ -189,6 +185,7 @@ export default function Account({ user, plan }) {
                     mt="sm"
                     label="New Email"
                     type="email"
+                    size="lg"
                     placeholder="New Email"
                     {...emailForm.getInputProps('newEmail')}
                   />
@@ -203,22 +200,20 @@ export default function Account({ user, plan }) {
         </Box>
       </Box>
     </Container>
-  );
+  )
 }
 
 export async function getServerSideProps(context) {
-  console.log(context.req.cookies);
-
-  let user;
+  let user
   try {
-    user = await getUserFromToken(context.req.cookies);
+    user = await getUserFromToken(context.req.cookies)
   } catch (e) {
     return {
       redirect: {
         destination: '/',
         permanent: false
       }
-    };
+    }
   }
   if (!user) {
     return {
@@ -226,7 +221,7 @@ export async function getServerSideProps(context) {
         destination: '/',
         permanent: false
       }
-    };
+    }
   }
   //handle error and loading states here
 
@@ -234,9 +229,9 @@ export async function getServerSideProps(context) {
     const subscriptions = await stripe.subscriptions.list({
       limit: 1,
       customer: user.customerId
-    });
-    const { amount, product } = subscriptions.data[0]?.items?.data[0]?.plan;
-    const productObj = await stripe.products.retrieve(product as string);
+    })
+    const { amount, product } = subscriptions.data[0]?.items?.data[0]?.plan
+    const productObj = await stripe.products.retrieve(product as string)
     return {
       props: {
         user: {
@@ -250,13 +245,13 @@ export async function getServerSideProps(context) {
           interval: subscriptions?.data[0]?.plan?.interval
         }
       }
-    };
+    }
   } catch (e) {
     return {
       redirect: {
         destination: '/',
         permanent: false
       }
-    };
+    }
   }
 }

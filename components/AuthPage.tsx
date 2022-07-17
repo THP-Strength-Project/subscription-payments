@@ -1,14 +1,14 @@
-import { Box, Text } from '@mantine/core';
-import { FC, useEffect, useState } from 'react';
-import AuthForm from './AuthForm';
-import { useRouter } from 'next/router';
-import { goToCheckout } from '@/utils/stripe-client';
-import { post } from '@/utils/api';
-import Container from './Container';
-import Footer from './Footer';
-import HeroTitle from './HeroTitle';
-import { breakpoints } from '@/utils/breakpoints';
-import ErrorMessage from './ErrorMessage';
+import { Box, Text } from '@mantine/core'
+import { FC, useEffect, useState } from 'react'
+import AuthForm from './AuthForm'
+import { useRouter } from 'next/router'
+import { goToCheckout } from '@/utils/stripe-client'
+import { post } from '@/utils/api'
+import Container from './Container'
+import Footer from './Footer'
+import HeroTitle from './HeroTitle'
+import { breakpoints } from '@/utils/breakpoints'
+import ErrorMessage from './ErrorMessage'
 
 const columnStyle = {
   width: '50%',
@@ -20,45 +20,45 @@ const columnStyle = {
   [breakpoints.tablet]: {
     width: '100%'
   }
-};
+}
 
 const AuthPage: FC<{ signup?: boolean }> = ({ signup = false }) => {
-  const router = useRouter();
+  const router = useRouter()
 
-  const [errorMessage, setError] = useState('');
+  const [errorMessage, setError] = useState('')
 
   useEffect(() => {
     if (signup && !router.query.price) {
-      router.push('/pricing');
+      router.push('/pricing')
     }
-  }, []);
+  }, [])
 
   const handleSubmit = async ({ email, password, name }) => {
     if (signup) {
-      const data = await post('/signup', { email, password, name });
+      const data = await post('/signup', { email, password, name })
       if (data.error) {
         // Do something with the message
-        setError(data.message);
-        return;
+        setError(data.message)
+        return
       }
-      goToCheckout(router.query.price);
+      goToCheckout(router.query.price)
     } else {
-      const data = await post('/signin', { email, password });
+      const data = await post('/signin', { email, password })
       if (data.error) {
         // Do something with the message
-        setError(data.message);
-        return;
+        setError(data.message)
+        return
       }
-      router.push('/account');
+      router.push('/account')
     }
-  };
+  }
 
   return (
     <Box sx={{}}>
       <ErrorMessage
         message={errorMessage}
         onClose={() => {
-          setError('');
+          setError('')
         }}
       />
       <Container
@@ -116,7 +116,7 @@ const AuthPage: FC<{ signup?: boolean }> = ({ signup = false }) => {
       </Container>
       <Footer />
     </Box>
-  );
-};
+  )
+}
 
-export default AuthPage;
+export default AuthPage
