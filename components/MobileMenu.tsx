@@ -1,9 +1,9 @@
-import { useEffect, useRef } from 'react';
-import { motion, useCycle, Variants } from 'framer-motion';
-import { useDimensions } from '@/utils/hooks';
-import { Box } from '@mantine/core';
-import MobileMenuList from './MobileMenuList';
-import MobileMenuToggle from './MobileMenuToggle';
+import { useEffect, useRef } from 'react'
+import { motion, useCycle, Variants } from 'framer-motion'
+import { useDimensions } from '@/utils/hooks'
+import { Box } from '@mantine/core'
+import MobileMenuList from './MobileMenuList'
+import MobileMenuToggle from './MobileMenuToggle'
 
 const sidebar: Variants = {
   open: (height = 1000) => ({
@@ -25,18 +25,18 @@ const sidebar: Variants = {
       damping: 40
     }
   }
-};
+}
 
 const Overlay = (props) => (
-  <div {...props} style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: "100%", zIndex: 2, }} />
+  <div {...props} style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', zIndex: 2 }} />
 )
 
-const MotionBox = motion(Box);
+const MotionBox = motion(Box)
 
 const MobileMenu = () => {
-  const [isOpen, toggleOpen] = useCycle(false, true);
-  const ref = useRef(null);
-  const { height } = useDimensions(ref);
+  const [isOpen, toggleOpen] = useCycle(false, true)
+  const ref = useRef(null)
+  const { height } = useDimensions(ref)
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflowY = 'hidden'
@@ -45,13 +45,7 @@ const MobileMenu = () => {
     document.body.style.overflowY = 'auto'
   }, [isOpen])
   return (
-    <MotionBox
-      sx={{ width: '300px' }}
-      initial={false}
-      animate={isOpen ? 'open' : 'closed'}
-      custom={height}
-      ref={ref}
-    >
+    <MotionBox sx={{ width: '300px' }} initial={false} animate={isOpen ? 'open' : 'closed'} custom={height} ref={ref}>
       {isOpen && <Overlay onClick={() => toggleOpen()} />}
       <MotionBox
         variants={sidebar}
@@ -66,10 +60,10 @@ const MobileMenu = () => {
           zIndex: 3
         })}
       />
-      {isOpen && <MobileMenuList toggle={() => toggleOpen()} />}
+      <MobileMenuList toggle={() => toggleOpen()} />
       <MobileMenuToggle toggle={() => toggleOpen()} />
     </MotionBox>
-  );
-};
+  )
+}
 
-export default MobileMenu;
+export default MobileMenu

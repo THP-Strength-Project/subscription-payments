@@ -82,8 +82,8 @@ const HeroTitle: FC<HeroTitleProps> = ({
       order={order}
       sx={(theme) => ({
         fontSize,
-        color: color || theme.colors.violet[3],
-        lineHeight: '80px',
+        color: color || 'rgba(0,0,0,0.8)',
+        lineHeight: '1.2em',
         userSelect: 'none',
         display: 'flex',
         flexWrap: 'wrap',
