@@ -20,7 +20,7 @@ const Navbar = () => {
   }
 
   return (
-    <Header sx={{ position: hideNavLinks ? 'unset' : 'fixed' }} height={80} p="xl">
+    <Header height={80} p="xl">
       <Box
         sx={{
           display: 'none',
