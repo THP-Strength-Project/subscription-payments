@@ -4,7 +4,7 @@ import { motion, useAnimation, Variants } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import FeatureImage from './FeatureImage'
 import FeatureText from './FeatureText'
-import { GrpahCMSImage } from '@/utils/graphcms'
+import { GraphCMSAsset } from '@/utils/graphcms'
 import { breakpoints } from '@/utils/breakpoints'
 
 const imageVariants: Variants = {
@@ -24,7 +24,7 @@ const textVariants: Variants = {
 
 const Feature: FC<{
   reverse: boolean
-  feature: { image: GrpahCMSImage; body: string; title: string; coloredTitle: string }
+  feature: { image: GraphCMSAsset; body: string; title: string; coloredTitle: string }
 }> = ({ feature, reverse }) => {
   const control = useAnimation()
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.5 })

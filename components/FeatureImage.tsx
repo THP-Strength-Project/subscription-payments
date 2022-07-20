@@ -1,9 +1,9 @@
 import { FC } from 'react'
 import { AspectRatio, Box, Image } from '@mantine/core'
 import NextImage from 'next/image'
-import { GrpahCMSImage } from '@/utils/graphcms'
+import { GraphCMSAsset } from '@/utils/graphcms'
 
-const FeatureImage: FC<{ image: GrpahCMSImage; width?: string }> = ({ image, width = '100%' }) => {
+const FeatureImage: FC<{ image: GraphCMSAsset; width?: string }> = ({ image, width = '100%' }) => {
   return (
     <Box
       sx={{

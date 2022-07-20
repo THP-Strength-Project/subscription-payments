@@ -1,26 +1,22 @@
-import React, { FC } from 'react';
-import { Box, Grid, Text } from '@mantine/core';
-import Container from '@/components/Container';
-import FAQList from '@/components/FAQList';
-import Footer from '@/components/Footer';
-import { getFaqPage } from '@/utils/graphcms';
-import { breakpoints } from '@/utils/breakpoints';
+import React, { FC } from 'react'
+import { Box, Grid, Text } from '@mantine/core'
+import Container from '@/components/Container'
+import FAQList from '@/components/FAQList'
+import Footer from '@/components/Footer'
+import { getFaqPage } from '@/utils/graphcms'
+import { breakpoints } from '@/utils/breakpoints'
 
 const Faq: FC<{
   content: {
-    faqs: { question: string; answer: string }[];
-    title: string;
-    subtitle: string;
-  };
+    faqs: { question: string; answer: string }[]
+    title: string
+    subtitle: string
+  }
 }> = ({ content }) => {
   return (
     <Box>
-      <Container>
-        <Grid
-          justify="center"
-          align="center"
-          sx={{ width: '100%', textAlign: 'center' }}
-        >
+      <Container sx={{ minHeight: 'calc(100vh - 80px)' }}>
+        <Grid justify="center" align="center" sx={{ width: '100%', textAlign: 'center' }}>
           <Grid.Col span={9} py={40}>
             <Text
               sx={{
@@ -50,19 +46,19 @@ const Faq: FC<{
       </Container>
       <Footer />
     </Box>
-  );
-};
+  )
+}
 
-export default Faq;
+export default Faq
 
 //Using Next.js to fetch Stripe products
 export async function getStaticProps() {
-  const content = await getFaqPage();
+  const content = await getFaqPage()
 
   return {
     props: {
       content
     },
     revalidate: 10
-  };
+  }
 }

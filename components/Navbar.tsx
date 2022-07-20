@@ -6,6 +6,7 @@ import NextLink from 'next/link'
 import { breakpoints } from '@/utils/breakpoints'
 import { useAuth } from '@/utils/hooks'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 const Navbar = () => {
   const { isSignedIn, signout } = useAuth()
@@ -19,7 +20,7 @@ const Navbar = () => {
   }
 
   return (
-    <Header sx={{ borderBottom: 'none' }} height={80} p="xl">
+    <Header sx={{ position: hideNavLinks ? 'unset' : 'fixed' }} height={80} p="xl">
       <Box
         sx={{
           display: 'none',
@@ -27,7 +28,7 @@ const Navbar = () => {
           [breakpoints.tablet]: { display: 'unset' }
         }}
       >
-        <Box sx={{ display: 'flex', justifyContent: "flex-start" }}>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
           <NextLink href="/">
             <a>
               <Image
@@ -37,7 +38,7 @@ const Navbar = () => {
             </a>
           </NextLink>
         </Box>
-        <Box sx={{ display: 'flex', justifyContent: "end" }}>
+        <Box sx={{ display: 'flex', justifyContent: 'end' }}>
           <MobileMenu />
         </Box>
       </Box>
@@ -57,6 +58,31 @@ const Navbar = () => {
                 />
               </a>
             </NextLink>
+          </Grid.Col>
+          <Grid.Col span={5}>
+            <Grid align="center" justify="center" sx={{ display: hideNavLinks ? 'none' : 'flex' }}>
+              <Grid.Col span={4}>
+                <Link href="/pricing" passHref>
+                  <Anchor sx={{ '&:hover': { textDecoration: 'none' } }}>
+                    <Button color="white" size={buttonSize} text="Pricing" />
+                  </Anchor>
+                </Link>
+              </Grid.Col>
+              <Grid.Col span={4}>
+                <Link href="/team" passHref>
+                  <Anchor sx={{ '&:hover': { textDecoration: 'none' } }}>
+                    <Button color="white" size={buttonSize} text="Team" />
+                  </Anchor>
+                </Link>
+              </Grid.Col>
+              <Grid.Col span={4}>
+                <Link href="/faq" passHref>
+                  <Anchor sx={{ '&:hover': { textDecoration: 'none' } }}>
+                    <Button color="white" size={buttonSize} text="FAQ" />
+                  </Anchor>
+                </Link>
+              </Grid.Col>
+            </Grid>
           </Grid.Col>
           <Grid.Col span={3}>
             <Grid align="center" justify="center" gutter={30}>
