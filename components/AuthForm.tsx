@@ -35,6 +35,7 @@ const AuthForm: FC<{ signup?: boolean; onSubmit: (values: { email: string; passw
     try {
       await onSubmit(values)
     } catch (e) {
+      console.log(e)
     } finally {
       form.reset()
       setLoading(false)
