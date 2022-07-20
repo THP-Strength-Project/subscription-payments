@@ -1,33 +1,35 @@
-import prisma from '@/utils/prisma';
-import { createTokenAndSendResetEmail } from '@/utils/mail';
+import prisma from '@/utils/prisma'
+import { createTokenAndSendResetEmail } from '@/utils/mail'
 
 const resetPassword = async (req, res) => {
-  const { email } = req.body;
-  let user;
+  const { email } = req.body
+  let user
 
   try {
     user = await prisma.user.findUnique({
       where: {
         email
       }
-    });
+    })
   } catch (e) {
-    res.status(500).json({ error: 'Sorry, try again.' });
-    return;
+    res.status(500).json({ error: 'Sorry, try again.' })
+    return
   }
 
   if (!user) {
     //handle this
-    res.status(200).send();
-    return;
+    res.status(200).send()
+    return
   }
   try {
-    await createTokenAndSendResetEmail(user);
+    await createTokenAndSendResetEmail(user)
   } catch (e) {
-    res.status(500).json({ error: 'Sorry, try again.' });
-    return;
+    console.log(e)
+
+    res.status(500).json({ error: 'Sorry, try again.' })
+    return
   }
 
-  res.json({ ok: true });
-};
-export default resetPassword;
+  res.json({ ok: true })
+}
+export default resetPassword

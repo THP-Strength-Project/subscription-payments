@@ -208,6 +208,7 @@ export async function getServerSideProps(context) {
   try {
     user = await getUserFromToken(context.req.cookies)
   } catch (e) {
+    console.log(e)
     return {
       redirect: {
         destination: '/',
@@ -247,6 +248,7 @@ export async function getServerSideProps(context) {
       }
     }
   } catch (e) {
+    console.log(e)
     return {
       redirect: {
         destination: '/',
