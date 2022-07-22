@@ -2,12 +2,11 @@ import React, { FC, useState } from 'react';
 import { stripe } from '@/utils/stripe';
 import { Box, Grid, Text, Select } from '@mantine/core';
 import Container from '@/components/Container';
-import PriceCard from '@/components/PriceCard';
-import FAQList from '@/components/FAQList';
 import Footer from '@/components/Footer';
 import { getPricingPage } from '@/utils/graphcms';
 import { breakpoints } from '@/utils/breakpoints';
-import CustomePriceCard from '@/components/CustomPriceCard';
+import PriceBox from '@/components/PriceBox';
+import HeroTitle from '@/components/HeroTitle';
 
 const Pricing: FC<{
   content: {
@@ -36,16 +35,7 @@ const Pricing: FC<{
           sx={{ width: '100%', textAlign: 'center' }}
         >
           <Grid.Col span={9} py={40}>
-            <Text
-              sx={{
-                fontSize: '3.5em',
-                [breakpoints.phone]: {
-                  fontSize: '2.3em'
-                }
-              }}
-            >
-              {content.title}
-            </Text>
+            <HeroTitle text="Pricing" />
           </Grid.Col>
           <Grid.Col span={9}>
             <Text
@@ -57,7 +47,6 @@ const Pricing: FC<{
               {content.subtitle}
             </Text>
           </Grid.Col>
-
           <Grid.Col
             sx={{
               maxWidth: '40%',
@@ -80,12 +69,13 @@ const Pricing: FC<{
                 value: sub.id,
                 label: `${sub.months} ${sub.months === 1 ? 'month' : 'months'}`
               }))}
+              pb={'5em'}
             />
           </Grid.Col>
-
           <Grid.Col span={12}>
             <Grid
               gutter="lg"
+              pb={'10em'}
               sx={{
                 display: 'flex',
                 justifyContent: 'center',
@@ -103,12 +93,9 @@ const Pricing: FC<{
                   }
                 }}
               >
-                <PriceCard
+                <PriceBox
+                  name="Training"
                   stripePrice={getPriceById(activeSub)}
-                  badge="Most Popular"
-                  badgeColor="green"
-                  buttonText="Select Package"
-                  features={content.standardPlanFeatures}
                 />
               </Grid.Col>
               <Grid.Col
@@ -119,22 +106,11 @@ const Pricing: FC<{
                   }
                 }}
               >
-                <CustomePriceCard
-                  buttonText="Contact Us"
-                  badge="Custom"
-                  badgeColor="blue"
-                  features={[
-                    ...content.standardPlanFeatures,
-                    ...content.customPlanFeatures
-                  ]}
-                />
+                <PriceBox gradient name="Custom" />
               </Grid.Col>
             </Grid>
           </Grid.Col>
         </Grid>
-        <Box mt={60} sx={(theme) => ({ paddingBottom: theme.spacing.xl * 3 })}>
-          <FAQList items={content.faqs} />
-        </Box>
       </Container>
       <Footer />
     </Box>
